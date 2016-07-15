@@ -1,5 +1,5 @@
 
-    .carousel-caption {
+    .custom-carousel-caption {
         width: 32%;
         top: 60%;
         bottom: 10%;
@@ -8,7 +8,8 @@
         left: 65%;
         padding: 0pt;
         /* padding-bottom: 30px; */
-        opacity: 0.6;}
+        opacity: 0.6;
+      }
     .text-primary{
         color: #E55E31;
     }

@@ -1,65 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>L.U. Electric Inc.</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-    <link href="css/service.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <style>
-        .navbar-inverse .navbar-nav>li>a{
-            color: white;
-        }
-        .navbar-inverse .navbar-nav>li>a:hover {
-            color: #E55E31;
-        }
-
-    </style>
-
-</head>
-
-<body style="background-color: #E7E6E6">
+<div style="background-color: #E7E6E6">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
@@ -132,13 +72,13 @@
             <div class="carousel-inner">
                 <div class="item active">
                     <img src="assets/second%20slider%20service.jpg" alt="" class="img-responsive servicebanner">
-                    <div class="carousel-caption servicebannercaption mobile-hide">
+                    <div class="custom-carousel-caption carousel-caption servicebannercaption mobile-hide">
                         <h3>Licensed, Professional Electricians</h3>
                     </div>
                 </div>
                 <div class="item">
                     <img src="assets/servicebanneredited351.JPG" alt="" class="img-responsive servicebanner">
-                    <div class="carousel-caption servicebannercaption mobile-hide">
+                    <div class="custom-carousel-caption carousel-caption  servicebannercaption mobile-hide">
                         <h3>Fully Equipped Tools & Resources</h3>
                     </div>
                 </div>
@@ -362,77 +302,4 @@
         <!-- /.row -->
 
     </div>
-        <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <address>
-                    <strong>L.U. Electric Inc.</strong><br>
-                    17762 Mitchell N<br>
-                    Irvine, CA 92614<br>
-                    <abbr title="Phone">Phone:</abbr>  (949) 536-3200
-                    <br>
-                    <br>
-                    <img src="assets/bbb-badgeedited.png" width="120pt">
-
-                </address>
-            </div>
-            <div class="col-md-4">
-                <strong>Our Mission</strong>
-                <p>Customer satisfaction is our number one priority.
-                Whatever your electrical project, you can rest assured that you will get the best service performed by licensed professionals at competitive rates.</p>
-                <p><strong>California State License #603868</strong></p>
-            </div>
-            <div class="col-md-4">
-                <strong >Navigate</strong>
-                <ul class="footer-navigate">
-                    <li>
-                        <a  href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a  href="services.html">Services</a>
-                    </li>
-                    <!--
-                    <li>
-                        <a  href="portfolio-4-col.html">Gallery</a>
-                    </li>
-                    -->
-                    <li>
-                        <a href="about.html">About Us</a>
-                    </li>
-                    <li>
-                        <a href="contact.html">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </footer>
-
-
-    <div class="row" style="background-color: #10171e; text-align: center; color: grey; min-height: 40px; padding-top: 10pt;">Copyright © LU Electric Inc. 1990-2015</div>
-
-    </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
-</body>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-80089923-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-</html>
+</div>
