@@ -1,0 +1,8 @@
+:0fw
+## spam assassin filter
+|/usr/local/bin/spamc -U /var/run/spamd/spamd.sock -u $SA_USER
+
+:0:
+## spam assassin action
+* ^X-Spam-Status: Yes
+$SPAM

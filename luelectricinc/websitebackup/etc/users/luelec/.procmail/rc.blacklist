@@ -1,0 +1,77 @@
+BL=$PMDIR/mail.blacklist
+:0
+* $ ? test -s $BL
+{
+:0:
+* $ H     ?? ^From:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+* ? fgrep -q -i -x "$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^From:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^From:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "@$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^Sender:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+* ? fgrep -q -i -x "$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^Sender:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^Sender:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "@$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^Return-Path:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+* ? fgrep -q -i -x "$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^Return-Path:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^Return-Path:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "@$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^Reply-To:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+* ? fgrep -q -i -x "$MATCH" $BL
+$DENY
+
+:0:
+* $ H     ?? ^Reply-To:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "$MATCH" $BL
+$DENY
+}

@@ -1,0 +1,31 @@
+.navbar-custom {
+
+    background-color: #10171e;
+}
+
+/*
+.nav.navbar-nav.navbar-right  a {
+    color: white;
+}
+*/
+.navbar-brand .navbar-brandcustom > img {
+    max-height: 100%;
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+}
+.navbar-brand{
+    padding: 0pt;
+}
+.navbar-header{
+    color: #d6d6d6;
+}
+#myCarousel{
+    
+}
+.shadowed {
+    text-shadow: .2em .2em .5em #000000;
+}
+.centered-text {
+    text-align: center;
+}

@@ -1,0 +1,22 @@
+NL="
+"
+
+:0
+CLAMAV=|/usr/local/bin/clamdscan --disable-summary --stdout -
+
+:0
+* CLAMAV ?? .*: \/.* FOUND
+{
+  LOG="Possible virus ${MATCH}${NL}"
+  
+  :0 fhw
+  | formail -a"X-ClamAV: ${MATCH}"
+}
+
+:0E fhw
+| formail -a"X-ClamAV: clean"
+
+:0:
+* ^X-ClamAV: \/.*
+* ! MATCH ?? ^^clean^^
+$QUARANTINE

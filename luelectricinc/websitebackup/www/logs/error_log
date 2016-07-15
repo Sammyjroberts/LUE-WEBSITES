@@ -1,0 +1,7 @@
+[08/Dec/2013:14:08:29 +0000] [error] [client 199.71.214.66] script not found or unable to stat: /usr/home/luelec/www/cgi-bin/php
+[08/Dec/2013:14:08:29 +0000] [error] [client 199.71.214.66] script not found or unable to stat: /usr/home/luelec/www/cgi-bin/php5
+[08/Dec/2013:14:08:29 +0000] [error] [client 199.71.214.66] script not found or unable to stat: /usr/home/luelec/www/cgi-bin/php-cgi
+[08/Dec/2013:14:08:30 +0000] [error] [client 199.71.214.66] script not found or unable to stat: /usr/home/luelec/www/cgi-bin/php.cgi
+[08/Dec/2013:14:08:31 +0000] [error] [client 199.71.214.66] script not found or unable to stat: /usr/home/luelec/www/cgi-bin/php4
+[08/Dec/2013:18:25:07 +0000] [error] [client 74.62.233.106] File does not exist: /usr/home/luelec/www/htdocs/favicon.ico
+[08/Dec/2013:18:30:56 +0000] [error] [client 74.62.233.106] File does not exist: /usr/local/cp/cpimages/account_cp_link.gif

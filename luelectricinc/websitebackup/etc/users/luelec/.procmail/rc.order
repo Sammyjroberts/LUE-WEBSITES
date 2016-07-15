@@ -1,0 +1,6 @@
+:0
+## order: whitelist
+{ INCLUDERC=$PMDIR/rc.whitelist }
+:0
+## order: blacklist
+{ INCLUDERC=$PMDIR/rc.blacklist }

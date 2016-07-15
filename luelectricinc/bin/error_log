@@ -1,0 +1,49 @@
+[04-May-2016 19:45:51 UTC] PHP Fatal error:  Class 'Swift_Mime_SimpleMimeEntity' not found in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Mime/MimePart.php on line 17
+[04-May-2016 20:23:39 UTC] PHP Fatal error:  Uncaught exception 'Swift_TransportException' with message 'Connection could not be established with host smtp.apptixemail.net [Connection refused #111]' in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php:269
+Stack trace:
+#0 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php(62): Swift_Transport_StreamBuffer->_establishSocketConnection()
+#1 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/AbstractSmtpTransport.php(113): Swift_Transport_StreamBuffer->initialize(Array)
+#2 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Mailer.php(79): Swift_Transport_AbstractSmtpTransport->start()
+#3 /home/lueweb/public_html/bin/contact_me.php(53): Swift_Mailer->send(Object(Swift_Message))
+#4 {main}
+  thrown in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php on line 269
+[04-May-2016 20:27:00 UTC] PHP Fatal error:  Uncaught exception 'Swift_TransportException' with message 'Connection could not be established with host smtp.apptixemail.net [Connection refused #111]' in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php:269
+Stack trace:
+#0 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php(62): Swift_Transport_StreamBuffer->_establishSocketConnection()
+#1 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/AbstractSmtpTransport.php(113): Swift_Transport_StreamBuffer->initialize(Array)
+#2 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Mailer.php(79): Swift_Transport_AbstractSmtpTransport->start()
+#3 /home/lueweb/public_html/bin/contact_me.php(53): Swift_Mailer->send(Object(Swift_Message))
+#4 {main}
+  thrown in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php on line 269
+[04-May-2016 20:34:47 UTC] PHP Fatal error:  Uncaught exception 'Swift_TransportException' with message 'Connection could not be established with host smtp.apptixemail.net [Connection refused #111]' in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php:269
+Stack trace:
+#0 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php(62): Swift_Transport_StreamBuffer->_establishSocketConnection()
+#1 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/AbstractSmtpTransport.php(113): Swift_Transport_StreamBuffer->initialize(Array)
+#2 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Mailer.php(79): Swift_Transport_AbstractSmtpTransport->start()
+#3 /home/lueweb/public_html/bin/contact_me.php(53): Swift_Mailer->send(Object(Swift_Message))
+#4 {main}
+  thrown in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php on line 269
+[04-May-2016 20:50:03 UTC] PHP Fatal error:  Uncaught exception 'Swift_TransportException' with message 'Connection could not be established with host relay-hosting.secureserver.net [Connection refused #111]' in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php:269
+Stack trace:
+#0 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php(62): Swift_Transport_StreamBuffer->_establishSocketConnection()
+#1 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/AbstractSmtpTransport.php(113): Swift_Transport_StreamBuffer->initialize(Array)
+#2 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Mailer.php(79): Swift_Transport_AbstractSmtpTransport->start()
+#3 /home/lueweb/public_html/bin/contact_me.php(53): Swift_Mailer->send(Object(Swift_Message))
+#4 {main}
+  thrown in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php on line 269
+[04-May-2016 21:18:25 UTC] PHP Fatal error:  Uncaught exception 'Swift_TransportException' with message 'Connection could not be established with host relay-hosting.secureserver.net [Connection refused #111]' in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php:269
+Stack trace:
+#0 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php(62): Swift_Transport_StreamBuffer->_establishSocketConnection()
+#1 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/AbstractSmtpTransport.php(113): Swift_Transport_StreamBuffer->initialize(Array)
+#2 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Mailer.php(79): Swift_Transport_AbstractSmtpTransport->start()
+#3 /home/lueweb/public_html/bin/contact_me.php(53): Swift_Mailer->send(Object(Swift_Message))
+#4 {main}
+  thrown in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php on line 269
+[04-May-2016 21:20:18 UTC] PHP Fatal error:  Uncaught exception 'Swift_TransportException' with message 'Connection could not be established with host relay-hosting.secureserver.net [Connection refused #111]' in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php:269
+Stack trace:
+#0 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php(62): Swift_Transport_StreamBuffer->_establishSocketConnection()
+#1 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/AbstractSmtpTransport.php(113): Swift_Transport_StreamBuffer->initialize(Array)
+#2 /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Mailer.php(79): Swift_Transport_AbstractSmtpTransport->start()
+#3 /home/lueweb/public_html/bin/contact_me.php(53): Swift_Mailer->send(Object(Swift_Message))
+#4 {main}
+  thrown in /home/lueweb/public_html/bin/swiftmailer-5.x/lib/classes/Swift/Transport/StreamBuffer.php on line 269

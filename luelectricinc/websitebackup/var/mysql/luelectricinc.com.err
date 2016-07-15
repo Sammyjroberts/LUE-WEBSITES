@@ -1,0 +1,6 @@
+120125 02:12:03 mysqld_safe Starting mysqld daemon with databases from /usr/home/luelec/var/mysql
+120125  2:12:03 [Note] Event Scheduler: Loaded 0 events
+120125  2:12:03 [Note] /usr/local/mysql5/libexec/mysqld: ready for connections.
+Version: '5.1.50'  socket: '/tmp/mysql.sock'  port: 3306  Source distribution
+120125 02:15:43 mysqld_safe A mysqld process already exists
+120125 02:15:52 mysqld_safe A mysqld process already exists

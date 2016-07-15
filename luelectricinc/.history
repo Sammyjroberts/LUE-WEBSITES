@@ -1,0 +1,10 @@
+#+1327457522
+set prompt='[PEXPECT]\$ '
+#+1327457531
+/bin/sh
+#+1327457534
+ls -l mysql_databases.dump
+#+1327457535
+/bin/sh
+#+1327457537
+/bin/sh

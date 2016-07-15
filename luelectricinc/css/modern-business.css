@@ -1,0 +1,150 @@
+/*!
+ * Start Bootstrap - Modern Business HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+/* Custom */
+.servicebanner{
+    height: 300px;
+}
+.customcaption {
+    opacity: 0.85;
+}
+@media only screen and (max-width: 1026px) {
+    .mobile-hide {
+        display: none;
+    }
+}
+@media screen and (min-width: 768px)
+    .carousel-caption {
+        width: 37%;
+        top: 30%;
+        bottom: 20%;
+        background-color: black;
+        right: 20%;
+        /* left: 20%; */
+        padding: 0pt;
+        /* padding-bottom: 30px; */
+        opacity: 0.7;
+    }
+    nav{
+        -webkit-box-shadow: -1px 4px 5px 0px rgba(0,0,0,0.49);
+        -moz-box-shadow: -1px 4px 5px 0px rgba(0,0,0,0.49);
+        box-shadow: -1px 4px 5px 0px rgba(0,0,0,0.49);
+    }
+    .customfit{
+        height: 100px;
+    }
+
+/* END CUSTOM */
+html,
+body {
+    height: 100%;
+    background-color: #E7E6E6;
+}
+.navbar-brand > img {
+    max-height: 100%;
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+
+}
+.navbar-brand{
+    padding: 0pt;
+}
+body {
+    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.img-portfolio {
+    margin-bottom: 30px;
+}
+.box-shadow {
+    box-shadow: 10px 10px;
+}
+.img-hover:hover {
+    opacity: 0.8;
+}
+
+/* Home Page Carousel */
+
+header.carousel {
+    height: 70%;
+}
+
+header.carousel .item,
+header.carousel .item.active,
+header.carousel .carousel-inner {
+    height: 100%;
+}
+.white-color {
+    color: white;
+}
+.cinnabar-color {
+    color: #DB461E;
+}
+.breadcrumb a {
+    color:#DB461E;
+}
+header.carousel .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+/* 404 Page Styles */
+
+.error-404 {
+    font-size: 100px;
+}
+
+/* Pricing Page Styles */
+
+.price {
+    display: block;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.price sup {
+    top: -20px;
+    left: 2px;
+    font-size: 20px;
+}
+
+.period {
+    display: block;
+    font-style: italic;
+}
+
+/* Footer Styles */
+
+footer {
+    background-color: #dbd9d9;
+    font-size: 9pt;
+    padding:50pt 0;
+}
+
+/* Responsive Styles */
+
+@media(max-width:991px) {
+    .customer-img,
+    .img-related {
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width:767px) {
+    .img-portfolio {
+        margin-bottom: 15px;
+    }
+
+    header.carousel .carousel {
+        height: 70%;
+    }
+}
+}

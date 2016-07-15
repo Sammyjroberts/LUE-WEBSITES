@@ -1,0 +1,4 @@
+# -FrontPage-
+
+DirectoryIndex report.cgi
+Options +ExecCGI +FollowSymLinks

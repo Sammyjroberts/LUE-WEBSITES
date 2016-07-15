@@ -1,0 +1,6 @@
+:0hf
+## 'From_' fixup filter (as suggested by David W. Tamkin
+## in <007e01c2752a$c6824ea0$21985742@ord351473>
+## on <procmail@Lists.RWTH-Aachen.DE> mailing list
+* ^^rom( )
+|sed '1s/^/F/'

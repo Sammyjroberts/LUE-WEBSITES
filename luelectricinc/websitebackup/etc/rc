@@ -1,0 +1,46 @@
+#!/bin/sh
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+export PATH
+
+# If there is a global system configuration file, suck it in.
+#
+if [ -r ${HOME}/etc/defaults/rc.conf ]; then
+        . ${HOME}/etc/defaults/rc.conf
+	source_rc_confs
+elif [ -r ${HOME}/etc/rc.conf ]; then
+        . ${HOME}/etc/rc.conf
+fi
+
+# For each valid dir in $local_startup, search for init scripts matching *.sh
+#
+case ${local_startup} in
+[Nn][Oo] | '')
+        ;;
+*)
+        echo -n 'Local package initialization:'
+        slist=""
+        if [ -z "${script_name_sep}" ]; then
+                script_name_sep=" "
+        fi
+        for dir in ${local_startup}; do
+                if [ -d "${dir}" ]; then
+                        for script in ${dir}/*.sh; do
+                                slist="${slist}${script_name_sep}${script}"
+                        done
+                fi
+        done
+        script_save_sep="$IFS"
+        IFS="${script_name_sep}"
+        for script in ${slist}; do
+                if [ -x "${script}" ]; then
+                        ${script} start
+                elif [ -f "${script}" -o -L "${script}" ]; then
+                        echo -n " (skipping ${script##*/}, not executable)"
+                fi
+        done
+        IFS="${script_save_sep}"
+        echo '.'
+        ;;
+esac
+
+echo ''

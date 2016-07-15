@@ -1,0 +1,50 @@
+WL=$PMDIR/mail.whitelist
+:0
+* $ ? test -s $WL
+{
+:0:
+* $ H     ?? ^From:.*\/<$S+@$S+>
+*   MATCH ?? ()\/[^<>]+
+* ? fgrep -q -i -x "$MATCH" $WL
+$DEFAULT
+
+:0:
+* $ H     ?? ^From:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+* ? fgrep -q -i -x "$MATCH" $WL
+$DEFAULT
+
+:0:
+* $ H     ?? ^From:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "$MATCH" $WL
+$DEFAULT
+
+:0:
+* $ H     ?? ^From:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "@$MATCH" $WL
+$DEFAULT
+
+:0:
+* $ H     ?? ^Sender:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+* ? fgrep -q -i -x "$MATCH" $WL
+$DEFAULT
+
+:0:
+* $ H     ?? ^Sender:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "$MATCH" $WL
+$DEFAULT
+
+:0:
+* $ H     ?? ^Sender:.*\/$S+@$S+
+*   MATCH ?? ()\/[^<>]+
+*   MATCH ?? ()\/[^@]+$
+* ? fgrep -q -i -x "@$MATCH" $WL
+$DEFAULT
+}

@@ -1,0 +1,36 @@
+## NOTICE: Begin Control Panel Section
+## NOTICE: Leaving these recipes alone will bring you many hours
+## NOTICE: of satisfying and trouble-free mail delivery.
+## NOTICE: Last modified: Sun Dec  8 18:30:52 2013
+
+:0
+## var: pmdir
+{ PMDIR=/usr/home/luelec/etc/users/luelec/.procmail }
+
+:0
+## includerc: vars
+{ INCLUDERC=$PMDIR/rc.vars }
+
+:0
+## includerc: myvars
+{ INCLUDERC=$PMDIR/rc.myvars }
+
+## PLACEHOLDER: mlmlist (do not remove and keep it at the end of this file)
+
+## PLACEHOLDER: clamav (do not remove)
+
+:0
+## includerc: order
+{ INCLUDERC=$PMDIR/rc.order }
+
+:0
+## includerc: filter
+{ INCLUDERC=$PMDIR/rc.filter }
+
+## PLACEHOLDER: spamassassin (do not remove)
+
+:0
+## includerc: from_fix
+{ INCLUDERC=$PMDIR/rc.from_fix }
+
+## NOTICE: End Control Panel Section

@@ -1,0 +1,7 @@
+AuthName "Directory Protection"
+AuthType Basic
+AuthUserFile /usr/home/luelec/www/urchin/.htpasswd
+
+<Limit GET>
+require user luelec
+</Limit>

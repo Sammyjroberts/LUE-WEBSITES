@@ -1,0 +1,25 @@
+
+    .carousel-caption {
+        width: 32%;
+        top: 60%;
+        bottom: 10%;
+        background-color: black;
+        right: 20%;
+        left: 65%;
+        padding: 0pt;
+        /* padding-bottom: 30px; */
+        opacity: 0.6;}
+    .text-primary{
+        color: #E55E31;
+    }
+
+    #mycarousel {
+        -webkit-box-shadow: 0px 6px 29px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 6px 29px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 6px 29px 0px rgba(0,0,0,0.75);
+    }
+    .thumbcustom {
+        -webkit-box-shadow: 8px 6px 15px 0px rgba(0, 0, 0, 0.46);
+        -moz-box-shadow: 8px 6px 15px 0px rgba(0, 0, 0, 0.46);
+        box-shadow: 8px 6px 15px 0px rgba(0, 0, 0, 0.46);
+    }

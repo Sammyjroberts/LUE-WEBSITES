@@ -1,0 +1,18 @@
+------------------------------------------------------
+Urchin 5.7.03 (freebsd4x) starting: 20131208 02:34:57
+------------------------------------------------------
+Processing profile: luelectricinc.com
+
+[02:34:57] Logfile: /usr/home/luelec/www/logs/access_log.0.gz
+   data lines: 0 (0%)           15 (100%)
+   data hits:  15
+   data proc:  2.10 KB in less than 1 second
+   data range: 2013-12-07 04:05 (-0500) - 2013-12-08 00:58 (-0500)
+
+[02:34:57] Backing up database files for 201312: /usr/home/luelec/www/urchin5/luelectricinc.com/201312-backup-20131208023457.zip
+
+[02:34:57] Removing outdated backup for 201312:  /usr/home/luelec/www/urchin5/luelectricinc.com/201312-backup-20131206031756.zip
+
+------------------------------------------------------
+Urchin 5.7.03 (freebsd4x) finishing: 20131208 02:34:57
+------------------------------------------------------
