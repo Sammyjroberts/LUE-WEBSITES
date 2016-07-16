@@ -21,6 +21,9 @@
     case "about":
       $content = require_once("about.php");
       break;
+    case "contact":
+      $content = require_once("contact.php");
+      break;
   }
  ?>
 <head>
