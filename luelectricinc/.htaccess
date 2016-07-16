@@ -1,6 +1,15 @@
 # -FrontPage-
 
+RewriteEngine On
+#for dev server
+RewriteRule ^LUE-WEBSITES/luelectricinc/([^/]*)/$ /LUE-WEBSITES/luelectricinc/index.php?page=$1 [L]
+
+#for live server
+#RewriteRule ^([^/]*)/$ /LUE-WEBSITES/luelectricinc/?page=$1 [L]
+
+
 IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
 
 <Limit GET POST>
 order deny,allow
@@ -11,6 +20,6 @@ allow from all
 order deny,allow
 deny from all
 </Limit>
-AuthName mmm1375
-AuthUserFile /usr/home/luelec/www/htdocs/_vti_pvt/service.pwd
-AuthGroupFile /usr/home/luelec/www/htdocs/_vti_pvt/service.grp
+#AuthName mmm1375
+#AuthUserFile /usr/home/luelec/www/htdocs/_vti_pvt/service.pwd
+#AuthGroupFile /usr/home/luelec/www/htdocs/_vti_pvt/service.grp
