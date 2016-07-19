@@ -7,34 +7,34 @@
   $content;
   switch ($pageParam) {
     case 'home':
-      $content = require_once 'home.php';
+      $content = 'home.php';
       break;
     case 'about':
-      $content = require_once 'about.php';
+      $content = 'about.php';
       break;
     case 'careers':
-      $content = require_once 'careers.php';
+      $content =  'careers.php';
       break;
     case 'services':
-      $content = require_once 'services.php';
+      $content = 'services.php';
       break;
     case 'about':
-      $content = require_once 'about.php';
+      $content = 'about.php';
       break;
     case 'contact':
-      $content = require_once 'contact.php';
+      $content = 'contact.php';
       break;
     case 'residental-general-electrician-app':
-      $content = require_once 'residental-general-electrician-app.php';
+      $content = 'residental-general-electrician-app.php';
       break;
     case 'electrical-apprentice-app':
-      $content = require_once 'electrical-apprentice-app.php';
+      $content = 'electrical-apprentice-app.php';
       break;
     case 'electrical-foreman-app':
-      $content = require_once 'electrical-foreman-app.php';
+      $content = 'electrical-foreman-app.php';
       break;
     default:
-      $content = require_once '404.php';
+      $content = '404.php';
       break;
   }
  ?>
@@ -114,7 +114,7 @@ require_once 'header.php';
 
 <!-- MAIN -->
 <?php
-echo $content;
+require_once($content);
  ?>
 <!-- /MAIN -->
 

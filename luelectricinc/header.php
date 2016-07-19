@@ -12,7 +12,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand navbar-brandcustom" href="index.html"><img src="assets/LUELogoBig.png"></a>
+            <a class="navbar-brand navbar-brandcustom" href="home"><img src="assets/LUELogoBig.png"></a>
             <!--<a class="navbar-brand" href="index.html" style='font-size: 16pt;color: #CF000F'><strong>L.U. <span style="color:white;">Electric Inc.</span></strong></a> -->
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
