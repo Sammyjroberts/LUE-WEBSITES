@@ -24,10 +24,10 @@
         <strong >Navigate</strong>
         <ul class="footer-navigate">
             <li>
-                <a  href="index.html">Home</a>
+                <a  href="home">Home</a>
             </li>
             <li>
-                <a  href="services.html">Services</a>
+                <a  href="services">Services</a>
             </li>
             <!--
             <li>
@@ -35,10 +35,10 @@
             </li>
             -->
             <li>
-                <a href="about.html">About Us</a>
+                <a href="about">About Us</a>
             </li>
             <li>
-                <a href="contact.html">Contact</a>
+                <a href="contact">Contact</a>
             </li>
         </ul>
     </div>

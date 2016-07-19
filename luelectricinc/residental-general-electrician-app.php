@@ -9,9 +9,9 @@
         <div class="col-lg-12">
             <h2 class="page-header">Apply</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a>
+                <li><a href="home">Home</a>
                 </li>
-                <li>Careers</li>
+                <li><a href="careers">Careers</a></li>
                 <li class="active">Apply</li>
             </ol>
         </div>
