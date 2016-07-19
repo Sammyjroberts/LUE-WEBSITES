@@ -18,29 +18,49 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right" style="text-shadow:none;">
-                <li <?php if($pageParam == "home"){echo 'class = "active"';}  ?>>
+                <li <?php if ($pageParam == 'home') {
+    echo 'class = "active"';
+}  ?>>
                     <a href="index.php"
-                    <?php if($pageParam == "home"){echo 'class = "active-label-color"';}  ?>
+                    <?php if ($pageParam == 'home') {
+    echo 'class = "active-label-color"';
+}  ?>
                     >HOME</a>
                 </li>
-                <li <?php if($pageParam == "services"){echo 'class = "active"';}  ?>>
+                <li <?php if ($pageParam == 'services') {
+    echo 'class = "active"';
+}  ?>>
                     <a href="services.php"
-                    <?php if($pageParam == "services"){echo 'class = "active-label-color"';}  ?>
+                    <?php if ($pageParam == 'services') {
+    echo 'class = "active-label-color"';
+}  ?>
                     >SERVICES</a>
                 </li>
-                <li <?php if($pageParam == "about"){echo 'class = "active"';}  ?>>
+                <li <?php if ($pageParam == 'about') {
+    echo 'class = "active"';
+}  ?>>
                     <a href="about.html"
-                    <?php if($pageParam == "about"){echo 'class = "active-label-color"';}  ?>
+                    <?php if ($pageParam == 'about') {
+    echo 'class = "active-label-color"';
+}  ?>
                     >ABOUT US</a>
                 </li>
-                <li <?php if($pageParam == "contact"){echo 'class = "active"';}  ?>>
+                <li <?php if ($pageParam == 'contact') {
+    echo 'class = "active"';
+}  ?>>
                     <a href="contact.html"
-                    <?php if($pageParam == "contact"){echo 'class = "active-label-color"';}  ?>
+                    <?php if ($pageParam == 'contact') {
+    echo 'class = "active-label-color"';
+}  ?>
                     >CONTACT</a>
                 </li>
-                <li <?php if($pageParam == "careers"){echo 'class = "active"';}  ?>>
+                <li <?php if ($pageParam == 'careers') {
+    echo 'class = "active"';
+}  ?>>
                     <a href="careers.html"
-                    <?php if($pageParam == "careers"){echo 'class = "active-label-color"';}  ?>
+                    <?php if ($pageParam == 'careers') {
+    echo 'class = "active-label-color"';
+}  ?>
                     >CAREERS</a>
                 </li>
             </ul>

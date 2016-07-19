@@ -6,23 +6,23 @@
   //content to be shot into main div
   $content;
   switch ($pageParam) {
-    case "home":
-      $content = require_once("home.php");
+    case 'home':
+      $content = require_once 'home.php';
       break;
-    case "about":
-      $content = require_once("about.php");
+    case 'about':
+      $content = require_once 'about.php';
       break;
-    case "careers":
-      $content = require_once("careers.php");
+    case 'careers':
+      $content = require_once 'careers.php';
       break;
-    case "services":
-      $content = require_once("services.php");
+    case 'services':
+      $content = require_once 'services.php';
       break;
-    case "about":
-      $content = require_once("about.php");
+    case 'about':
+      $content = require_once 'about.php';
       break;
-    case "contact":
-      $content = require_once("contact.php");
+    case 'contact':
+      $content = require_once 'contact.php';
       break;
   }
  ?>
@@ -94,19 +94,19 @@
 <body>
 <!-- HEADER -->
 <?php
-require_once("header.php");
+require_once 'header.php';
  ?>
 <!-- /HEADER -->
 
 <!-- MAIN -->
 <?php
-echo($content);
+echo $content;
  ?>
 <!-- /MAIN -->
 
 <!-- FOOTER -->
 <?php
-require_once("footer.php");
+require_once 'footer.php';
  ?>
 <!-- /FOOTER-->
 </body>
