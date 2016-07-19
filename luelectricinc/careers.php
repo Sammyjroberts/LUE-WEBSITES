@@ -53,7 +53,7 @@
                 7/15/16
               </td>
               <td>
-                <button class = "btn btn-default">Apply!</button>
+                <a class = "btn btn-default" href="/residental-general-electrician-app">Apply!</a>
               </td>
             </tr>
             <tr>
