@@ -8,7 +8,7 @@
             <div class="col-lg-12">
                 <h2 class="page-header">Services</h2>
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a>
+                    <li><a href="home">Home</a>
                     </li>
                     <li class="active">Services</li>
                 </ol>
