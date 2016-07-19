@@ -4,14 +4,13 @@
 <!-- Page Content -->
 <div class="container">
     <!-- Page Heading/Breadcrumbs -->
-
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-header">Apply</h2>
             <ol class="breadcrumb">
                 <li><a href="home">Home</a>
                 </li>
-                <li><a href="careers">Careers</a></li>
+                <li>Careers</li>
                 <li class="active">Apply</li>
             </ol>
         </div>
@@ -21,7 +20,7 @@
       <div class="col-lg-12">
 
 
-        <h1 class = "page-header">Residential/General Electrician <small>Full-Time <br>Orange County, CA – Los Angeles, CA – San Francisco, CA</small></h1>
+        <h1 class = "page-header">Electrical Foreman <small>Full-Time <br>Orange County, CA – Los Angeles, CA</small></h1>
         <div class="panel panel-default">
           <div class="panel-body">
             <h5 class = "page-header">About L.U. ELECTRIC, INC.</h5>
@@ -34,21 +33,22 @@
             </p>
             <h5 class = "page-header">Job Description</h5>
             <p>
-              We are seeking a Residential/General Electrician who is self-manageable,
-              motivated and a reliable with great communication skills. A current Electrical
-              Certification card is required. Candidates without electrical certification
-              must be willing to test within 6 months of employment. Our current service
-              work includes, but is not limited to residential and commercial electrical installations.
+              We are seeking an Electrical Foreman who is self-manageable,
+              dedicated and a reliable with great communication skills. A current
+              Electrical Certification card is required and must be presented upon
+              interview. This is a leadership position within the company with
+              opportunity for growth. Our current service work includes, but is
+              not limited to residential and commercial electrical installations.
             </p>
             <h5 class="page-header">Prefferred Qualifications</h5>
             <ul>
               <li>Knowledgeable of National Electric Code (NEC)</li>
-              <li>Electrical Certification for the State of California or willing to test within 6 months of employment</li>
-              <li>5-7+ years minimum General Electrician experience</li>
+              <li>Journeyman’s license for the State of California</li>
+              <li>10 years minimum General Electrician experience</li>
               <li>Clean driving record and valid State of California Driver’s license</li>
               <li>Ability to lift 75+ pounds</li>
               <li>Able to physically get into attics and crawl spaces</li>
-              <li>Locations: OC, LA, Bay Area</li>
+              <li>Locations: OC, LA</li>
             </ul>
             <h5 class = "page-header">Additional information</h5>
               <p>L.U. Electric, Inc. is committed to hiring and retaining a

@@ -4,7 +4,7 @@
 <!-- Page Content -->
 <div class="container">
     <!-- Page Heading/Breadcrumbs -->
-    <p></p>
+
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-header">Apply</h2>
@@ -21,7 +21,7 @@
       <div class="col-lg-12">
 
 
-        <h1 class = "page-header">Electrical Apprentice<small>Full-Time <br>Orange County, CA – Los Angeles, CA – San Francisco, CA</small></h1>
+        <h1 class = "page-header">Electrical Apprentice <small>Full-Time <br>Orange County, CA – Los Angeles, CA – San Francisco, CA</small></h1>
         <div class="panel panel-default">
           <div class="panel-body">
             <h5 class = "page-header">About L.U. ELECTRIC, INC.</h5>

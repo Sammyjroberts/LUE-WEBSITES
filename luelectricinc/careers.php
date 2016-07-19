@@ -8,7 +8,7 @@
             <div class="col-lg-12">
                 <h2 class="page-header">Careers</h2>
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a>
+                    <li><a href="home">Home</a>
                     </li>
                     <li class="active">Careers</li>
                 </ol>
@@ -53,7 +53,7 @@
                 7/15/16
               </td>
               <td>
-                <a class = "btn btn-default" href="/residental-general-electrician-app">Apply!</a>
+                <a class = "btn btn-default" href="/electrical-apprentice-app">Apply!</a>
               </td>
             </tr>
             <tr>
@@ -67,7 +67,7 @@
                 7/15/16
               </td>
               <td>
-                <button class = "btn btn-default">Apply!</button>
+                <a class = "btn btn-default" href="/residental-general-electrician-app">Apply!</a>
               </td>
             </tr>
             <tr>
@@ -81,7 +81,7 @@
                 7/15/16
               </td>
               <td>
-                <button class = "btn btn-default">Apply!</button>
+                <a class = "btn btn-default" href="/electrical-foreman-app">Apply!</a>
               </td>
             </tr>
           </table>
