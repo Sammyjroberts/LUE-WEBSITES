@@ -17,7 +17,7 @@
         <div class="carousel-inner">
             <div class="item active">
                 <img src="assets/teamwork.jpg" alt="" class="img-responsive servicebanner">
-                <div class="carousel-caption servicebannercaption mobile-hide" style = "height: 15%">
+                <div class="custom-carousel-caption carousel-caption servicebannercaption mobile-hide" style = "height: 15%; left:10px; top: 80%">
                     <h3>Careers</h3>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 Electrical Apprentice
               </td>
               <td>
-                Orange County
+                Orange County / Los Angeles / San Fransisco
               </td>
               <td>
                 7/15/16
@@ -61,7 +61,7 @@
                 Residential/General Electrician
               </td>
               <td>
-                Orange County
+                Orange County / Los Angeles / San Fransisco
               </td>
               <td>
                 7/15/16
@@ -75,7 +75,7 @@
                 Electrical Foreman
               </td>
               <td>
-                Orange County
+                Orange County / Los Angeles / San Fransisco
               </td>
               <td>
                 7/15/16

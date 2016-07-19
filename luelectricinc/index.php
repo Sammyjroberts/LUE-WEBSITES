@@ -24,6 +24,18 @@
     case 'contact':
       $content = require_once 'contact.php';
       break;
+    case 'residental-general-electrician-app':
+      $content = require_once 'residental-general-electrician-app.php';
+      break;
+    case 'electrical-apprentice-app':
+      $content = require_once 'electrical-apprentice-app.php';
+      break;
+    case 'electrical-foreman-app':
+      $content = require_once 'electrical-foreman-app.php';
+      break;
+    default:
+      $content = require_once '404.php';
+      break;
   }
  ?>
 <head>

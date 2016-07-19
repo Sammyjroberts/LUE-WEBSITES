@@ -49,9 +49,7 @@
         <p></p>
         <div class="row">
             <div class="col-lg-12">
-                                <h2 class="page-header">Services
-
-                </h2>
+                <h2 class="page-header">Services</h2>
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a>
                     </li>
