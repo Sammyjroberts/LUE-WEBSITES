@@ -48,12 +48,6 @@
 
     <title>L.U. Electric Inc.</title>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
@@ -61,6 +55,14 @@
     <link href="css/modern-business.css" rel="stylesheet">
     <link href="css/service.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+
     <!-- Custom Fonts -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

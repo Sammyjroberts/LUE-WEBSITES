@@ -21,7 +21,7 @@
                 <li <?php if ($pageParam == 'home') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="index.php"
+                    <a href="home"
                     <?php if ($pageParam == 'home') {
     echo 'class = "active-label-color"';
 }  ?>
@@ -30,7 +30,7 @@
                 <li <?php if ($pageParam == 'services') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="services.php"
+                    <a href="services"
                     <?php if ($pageParam == 'services') {
     echo 'class = "active-label-color"';
 }  ?>
@@ -39,7 +39,7 @@
                 <li <?php if ($pageParam == 'about') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="about.html"
+                    <a href="about"
                     <?php if ($pageParam == 'about') {
     echo 'class = "active-label-color"';
 }  ?>
@@ -48,7 +48,7 @@
                 <li <?php if ($pageParam == 'contact') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="contact.html"
+                    <a href="contact"
                     <?php if ($pageParam == 'contact') {
     echo 'class = "active-label-color"';
 }  ?>
@@ -57,7 +57,7 @@
                 <li <?php if ($pageParam == 'careers') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="careers.html"
+                    <a href="careers"
                     <?php if ($pageParam == 'careers') {
     echo 'class = "active-label-color"';
 }  ?>
