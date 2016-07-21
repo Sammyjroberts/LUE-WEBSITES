@@ -25,6 +25,7 @@
         <p></p>
         <p></p>
         <div class="col-md-12">
+
           <table class="table table-bordered table-striped table-hover" style = "text-align: center">
             <thead>
               <tr>
@@ -84,6 +85,7 @@
                 <a class = "btn btn-default" href="/electrical-foreman-app">Apply!</a>
               </td>
             </tr>
+            <caption><small>Don't see a position that fits you? Apply anyway: send a resume to <a href="mailto:<?php echo CAREER_CONTACT ?>"><?php echo CAREER_CONTACT?></a></small></caption>
           </table>
         </div>
     </div>
