@@ -21,7 +21,7 @@
                 <li <?php if ($pageParam == 'home') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="home"
+                    <a href="home" title="L.U. Electric Inc Home Page"
                     <?php if ($pageParam == 'home') {
     echo 'class = "active-label-color"';
 }  ?>
@@ -30,7 +30,7 @@
                 <li <?php if ($pageParam == 'services') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="services"
+                    <a href="services" title="Electrical Services Offered by L.U. Electric Inc."
                     <?php if ($pageParam == 'services') {
     echo 'class = "active-label-color"';
 }  ?>
@@ -39,7 +39,7 @@
                 <li <?php if ($pageParam == 'about') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="about"
+                    <a href="about" title="About L.U. Electric Inc."
                     <?php if ($pageParam == 'about') {
     echo 'class = "active-label-color"';
 }  ?>
@@ -48,7 +48,7 @@
                 <li <?php if ($pageParam == 'contact') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="contact"
+                    <a href="contact" title="Contact Info for L.U. Electric Inc."
                     <?php if ($pageParam == 'contact') {
     echo 'class = "active-label-color"';
 }  ?>
@@ -57,7 +57,7 @@
                 <li <?php if ($pageParam == 'careers') {
     echo 'class = "active"';
 }  ?>>
-                    <a href="careers"
+                    <a href="careers" title="L.U. Electric Inc. Career Opportunities"
                     <?php if ($pageParam == 'careers') {
     echo 'class = "active-label-color"';
 }  ?>
