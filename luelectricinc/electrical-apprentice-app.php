@@ -56,7 +56,7 @@
                 without regard to race, color, religion, creed, sex, sexual
                 orientation, gender identity, marital status, national origin,
                 age, veteran status, disability, or any other protected class.
-              <br><b>Please email resume to <a href="mailto:luelectric@luelectricinc.com">luelectric@luelectricinc.com.</a><b>
+              <br><b>Please email resume to <a href="mailto:<?php echo CAREER_CONTACT ?>"><?php echo CAREER_CONTACT ?>.</a><b>
               </p>
           </div>
       </div>
