@@ -7,6 +7,10 @@
   //content to be shot into main div
   $content;
   switch ($pageParam) {
+    case '' :
+      $content = 'home.php';
+      $pageParam = 'home';
+      break;
     case 'home':
       $content = 'home.php';
       break;

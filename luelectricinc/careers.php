@@ -16,7 +16,7 @@
         </div>
         <div class="carousel-inner">
             <div class="item active">
-                <img src="assets/teamwork.jpg" alt="" class="img-responsive servicebanner">
+                <img src="assets/teamwork_smaller.jpg" alt="" class="img-responsive servicebanner">
                 <div class="custom-carousel-caption carousel-caption servicebannercaption mobile-hide" style = "height: 15%; left:10px; top: 80%">
                     <h3>Careers</h3>
                 </div>
