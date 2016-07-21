@@ -1,0 +1,14 @@
+{
+  "chunks": {
+    "vendor": [
+      "angular",
+      "angular-ui-router"
+    ]
+  },
+  "paths": {
+    "angular": "bower_components/angular/angular.min.js",
+    "angular-ui-router" : "bower_components/angular-ui-router/release/angular-ui-router.js",
+    "jquery": "bower_components/jquery/dist/jquery.min.js",
+    "bootstrap": "bower_components/bootstrap/dist/js/bootstrap.min.js"
+  }
+}
