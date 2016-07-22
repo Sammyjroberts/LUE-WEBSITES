@@ -1,6 +1,8 @@
 /**
- * Created by dennis on 3/7/16.
+ * Created by sammy on 7/13/16.
  */
+ "use strict";
+
 var es = require('event-stream');
 var gulp = require('gulp');
 var concat = require('gulp-concat');
@@ -9,6 +11,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var fs = require('fs');
 var _ = require('lodash');
+var babel = require("gulp-babel");
 
 
 var scripts = require('./app.scripts.json');
@@ -37,6 +40,9 @@ var destinations = {
 gulp.task('build', function(){
     return es.merge(gulp.src(source.js.src) , getTemplateStream())
         .pipe(ngAnnotate())
+        .pipe(babel({
+          "presets": ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('app.js'))
         .pipe(gulp.dest(destinations.js));
@@ -45,6 +51,9 @@ gulp.task('build', function(){
 gulp.task('js', function(){
     return es.merge(gulp.src(source.js.src) , getTemplateStream())
         .pipe(concat('app.js'))
+        .pipe(babel({
+            "presets": ["es2015"]
+        }))
         .pipe(gulp.dest(destinations.js));
 });
 
@@ -61,15 +70,15 @@ gulp.task('vendor', function(){
 
             if (!fs.existsSync(__dirname + '/' + scriptFileName)) {
 
-                throw console.error('Required path doesn\'t exist: ' + __dirname + '/' + scriptFileName, script)
+                throw console.error('Required path doesn\'t exist: ' + __dirname + '/' + scriptFileName, script);
             }
             paths.push(scriptFileName);
         });
         gulp.src(paths)
             .pipe(concat(chunkName + '.js'))
             //.on('error', swallowError)
-            .pipe(gulp.dest(destinations.js))
-    })
+            .pipe(gulp.dest(destinations.js));
+    });
 
 });
 
@@ -79,7 +88,7 @@ gulp.task('default', ['dev']);
 
 var swallowError = function(error){
     console.log(error.toString());
-    this.emit('end')
+    this.emit('end');
 };
 
 var getTemplateStream = function () {
@@ -87,5 +96,5 @@ var getTemplateStream = function () {
         .pipe(templateCache({
             root: 'src/',
             module: 'app'
-        }))
+        }));
 };
