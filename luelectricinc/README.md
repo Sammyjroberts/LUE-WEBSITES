@@ -88,3 +88,16 @@ Copyright 2013-2015 Iron Summit Media Strategies, LLC. Code released under the [
 }
 ```
 
+### Auth
+
+/* Example Post Route */
+- POST `/api/api.php?model=auth`
+
+```
+{
+    "username" : "admin",
+    "password" : "bestBrett"
+}
+```
+
+
