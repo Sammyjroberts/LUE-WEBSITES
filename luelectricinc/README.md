@@ -32,8 +32,59 @@ Copyright 2013-2015 Iron Summit Media Strategies, LLC. Code released under the [
 * routs information is listed below.
 
 ## Routes
-- GET (all) api.php?model=careers
-- GET (one) api.php?model=careers&id=1
-- POST api.php?model=careers
-- PUT api.php?model=careers&id=1
-- DELETE api.php?model=careers&id=1
+
+### Careers
+- GET (all) `/api/api.php?model=careers`
+- GET (one) `/api/api.php?model=careers&id=1`
+- POST `/api/api.php?model=careers`
+- PUT `/api/api.php?model=careers&id=1`
+- DELETE `/api/api.php?model=careers&id=1`
+
+**Careers Post/Put Example**
+
+- Post Route: `/api/api.php?model=careers`
+- Put Route: `/api/api.php?model=careers&id=1`
+
+```
+{
+ "jobDescription":"The best job ever in the whole word.",
+ "aboutLu":"LUE is the best company with the best ad.",
+ "status":"active",
+ "contractType":"Full-Time",
+ "additionalInfo":"L.U. Electric, Inc. is committed to hiring and retaining a diverse workforce.. ",
+ "jobTitle":"Electrical Apprentice",
+ "application":"b64datahere for the file",
+ "locations" :"Orange County, CA$Los Angeles, CA$San Francisco, CA$",
+ "qualifications":"qual1$qual2$qual3$qual4$qual5"
+}
+```
+
+
+**Careers Get Example Response**
+- Get (all) Route: `/api/api.php?model=careers`
+- Get (one) Route: `/api/api.php?model=careers&id=12`
+
+```
+{
+  "response": {
+    "status": "200",
+    "successful": "true",
+    "message": "GET successful for id: 12",
+    "data": {
+      "id": "12",
+      "created_at": "2016-07-22 10:02:35",
+      "updated_at": "2016-07-22 10:02:35",
+      "job_description": "We are seeking an Electrical Apprentice with strong work ethic and positive attitude to work with General and Journeyman Electricians. Electrical Apprentices are required to own basic hand tools at all times. Be able to work with all type of ladders. Candidates with no experience must have a good electrical aptitude and be quick learners.",
+      "location": "Orange County, CA$Los Angeles, CA$San Francisco, CA$",
+      "qualifications": "Enrollment in an electrical apprenticeship program or desire to enroll$At least 1 year of experience in electrical/construction industry$Clean driving record and valid State of California Driver’s license$Ability to lift 75+ pounds$Able to physically get into attics and crawl spaces$Locations: OC, LA, Bay Area$",
+      "about_lu": "A family owned business operating for over 25 years, the goal of L.U. Electric, Inc. is to provide best in class service with the highest level of professionalism and integrity. We value the many talents and abilities of our employees, and are seeking an experienced General Electrician to join ongoing projects in the OC and LA areas. We are selective and careful when it comes to hiring. Plenty of room for advancement and professional development.",
+      "status": "active",
+      "contract_type": "Full-Time",
+      "additional_info": "L.U. Electric, Inc. is committed to hiring and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative Action Employer, making decisions without regard to race, color, religion, creed, sex, sexual orientation, gender identity, marital status, national origin, age, veteran status, disability, or any other protected class. ",
+      "job_title": "Electrical Apprentice",
+      "application": ""
+    }
+  }
+}
+```
+
