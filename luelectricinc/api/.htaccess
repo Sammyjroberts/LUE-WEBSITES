@@ -1,6 +1,1 @@
-<Limit GET POST>
-allow from all
-</Limit>
-<Limit PUT DELETE>
-allow from all
-</Limit>
+RewriteEngine Off

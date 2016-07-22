@@ -30,7 +30,7 @@ if(isset($_GET['model']) && !empty($_GET['model'])){
                         JobPosting::put($id, $data);
                     }
                     else{
-                        JobPosting::error();
+                        JobPosting::error("An id is required for PUT", "400");
                     }
                 break;
                 case "DELETE" :
@@ -39,16 +39,16 @@ if(isset($_GET['model']) && !empty($_GET['model'])){
                         JobPosting::delete($id);
                     }
                     else{
-                        JobPosting::error();
+                        JobPosting::error("An id is required for DELETE", "400");
                     }
                 break;
                 default :
-                    JobPosting::error();
+                    JobPosting::error("Invalid HTTP method. only REST is supported.", "400");
                 break;
             };
         break;
         default :
-            JobPosting::error();
+            JobPosting::error("Invalid Model. You must specify a supported model as a URL parameter.", "400");
         break;
     };
 }
