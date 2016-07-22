@@ -14,8 +14,8 @@ allow from all
 </Limit>
 <Limit PUT DELETE>
 order deny,allow
-deny from all
+allow from all
 </Limit>
-#AuthName mmm1375
-#AuthUserFile /usr/home/luelec/www/htdocs/_vti_pvt/service.pwd
-#AuthGroupFile /usr/home/luelec/www/htdocs/_vti_pvt/service.grp
+AuthName mmm1375
+AuthUserFile /usr/home/luelec/www/htdocs/_vti_pvt/service.pwd
+AuthGroupFile /usr/home/luelec/www/htdocs/_vti_pvt/service.grp
