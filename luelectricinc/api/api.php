@@ -1,7 +1,10 @@
 <?php
 header('Content-Type: application/json');
 
-require_once './lib/dbCon.php';
+require_once ('./lib/dbCon.php');
+require_once ('./lib/php-jwt/src/JWT.php');
+require_once ('../model/auth.php');
+require_once ('./lib/crypto.php');
 require_once ('./model/job_posting.php');
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
@@ -44,6 +47,17 @@ if(isset($_GET['model']) && !empty($_GET['model'])){
                 break;
                 default :
                     JobPosting::error("Invalid HTTP method. only REST is supported.", "400");
+                break;
+            };
+        break;
+        case "auth" :
+            switch($requestMethod){
+                case "POST":
+                    $data = file_get_contents("php://input");
+                    Authentication::post($data);
+                break;
+                default :
+                    JobPosting::error("Invalid.", "400");
                 break;
             };
         break;
