@@ -90,7 +90,10 @@ Copyright 2013-2015 Iron Summit Media Strategies, LLC. Code released under the [
 
 ### Auth
 
-/* Example Post Route */
+
+**How to generate a JWT**
+
+- you must include the jwt returned form this route to access protected routes. You can get it below.
 - POST `/api/api.php?model=auth`
 
 ```
@@ -99,3 +102,14 @@ Copyright 2013-2015 Iron Summit Media Strategies, LLC. Code released under the [
     "password" : "bestBrett"
 }
 ```
+
+
+**Include the JWT for Protected Routes**
+
+In order to generate a JWT you must post to this route with the correct username nad password
+once you have been authenticated, the API will return a JWT for you to include in your headers
+so that you can access protected routes.
+
+Example of key/value pair for HTTP header.
+
+`Authorization: Bearer <Token From Route>`
