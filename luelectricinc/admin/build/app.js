@@ -23,12 +23,6 @@ angular.module('app.home', ['ui.router']).config(function ($stateProvider) {
   });
 });
 
-angular.module("app").run(["$templateCache", function ($templateCache) {
-  $templateCache.put("src/layout/views/layout.tpl.html", "<div>\n    <div ng-include=\"\'app/layout/views/partials/header.partial.tpl.html\'\"></div>\n    <div ng-include = \"\'app/layout/views/partials/sidebar.partial.tpl.html\'\"></div>\n    <div class = \"main-content\">\n        <div data-ui-view=\"content\" data-autoscroll=\"false\"></div>\n    </div>\n</div>");
-  $templateCache.put("src/layout/views/partials/header.partial.tpl.html", "<nav class=\"navbar navbar-default navbar-fixed-top\">\n    <div class=\"container-fluid\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <a class=\"navbar-brand\" ui-sref=\"app.home\">LUE Website Administration</a>\n        </div>\n        <ul class=\"nav navbar-nav navbar-right\">\n            <li><a class = \"navbar-right\"><i class =\"fa  fa-2x fa-sign-out\"></i></a></li>\n        </ul>\n    </div><!-- /.container-fluid -->\n</nav>\n");
-  $templateCache.put("src/layout/views/partials/sidebar.partial.tpl.html", "<div class = \"sidebar\">\n    <div class = \"sidebar-header\">Navigation</div>\n    <ul class = \"sidebar-list\">\n        <li class = \"sidebar-content\">\n            <a ui-sref=\"app.jobpostings.home\">\n                <div class = \"item-media\"><i class =\"fa fa-lg fa-fw fa-child\"></i></div>\n                <div class =\"item-label\">Job Posting</div>\n            </a>\n        </li>\n\n    </ul>\n</div>\n");
-}]);
-
 angular.module('app.jobpostings', ['ui.router']).config(function ($stateProvider) {
   $stateProvider.state('app.jobpostings', {
     abstract: true
@@ -71,6 +65,11 @@ angular.module('app.jobpostings', ['ui.router']).config(function ($stateProvider
   });
 });
 
+angular.module("app").run(["$templateCache", function ($templateCache) {
+  $templateCache.put("src/layout/views/layout.tpl.html", "<div>\n    <div ng-include=\"\'app/layout/views/partials/header.partial.tpl.html\'\"></div>\n    <div ng-include = \"\'app/layout/views/partials/sidebar.partial.tpl.html\'\"></div>\n    <div class = \"main-content\">\n        <div data-ui-view=\"content\" data-autoscroll=\"false\"></div>\n    </div>\n</div>");
+  $templateCache.put("src/layout/views/partials/header.partial.tpl.html", "<nav class=\"navbar navbar-default navbar-fixed-top\">\n    <div class=\"container-fluid\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <a class=\"navbar-brand\" ui-sref=\"app.home\">LUE Website Administration</a>\n        </div>\n        <ul class=\"nav navbar-nav navbar-right\">\n            <li><a class = \"navbar-right\"><i class =\"fa  fa-2x fa-sign-out\"></i></a></li>\n        </ul>\n    </div><!-- /.container-fluid -->\n</nav>\n");
+  $templateCache.put("src/layout/views/partials/sidebar.partial.tpl.html", "<div class = \"sidebar\">\n    <div class = \"sidebar-header\">Navigation</div>\n    <ul class = \"sidebar-list\">\n        <li class = \"sidebar-content\">\n            <a ui-sref=\"app.jobpostings.home\">\n                <div class = \"item-media\"><i class =\"fa fa-lg fa-fw fa-child\"></i></div>\n                <div class =\"item-label\">Job Posting</div>\n            </a>\n        </li>\n\n    </ul>\n</div>\n");
+}]);
 'use strict';
 
 angular.module('app.layout', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
@@ -122,6 +121,26 @@ angular.module('app.common').component('addManyQualifications', {
     srcArray: '=',
     title: '@'
   }
+});
+
+angular.module("app.common").directive("autoHeight", function ($timeout) {
+  return {
+    restrict: 'A',
+    link: function link($scope, element) {
+      if (element[0].scrollHeight < 30) {
+        element[0].style.height = 30;
+      } else {
+        element[0].style.height = element[0].scrollHeight + "px";
+      }
+
+      var resize = function resize() {
+        return element[0].style.height = "" + element[0].scrollHeight + "px";
+      };
+
+      element.on("blur keyup change", resize);
+      $timeout(resize, 0);
+    }
+  };
 });
 
 angular.module('app.common').component('fileUpload', {
@@ -183,6 +202,55 @@ angular.module('app.common').filter('location', function () {
   };
 });
 
+angular.module("app.common").service("FormHelpers", function () {
+  var FormHelpers = this;
+
+  //configures form data STATES CAN ONLY BE EDIT ADD OR VIEW
+  FormHelpers.formStateOpts = function (state) {
+    var opts = {};
+    opts.state = state;
+    switch (state) {
+      case "add":
+        opts.canSubmit = true;
+        opts.canDelete = false;
+        opts.readOnly = false;
+        break;
+      case "edit":
+        opts.canSubmit = true;
+        opts.canDelete = true;
+        opts.readOnly = false;
+        break;
+      case "view":
+        opts.canSubmit = false;
+        opts.canDelete = false;
+        opts.readOnly = true;
+        break;
+      default:
+        console.error("err");
+        opts.canSubmit = false;
+        opts.canDelete = false;
+        opts.readOnly = true;
+        break;
+    }
+    return opts;
+  };
+});
+
+angular.module("app.common").service("RouteGetter", function () {
+  var RouteGetter = this;
+  var baseURL = "http://www.luelectricinc.com/api/api.php?";
+  RouteGetter.get = function (model, id) {
+    id = id || "";
+    var tempURL = baseURL;
+    tempURL += "model=" + model;
+    if (id !== "") {
+      tempURL += "&id=" + id;
+    }
+    console.log(tempURL);
+    return tempURL;
+  };
+});
+
 angular.module('app.home').controller("homeCtrl", function () {
   console.log("Hello World");
 });
@@ -198,14 +266,63 @@ angular.module("app.jobpostings").controller("JobPostingAddCtrl", function () {
 
 angular.module("app.jobpostings").controller("JobPostingEditCtrl", function () {});
 
-angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function () {
+angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (JobPosting) {
   var self = this;
   console.log("in home ctrl");
+
   self.gridOptions = {};
   self.gridOptions.data = [{ msg: "eyy" }];
+
+  JobPosting.getAll().then(function (response) {
+    console.log(response);
+    self.gridOptions.data = response.data;
+  });
 });
 
 angular.module("app.jobpostings").controller("JobPostingViewCtrl", function () {});
+
+angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, RouteGetter, $http) {
+  var JobPosting = this;
+
+  var model = "careers";
+  JobPosting.getAll = function () {
+    var route = RouteGetter.get(model);
+    return $http.get(route);
+  };
+
+  JobPosting.initController = function (self, state) {
+    return new Promise(function (resolve, reject) {
+      //object model we will build
+      self.jobPosting = {
+        locations: [{ city: "Orange County", state: "CA" }, { city: "Los Angeles", state: "CA" }],
+        qualifications: [{ name: "" }]
+
+      };
+
+      //schemas of reference fields to use in directives
+      self.referenceFieldSchemas = {};
+
+      //get access to the form helper service in the form
+      self.FormHelpers = FormHelpers;
+
+      //populate used Schemas
+      //this form schema
+
+      //form state
+      self.formConfigOptions = FormHelpers.formStateOpts(state);
+
+      //add default opts
+      if (self.formConfigOptions.state === "add") {
+        self.jobPosting.aboutLu = "A family owned business operating for over 25 years,\n        the goal of L.U. Electric, Inc. is to provide best in class service with the\n        highest level of professionalism and integrity. We value the many talents and\n        abilities of our employees, and are seeking an experienced General\n        Electrician to join ongoing projects in the OC and LA areas. We are selective\n        and careful when it comes to hiring. Plenty of room for advancement and professional development.";
+        self.jobPosting.additionalInfo = "L.U. Electric, Inc. is committed to hiring\n        and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative\n        Action Employer, making decisions without regard to race, color, religion,\n        creed, sex, sexual orientation, gender identity, marital status, national origin,\n        age, veteran status, disability, or any other protected class. ";
+      }
+
+      resolve(self);
+    });
+  };
+
+  return JobPosting;
+});
 
 angular.module("app.layout").controller("layoutCtrl", function () {
   console.log("inside layout");

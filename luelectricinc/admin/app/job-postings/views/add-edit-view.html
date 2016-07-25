@@ -13,10 +13,10 @@
     <input class ="form-control" type ="text" ng-model ="ctrl.jobPosting.jobTitle">
 
     <label>Job Description</label>
-    <textarea class="form-control" ng-model="ctrl.jobPosting.jobDescription"></textarea>
+    <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.jobDescription"></textarea>
 
     <label>About L.U.</label>
-    <textarea class="form-control" ng-model="ctrl.jobPosting.aboutLu" ></textarea>
+    <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.aboutLu" ></textarea>
 
     <label>Contract Type</label>
     <select class="form-control" ng-model="ctrl.jobPosting.contractType">
@@ -25,7 +25,7 @@
     </select>
 
     <label>Addition Info</label>
-    <textarea class="form-control" ng-model="ctrl.jobPosting.additionalInfo"></textarea>
+    <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.additionalInfo"></textarea>
 
     <file-upload file="ctrl.file"></file-upload>
 
