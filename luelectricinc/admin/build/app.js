@@ -4,7 +4,31 @@ angular.module('app', [
 //external
 "ui.router", "ui.grid", "textAngular",
 //internal
-"app.common", "app.layout", "app.home", "app.jobpostings"]).constant('_', window._);
+"app.common", "app.auth", "app.layout", "app.home", "app.jobpostings"]).constant('_', window._).run(function ($rootScope, $state, $stateParams, auth) {
+  $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+
+    auth.authenticatedStateChange(toState, event);
+  });
+});
+
+angular.module('app.auth', ['ui.router']);
+
+angular.module('app.auth').config(function ($stateProvider) {
+  $stateProvider.state('login', {
+    url: '/login/',
+    views: {
+      "root": {
+        templateUrl: 'app/auth/views/login.html',
+        controller: 'loginCtrl',
+        controllerAs: "ctrl"
+      }
+    },
+    data: {
+      title: 'Login',
+      htmlId: 'extr-page'
+    }
+  });
+});
 
 angular.module('app.common', []);
 
@@ -22,6 +46,12 @@ angular.module('app.home', ['ui.router']).config(function ($stateProvider) {
     }
   });
 });
+
+angular.module("app").run(["$templateCache", function ($templateCache) {
+  $templateCache.put("src/layout/views/layout.tpl.html", "<div>\n    <div ng-include=\"\'app/layout/views/partials/header.partial.tpl.html\'\"></div>\n    <div ng-include = \"\'app/layout/views/partials/sidebar.partial.tpl.html\'\"></div>\n    <div class = \"main-content\">\n        <div data-ui-view=\"content\" data-autoscroll=\"false\"></div>\n    </div>\n</div>");
+  $templateCache.put("src/layout/views/partials/header.partial.tpl.html", "<nav class=\"navbar navbar-default navbar-fixed-top\">\n    <div class=\"container-fluid\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <a class=\"navbar-brand\" ui-sref=\"app.home\">LUE Website Administration</a>\n        </div>\n        <ul class=\"nav navbar-nav navbar-right\">\n            <li><a class = \"navbar-right\"><i class =\"fa  fa-2x fa-sign-out\"></i></a></li>\n        </ul>\n    </div><!-- /.container-fluid -->\n</nav>\n");
+  $templateCache.put("src/layout/views/partials/sidebar.partial.tpl.html", "<div class = \"sidebar\">\n    <div class = \"sidebar-header\">Navigation</div>\n    <ul class = \"sidebar-list\">\n        <li class = \"sidebar-content\">\n            <a ui-sref=\"app.jobpostings.home\">\n                <div class = \"item-media\"><i class =\"fa fa-lg fa-fw fa-child\"></i></div>\n                <div class =\"item-label\">Job Posting</div>\n            </a>\n        </li>\n\n    </ul>\n</div>\n");
+}]);
 
 angular.module('app.jobpostings', ['ui.router']).config(function ($stateProvider) {
   $stateProvider.state('app.jobpostings', {
@@ -65,11 +95,6 @@ angular.module('app.jobpostings', ['ui.router']).config(function ($stateProvider
   });
 });
 
-angular.module("app").run(["$templateCache", function ($templateCache) {
-  $templateCache.put("src/layout/views/layout.tpl.html", "<div>\n    <div ng-include=\"\'app/layout/views/partials/header.partial.tpl.html\'\"></div>\n    <div ng-include = \"\'app/layout/views/partials/sidebar.partial.tpl.html\'\"></div>\n    <div class = \"main-content\">\n        <div data-ui-view=\"content\" data-autoscroll=\"false\"></div>\n    </div>\n</div>");
-  $templateCache.put("src/layout/views/partials/header.partial.tpl.html", "<nav class=\"navbar navbar-default navbar-fixed-top\">\n    <div class=\"container-fluid\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <a class=\"navbar-brand\" ui-sref=\"app.home\">LUE Website Administration</a>\n        </div>\n        <ul class=\"nav navbar-nav navbar-right\">\n            <li><a class = \"navbar-right\"><i class =\"fa  fa-2x fa-sign-out\"></i></a></li>\n        </ul>\n    </div><!-- /.container-fluid -->\n</nav>\n");
-  $templateCache.put("src/layout/views/partials/sidebar.partial.tpl.html", "<div class = \"sidebar\">\n    <div class = \"sidebar-header\">Navigation</div>\n    <ul class = \"sidebar-list\">\n        <li class = \"sidebar-content\">\n            <a ui-sref=\"app.jobpostings.home\">\n                <div class = \"item-media\"><i class =\"fa fa-lg fa-fw fa-child\"></i></div>\n                <div class =\"item-label\">Job Posting</div>\n            </a>\n        </li>\n\n    </ul>\n</div>\n");
-}]);
 'use strict';
 
 angular.module('app.layout', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
@@ -83,6 +108,66 @@ angular.module('app.layout', ['ui.router']).config(function ($stateProvider, $ur
     }
   });
   $urlRouterProvider.otherwise('/home');
+});
+
+angular.module("app.auth").controller("loginCtrl", function () {
+  var self = this;
+  self.user = {};
+  self.submit = function () {};
+});
+
+angular.module("app.auth").service("auth", function ($window, $state) {
+  var self = this;
+  var model = "auth";
+  var LOCAL_STORAGE_LOCATION = "jwt";
+  self.permissionlessStates = ["login"];
+  //saves token to location
+  self.saveToken = function (token) {
+    token = token || "";
+    $window.localStorage.setItem(LOCAL_STORAGE_LOCATION, token);
+  };
+
+  // checks if jwt is expired, if expired forces login and removes jwt
+  self.checkIfValid = function () {
+    if ($window.localStorage[LOCAL_STORAGE_LOCATION]) {
+      try {
+        var token = self.getDecodedToken();
+        var expDate = new Date(token.exp);
+        if (expDate >= Date.now()) {
+          return false;
+        }
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+      return true;
+    }
+  };
+
+  //removes jwt from local storage and forces you to go to the login page
+  self.forceLogin = function () {
+    $window.localStorage.removeItem(LOCAL_STORAGE_LOCATION);
+    $state.go("login");
+  };
+
+  //returns decoded information
+  self.getDecodedToken = function () {
+    var token = $window.localStorage[LOCAL_STORAGE_LOCATION];
+    return JSON.parse($window.atob(token.split('.')[1]));
+  };
+  self.authenticatedStateChange = function (toState, event) {
+    if (self.permissionlessStates.indexOf(toState.name.toString()) === -1) {
+      console.log("state req permissions");
+      if (!self.checkIfValid()) {
+        console.log("--ERROR: not logged in");
+        event.preventDefault();
+        self.forceLogin();
+      }
+    }
+  };
+  self.login = function (data) {
+    return $http.post(route, data);
+  };
 });
 
 angular.module('app.common').component('addManyLocations', {
