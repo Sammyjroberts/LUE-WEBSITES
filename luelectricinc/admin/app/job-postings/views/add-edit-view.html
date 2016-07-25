@@ -1,7 +1,7 @@
 <div class="container-fluid">
-
-<preview-job-posting job-posting="ctrl.jobPosting"></preview-job-posting>
-
+<div class = "well">
+  <preview-job-posting job-posting="ctrl.jobPosting"></preview-job-posting>
+</div>
   <div class="col-md-8 col-md-offset-2">
     <label>Status</label>
     <select class="form-control">
@@ -13,10 +13,10 @@
     <input class ="form-control" type ="text" ng-model ="ctrl.jobPosting.jobTitle">
 
     <label>Job Description</label>
-    <textarea class="form-control" ng-model="ctrl.jobPosting.jobDescription"></textarea>
+    <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.jobDescription"></textarea>
 
     <label>About L.U.</label>
-    <textarea class="form-control" ng-model="ctrl.jobPosting.aboutLu" ></textarea>
+    <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.aboutLu" ></textarea>
 
     <label>Contract Type</label>
     <select class="form-control" ng-model="ctrl.jobPosting.contractType">
@@ -25,10 +25,10 @@
     </select>
 
     <label>Addition Info</label>
-    <textarea class="form-control" ng-model="ctrl.jobPosting.additionalInfo"></textarea>
+    <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.additionalInfo"></textarea>
 
     <file-upload file="ctrl.file"></file-upload>
-    
+
     <add-many-locations title="Locations" src-array="ctrl.jobPosting.locations"></add-many-locations>
 
 
