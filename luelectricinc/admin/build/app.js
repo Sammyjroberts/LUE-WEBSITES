@@ -110,13 +110,19 @@ angular.module('app.layout', ['ui.router']).config(function ($stateProvider, $ur
   $urlRouterProvider.otherwise('/home');
 });
 
-angular.module("app.auth").controller("loginCtrl", function () {
+angular.module("app.auth").controller("loginCtrl", function (auth) {
   var self = this;
   self.user = {};
-  self.submit = function () {};
+  self.submit = function () {
+    auth.login(self.user).then(function (response) {
+      auth.saveToken(response.data.token);
+    }).catch(function (err) {
+      console.error(err);
+    });
+  };
 });
 
-angular.module("app.auth").service("auth", function ($window, $state) {
+angular.module("app.auth").service("auth", function ($window, $state, RouteGetter, $http) {
   var self = this;
   var model = "auth";
   var LOCAL_STORAGE_LOCATION = "jwt";
@@ -166,6 +172,8 @@ angular.module("app.auth").service("auth", function ($window, $state) {
     }
   };
   self.login = function (data) {
+    var route = RouteGetter.get(model);
+    console.log(data);
     return $http.post(route, data);
   };
 });

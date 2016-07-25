@@ -51,6 +51,7 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
 };
 self.login = function(data) {
   const route = RouteGetter.get(model);
+  console.log(data);
   return $http.post(route,data);
 };
 
