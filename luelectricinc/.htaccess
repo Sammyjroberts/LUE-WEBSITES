@@ -1,5 +1,6 @@
 RewriteEngine On
 RewriteBase /
+RewriteRule ^admin - [L,NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]*)$ /index.php?page=$1 [L]
 
@@ -16,6 +17,6 @@ allow from all
 order deny,allow
 allow from all
 </Limit>
-AuthName mmm1375
-AuthUserFile /usr/home/luelec/www/htdocs/_vti_pvt/service.pwd
-AuthGroupFile /usr/home/luelec/www/htdocs/_vti_pvt/service.grp
+#AuthName mmm1375
+#AuthUserFile /usr/home/luelec/www/htdocs/_vti_pvt/service.pwd
+#AuthGroupFile /usr/home/luelec/www/htdocs/_vti_pvt/service.grp
