@@ -23,6 +23,12 @@ angular.module('app.home', ['ui.router']).config(function ($stateProvider) {
   });
 });
 
+angular.module("app").run(["$templateCache", function ($templateCache) {
+  $templateCache.put("src/layout/views/layout.tpl.html", "<div>\n    <div ng-include=\"\'app/layout/views/partials/header.partial.tpl.html\'\"></div>\n    <div ng-include = \"\'app/layout/views/partials/sidebar.partial.tpl.html\'\"></div>\n    <div class = \"main-content\">\n        <div data-ui-view=\"content\" data-autoscroll=\"false\"></div>\n    </div>\n</div>");
+  $templateCache.put("src/layout/views/partials/header.partial.tpl.html", "<nav class=\"navbar navbar-default navbar-fixed-top\">\n    <div class=\"container-fluid\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <a class=\"navbar-brand\" ui-sref=\"app.home\">LUE Website Administration</a>\n        </div>\n        <ul class=\"nav navbar-nav navbar-right\">\n            <li><a class = \"navbar-right\"><i class =\"fa  fa-2x fa-sign-out\"></i></a></li>\n        </ul>\n    </div><!-- /.container-fluid -->\n</nav>\n");
+  $templateCache.put("src/layout/views/partials/sidebar.partial.tpl.html", "<div class = \"sidebar\">\n    <div class = \"sidebar-header\">Navigation</div>\n    <ul class = \"sidebar-list\">\n        <li class = \"sidebar-content\">\n            <a ui-sref=\"app.jobpostings.home\">\n                <div class = \"item-media\"><i class =\"fa fa-lg fa-fw fa-child\"></i></div>\n                <div class =\"item-label\">Job Posting</div>\n            </a>\n        </li>\n\n    </ul>\n</div>\n");
+}]);
+
 angular.module('app.jobpostings', ['ui.router']).config(function ($stateProvider) {
   $stateProvider.state('app.jobpostings', {
     abstract: true
@@ -80,14 +86,6 @@ angular.module('app.layout', ['ui.router']).config(function ($stateProvider, $ur
   $urlRouterProvider.otherwise('/home');
 });
 
-angular.module('app.home').controller("homeCtrl", function () {
-  console.log("Hello World");
-});
-angular.module("app").run(["$templateCache", function ($templateCache) {
-  $templateCache.put("src/layout/views/layout.tpl.html", "<div>\n    <div ng-include=\"\'app/layout/views/partials/header.partial.tpl.html\'\"></div>\n    <div ng-include = \"\'app/layout/views/partials/sidebar.partial.tpl.html\'\"></div>\n    <div class = \"main-content\">\n        <div data-ui-view=\"content\" data-autoscroll=\"false\"></div>\n    </div>\n</div>");
-  $templateCache.put("src/layout/views/partials/header.partial.tpl.html", "<nav class=\"navbar navbar-default\">\n    <div class=\"container-fluid\">\n        <!-- Brand and toggle get grouped for better mobile display -->\n        <div class=\"navbar-header\">\n            <a class=\"navbar-brand\" ui-sref=\"app.home\">LUE Website Administration</a>\n        </div>\n        <ul class=\"nav navbar-nav navbar-right\">\n            <li><a class = \"navbar-right\"><i class =\"fa  fa-2x fa-sign-out\"></i></a></li>\n        </ul>\n    </div><!-- /.container-fluid -->\n</nav>\n");
-  $templateCache.put("src/layout/views/partials/sidebar.partial.tpl.html", "<div class = \"sidebar\">\n    <div class = \"sidebar-header\">Navigation</div>\n    <ul class = \"sidebar-list\">\n        <li class = \"sidebar-content\">\n            <a ui-sref=\"app.jobpostings.home\">\n                <div class = \"item-media\"><i class =\"fa fa-lg fa-fw fa-child\"></i></div>\n                <div class =\"item-label\">Job Posting</div>\n            </a>\n        </li>\n\n    </ul>\n</div>\n");
-}]);
 angular.module('app.common').component('addManyLocations', {
   template: "\n  <div>\n    <label>{{ctrl.title}}</label>\n    <button class =\"btn btn-default form-control\" ng-click=\"ctrl.addNew()\">Add New {{ctrl.title}}</button>\n    <p></p>\n    <div ng-repeat =\"item in ctrl.srcArray track by $index\">\n      <div class = \"row form-group\">\n        <div class =\"col-md-6\">\n          <input placeholder=\"{{ctrl.title}}...\" ng-model=\"item.city\" class = \"form-control\" type = \"text\">\n        </div>\n        <div class =\"col-md-5\">\n          <select class = \"form-control\" ng-model =\"item.state\">\n            <option value=\"CA\">California</option>\n            <option value=\"AZ\">Arizona</option>\n          </select>\n        </div>\n        <div class =\"col-md-1\">\n          <i class =\"fa fa-minus fa-2x\" ng-click=\"ctrl.removeItem($index)\"></i>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
   controller: function controller() {
@@ -126,8 +124,36 @@ angular.module('app.common').component('addManyQualifications', {
   }
 });
 
+angular.module('app.common').component('fileUpload', {
+  template: "\n  <label>Application File</label>\n  <input type=\"file\" class =\"form-control\" onchange=\"angular.element(this).scope().fileNameChanged(this)\">\n  <div class=\"progress\">\n    <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\n    aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width:ctrl.currentProgress}\">\n\n    </div>\n    {{ctrl.currentProgress}}\n  </div>\n  ",
+  //angular.element(element).controller().startDownload()
+  controller: function controller($scope) {
+    var self = this;
+    self.currentProgress = "0%";
+    var fr = new FileReader();
+    fr.onload = function (loadEvent) {
+      console.log("done");
+      self.file = loadEvent.target.result;
+      console.log(self.file);
+      $scope.$apply();
+    };
+    fr.onprogress = function (event) {
+      console.log("progress");
+      self.currentProgress = (event.loaded / event.total).toFixed(2) * 100 + "%";
+      $scope.$apply();
+    };
+    $scope.fileNameChanged = function (guy) {
+      fr.readAsBinaryString(guy.files[0]);
+    };
+  },
+  controllerAs: "ctrl",
+  bindings: {
+    file: '='
+  }
+});
+
 angular.module('app.common').component('previewJobPosting', {
-  template: "\n    <div class=\"container\">\n\n  <!-- Page Content -->\n  <button ng-click=\"ctrl.flip()\" class =\"btn btn-default form-control\">minimize{{ctrl.minimize}}</button>\n  <div ng-hide =\"ctrl.minimize\">\n    <div class=\"container\">\n      <!-- Page Heading/Breadcrumbs -->\n      <div class=\"row\">\n          <div class=\"col-lg-12\">\n              <h2 class=\"page-header\">Apply</h2>\n              <ol class=\"breadcrumb\">\n                  <li><a href=\"home\">Home</a>\n                  </li>\n                  <li><a href=\"careers\">Careers</a></li>\n                  <li class=\"active\">Apply</li>\n              </ol>\n          </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col-lg-12\">\n\n\n          <h1 class = \"page-header\">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.locations | location}}</small></h1>\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body\">\n              <h5 class = \"page-header\">About L.U. ELECTRIC, INC.</h5>\n              <p>\n                {{ctrl.jobPosting.aboutLu}}\n              </p>\n              <h5 class = \"page-header\">Job Description</h5>\n              <p>\n                {{ctrl.jobPosting.jobDescription}}\n              </p>\n              <h5 class=\"page-header\">Preferred Qualifications</h5>\n              <ul>\n                <li ng-repeat=\"qualification in ctrl.jobPosting.qualifications track by $index\">{{qualification.name}}</li>\n              </ul>\n              <h5 class = \"page-header\">Additional information</h5>\n                <p>\n                {{ctrl.jobPosting.additionalInfo}}\n                <br><b>Please email resume to <a href=\"mailto:<?php echo CAREER_CONTACT ?>\"><?php echo CAREER_CONTACT ?>.</a><b>\n                </p>\n            </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n  ",
+  template: "\n    <div class=\"container-fluid\">\n\n  <!-- Page Content -->\n  <i ng-click=\"ctrl.flip()\" class=\" btn fa fa-minus-square-o fa-2x pull-right\"></i>\n  <div ng-hide =\"ctrl.minimize\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-lg-12\">\n\n\n          <h1 class = \"page-header\">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.locations | location}}</small></h1>\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body\">\n              <h5 class = \"page-header\">About L.U. ELECTRIC, INC.</h5>\n              <p>\n                {{ctrl.jobPosting.aboutLu}}\n              </p>\n              <h5 class = \"page-header\">Job Description</h5>\n              <p>\n                {{ctrl.jobPosting.jobDescription}}\n              </p>\n              <h5 class=\"page-header\">Preferred Qualifications</h5>\n              <ul>\n                <li ng-repeat=\"qualification in ctrl.jobPosting.qualifications track by $index\">{{qualification.name}}</li>\n              </ul>\n              <h5 class = \"page-header\">Additional information</h5>\n                <p>\n                {{ctrl.jobPosting.additionalInfo}}\n                <br><b>Please email resume to <a href=\"mailto:<?php echo CAREER_CONTACT ?>\"><?php echo CAREER_CONTACT ?>.</a><b>\n                </p>\n            </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n  ",
   controller: function controller() {
 
     var self = this;
@@ -157,12 +183,17 @@ angular.module('app.common').filter('location', function () {
   };
 });
 
+angular.module('app.home').controller("homeCtrl", function () {
+  console.log("Hello World");
+});
 angular.module("app.jobpostings").controller("JobPostingAddCtrl", function () {
   var self = this;
   self.jobPosting = {
     locations: [{ city: "Orange County", state: "CA" }, { city: "Los Angeles", state: "CA" }],
     qualifications: [{ name: "" }]
   };
+  self.jobPosting.aboutLu = "A family owned business operating for over 25 years,\n  the goal of L.U. Electric, Inc. is to provide best in class service with the\n  highest level of professionalism and integrity. We value the many talents and\n  abilities of our employees, and are seeking an experienced General\n  Electrician to join ongoing projects in the OC and LA areas. We are selective\n  and careful when it comes to hiring. Plenty of room for advancement and professional development.";
+  self.jobPosting.additionalInfo = "L.U. Electric, Inc. is committed to hiring\n  and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative\n  Action Employer, making decisions without regard to race, color, religion,\n  creed, sex, sexual orientation, gender identity, marital status, national origin,\n  age, veteran status, disability, or any other protected class. ";
 });
 
 angular.module("app.jobpostings").controller("JobPostingEditCtrl", function () {});

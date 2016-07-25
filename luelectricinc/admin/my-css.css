@@ -12,6 +12,7 @@
     display: block;
 
     /* positioning */
+    top: 59px;
     position: fixed;
     left: 0;
     height: 100%;
@@ -73,6 +74,7 @@
 /* -----------------------------------------MAIN CONTENT CSS----------------------------------------------------------*/
 .main-content {
     margin-left: 220px;
+    margin-top: 59px;
     padding:10px;
 }
 /* -----------------------------------------END MAIN CONTENT CSS------------------------------------------------------*/

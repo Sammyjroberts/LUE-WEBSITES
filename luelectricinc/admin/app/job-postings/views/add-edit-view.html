@@ -1,7 +1,7 @@
 <div class="container-fluid">
-
-<preview-job-posting job-posting="ctrl.jobPosting"></preview-job-posting>
-
+<div class = "well">
+  <preview-job-posting job-posting="ctrl.jobPosting"></preview-job-posting>
+</div>
   <div class="col-md-8 col-md-offset-2">
     <label>Status</label>
     <select class="form-control">
@@ -28,7 +28,7 @@
     <textarea class="form-control" ng-model="ctrl.jobPosting.additionalInfo"></textarea>
 
     <file-upload file="ctrl.file"></file-upload>
-    
+
     <add-many-locations title="Locations" src-array="ctrl.jobPosting.locations"></add-many-locations>
 
 

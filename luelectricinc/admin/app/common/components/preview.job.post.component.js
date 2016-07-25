@@ -1,23 +1,11 @@
 angular.module('app.common').component('previewJobPosting', {
   template: `
-    <div class="container">
+    <div class="container-fluid">
 
   <!-- Page Content -->
-  <button ng-click="ctrl.flip()" class ="btn btn-default form-control">minimize{{ctrl.minimize}}</button>
+  <i ng-click="ctrl.flip()" class=" btn fa fa-minus-square-o fa-2x pull-right"></i>
   <div ng-hide ="ctrl.minimize">
     <div class="container">
-      <!-- Page Heading/Breadcrumbs -->
-      <div class="row">
-          <div class="col-lg-12">
-              <h2 class="page-header">Apply</h2>
-              <ol class="breadcrumb">
-                  <li><a href="home">Home</a>
-                  </li>
-                  <li><a href="careers">Careers</a></li>
-                  <li class="active">Apply</li>
-              </ol>
-          </div>
-      </div>
       <div class="row">
         <div class="col-lg-12">
 
