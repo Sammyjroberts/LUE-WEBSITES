@@ -1,6 +1,4 @@
 <?php
-
-
 class CryptoService {
     static function createAccount($username, $password){
         $db = Db::getInstance();
@@ -15,10 +13,30 @@ class CryptoService {
             ':salt' => $salt,
             ':hash' => $hash
         );
-
-        echo '<pre>',print_r($params,1),'</pre>';
         $sqlStatement = $db->prepare($query);
         $res = $sqlStatement->execute($params);
+    }
+
+    static function updateAdminPassword($password){
+        try{
+            $db = Db::getInstance();
+            $salt = CryptoService::createSalt();
+            $hash = CryptoService::encryptPassword($password, $salt);
+
+            //$db = Db::getInstance();
+            $query = "UPDATE users set salt=:salt, hash=:hash where username=:username";
+            $params = array
+            (
+                ':username' => "admin",
+                ':salt' => $salt,
+                ':hash' => $hash
+            );
+            $sqlStatement = $db->prepare($query);
+            $res = $sqlStatement->execute($params);
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
     }
 
     static function createSalt(){

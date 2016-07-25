@@ -2,7 +2,6 @@ angular.module('app',[
   //external
     "ui.router",
     "ui.grid",
-    "textAngular",
 //internal
     "app.common",
     "app.layout",
