@@ -219,7 +219,7 @@ QUERY;
                 'data'    => $data
             )
         );
-        echo json_encode($response);
+        echo json_encode($data);
     }
 
     static function idExists($id){
