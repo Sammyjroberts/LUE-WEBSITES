@@ -1,10 +1,5 @@
 <?php
-// 
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-//
-// Authentication::generateToken();
-
+use \Firebase\JWT;
 class Authentication {
     function __construct(){
 
@@ -15,9 +10,9 @@ class Authentication {
         $isAuthenticated = CryptoService::authenticateUser($data->username, $data->password);
 
         if($isAuthenticated){
-            Authentication::generateToken();
+            $jwt = Authentication::generateToken();
 
-            Authentication::success("User successfully authenticated", array('test' => 'value'));
+            Authentication::success( array('token' => $jwt), "User successfully authenticated");
         }
         else{
             Authentication::error("Invalid login information.", "400");
@@ -99,9 +94,57 @@ class Authentication {
             'exp' => $expirationTime
         );
 
-        $jwt = JWT::encode($token, $key);
-        $decoded = JWT::decode($jwt, $key, array('HS256'));
-        print_r($decoded);
+        $jwt = \Firebase\JWT\JWT::encode($token, $key);
+
+        return $jwt;
+    }
+
+    static function validateToken($token){
+        try{
+            $key = "areYouNewKid?";
+            $token = trim(str_replace("Bearer", "", $token));
+            $decoded = \Firebase\JWT\JWT::decode($token, $key, array('HS256'));
+            return true;
+
+            // $issuedStamp = $decoded->iat;
+            // $expirationStamp = $decoded->exp;
+            //
+            // $issuedDate = new DateTime();
+            // $expirationDate = new DateTime();
+            //
+            // $issuedDate->setTimestamp($issuedStamp);
+            // $expirationDate->setTimestamp($expirationStamp);
+            //
+            // echo $issuedDate->format('U = Y-m-d H:i:s');
+            // echo $expirationDate->format('U = Y-m-d H:i:s');
+            //
+            // if($issuedDate > $expirationDate){
+            //     return false;
+            // }
+            // else{
+            //     return true;
+            // }
+        }
+        catch(\Firebase\JWT\ExpiredException $e){
+            $message = 'JWT Error: Exception: '.  $e->getMessage();
+            Authentication::error($message, '400');
+            return false;
+        }
+        catch(\Firebase\JWT\SignatureInvalidException $e){
+            $message = 'JWT Error: Exception: '.  $e->getMessage();
+            Authentication::error($message, '400');
+            return false;
+        }
+        catch(\Firebase\JWT\BeforeValidException $e){
+            $message = 'JWT Error: Exception: '.  $e->getMessage();
+            Authentication::error($message, '400');
+            return false;
+        }
+        catch(Exception $e){
+            $message = 'JWT Error: Exception: '. $e->getMessage();
+            Authentication::error($message, '400');
+            return false;
+        }
     }
 
 }
