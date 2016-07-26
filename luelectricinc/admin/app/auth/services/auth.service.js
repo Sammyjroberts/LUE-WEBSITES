@@ -2,7 +2,10 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
   const self = this;
   const model = "auth";
   const LOCAL_STORAGE_LOCATION = "jwt";
+
   self.permissionlessStates = ["login"];
+
+
   //saves token to location
   self.saveToken = function(token) {
     token = token || "";
@@ -39,6 +42,8 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
     let token = $window.localStorage[LOCAL_STORAGE_LOCATION];
     return(JSON.parse($window.atob(token.split('.')[1])));
   };
+
+  // run on every state change to see if we are good to swap states
   self.authenticatedStateChange = function (toState, event) {
     if(self.permissionlessStates.indexOf(toState.name.toString()) === -1) {
         console.log("state req permissions");
@@ -49,11 +54,13 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
         }
     }
 };
-self.login = function(data) {
-  const route = RouteGetter.get(model);
-  console.log(data);
-  return $http.post(route,data);
-};
+  //logs in
+  self.login = function(data) {
+    const route = RouteGetter.get(model);
+    console.log(data);
+    return $http.post(route,data);
+  };
 
+return self;
 
 });
