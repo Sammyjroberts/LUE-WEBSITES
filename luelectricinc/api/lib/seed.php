@@ -73,9 +73,9 @@ function seedUsers(){
             'additionalInfo' => "additional info about the job $i",
             'jobTitle' => "Job Title $i",
             'application' => "someb64Data $i",
-            'locations' => 'Orange County, CA$Los Angeles, CA$San Francisco, CA$',
+            'location' => 'Orange County, CA$Los Angeles, CA$San Francisco, CA$',
             'contractType' => 'Full-Time',
-            'qualifications' => 'qual1$qual2$qual3$qual4$qual5'
+            'qualification' => 'qual1$qual2$qual3$qual4$qual5'
         );
         $json = json_encode($json);
         JobPosting::post($json);
