@@ -1,10 +1,22 @@
-angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, RouteGetter, $http) {
+angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, RouteGetter, authHttp) {
   const JobPosting = this;
 
   const model = "careers";
   JobPosting.getAll = function() {
     const route = RouteGetter.get(model);
-    return($http.get(route));
+    return(authHttp.get(route));
+  };
+  JobPosting.getOne = function(id) {
+    const route = RouteGetter.get(model, id);
+    return(authHttp.get(route));
+  };
+  JobPosting.post = function(data) {
+    const route = RouteGetter.get(model);
+    return(authHttp.post(route, data));
+  };
+  JobPosting.put = function(id,data) {
+    const route = RouteGetter.get(model,id);
+    return(authHttp.put(route, data));
   };
 
 
@@ -44,7 +56,21 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
         age, veteran status, disability, or any other protected class. `;
       }
 
-      resolve(self);
+      //based on state init jobPosting
+      if(self.formConfigOptions.state  === "edit" || self.formConfigOptions.state  === "view") {
+        self.getOne(self.jobPosting.id)
+        .then((response) => {
+          self.jobPosting = response.data;
+          resolve(self);
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
+      }
+      else {
+        resolve(self);
+      }
   });
 };
 

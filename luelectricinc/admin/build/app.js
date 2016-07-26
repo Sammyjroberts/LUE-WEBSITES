@@ -110,23 +110,74 @@ angular.module('app.layout', ['ui.router']).config(function ($stateProvider, $ur
   $urlRouterProvider.otherwise('/home');
 });
 
-angular.module("app.auth").controller("loginCtrl", function (auth) {
+angular.module("app.auth").controller("loginCtrl", function (auth, $state) {
   var self = this;
   self.user = {};
   self.submit = function () {
     auth.login(self.user).then(function (response) {
       auth.saveToken(response.data.token);
+      $state.go("app.home");
     }).catch(function (err) {
       console.error(err);
     });
   };
 });
 
+angular.module("app.auth").service("authHttp", function ($http, auth) {
+  var self = this;
+  self.get = function (url) {
+    var req = {
+      method: 'GET',
+      url: url,
+      headers: {
+        'Authorization': 'Bearer ' + auth.getToken()
+      }
+    };
+    return $http(req);
+  };
+  self.post = function (url, data) {
+    var req = {
+      method: 'POST',
+      url: url,
+      data: data,
+      headers: {
+        'Authorization': 'Bearer ' + auth.getToken()
+      }
+    };
+    return $http(req);
+  };
+  self.put = function (url, data) {
+    var req = {
+      method: 'PUT',
+      url: url,
+      data: data,
+      headers: {
+        'Authorization': 'Bearer ' + auth.getToken()
+      }
+    };
+    return $http(req);
+  };
+  self.delete = function (url) {
+    var req = {
+      method: 'DELETE',
+      url: url,
+      headers: {
+        'Authorization': 'Bearer ' + auth.getToken()
+      }
+    };
+    return $http(req);
+  };
+
+  return self;
+});
+
 angular.module("app.auth").service("auth", function ($window, $state, RouteGetter, $http) {
   var self = this;
   var model = "auth";
   var LOCAL_STORAGE_LOCATION = "jwt";
+
   self.permissionlessStates = ["login"];
+
   //saves token to location
   self.saveToken = function (token) {
     token = token || "";
@@ -161,6 +212,8 @@ angular.module("app.auth").service("auth", function ($window, $state, RouteGette
     var token = $window.localStorage[LOCAL_STORAGE_LOCATION];
     return JSON.parse($window.atob(token.split('.')[1]));
   };
+
+  // run on every state change to see if we are good to swap states
   self.authenticatedStateChange = function (toState, event) {
     if (self.permissionlessStates.indexOf(toState.name.toString()) === -1) {
       console.log("state req permissions");
@@ -171,11 +224,14 @@ angular.module("app.auth").service("auth", function ($window, $state, RouteGette
       }
     }
   };
+  //logs in
   self.login = function (data) {
     var route = RouteGetter.get(model);
     console.log(data);
     return $http.post(route, data);
   };
+
+  return self;
 });
 
 angular.module('app.common').component('addManyLocations', {
@@ -363,7 +419,28 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (Job
   var self = this;
   console.log("in home ctrl");
 
-  self.gridOptions = {};
+  self.gridOptions = {
+    columnDefs: [{
+      field: 'id',
+      name: '',
+      enableFiltering: false,
+      enableSorting: false,
+      cellTemplate: '<div class="ui-grid-cell-contents">' + '<a data-ui-sref="app.jobpostings.view({id: row.entity.id})"><i class="fa fa-lg fa-eye"></i></a>' + '<span>&nbsp &nbsp &nbsp</span>' + '<a data-ui-sref="app.jobpostings.edit({id: row.entity.id})"><i class="fa fa-lg fa-pencil-square-o"></i></a> </div>',
+      width: 75
+    }, {
+      field: 'jobTitle',
+      name: 'Job Title'
+    }, {
+      field: 'status',
+      name: "Status"
+    }, {
+      field: 'contractType',
+      name: 'Contract Type'
+    }, {
+      field: 'locations',
+      name: 'Locations'
+    }]
+  };
   self.gridOptions.data = [{ msg: "eyy" }];
 
   JobPosting.getAll().then(function (response) {
@@ -374,13 +451,25 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (Job
 
 angular.module("app.jobpostings").controller("JobPostingViewCtrl", function () {});
 
-angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, RouteGetter, $http) {
+angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, RouteGetter, authHttp) {
   var JobPosting = this;
 
   var model = "careers";
   JobPosting.getAll = function () {
     var route = RouteGetter.get(model);
-    return $http.get(route);
+    return authHttp.get(route);
+  };
+  JobPosting.getOne = function (id) {
+    var route = RouteGetter.get(model, id);
+    return authHttp.get(route);
+  };
+  JobPosting.post = function (data) {
+    var route = RouteGetter.get(model);
+    return authHttp.post(route, data);
+  };
+  JobPosting.put = function (id, data) {
+    var route = RouteGetter.get(model, id);
+    return authHttp.put(route, data);
   };
 
   JobPosting.initController = function (self, state) {
@@ -410,7 +499,18 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
         self.jobPosting.additionalInfo = "L.U. Electric, Inc. is committed to hiring\n        and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative\n        Action Employer, making decisions without regard to race, color, religion,\n        creed, sex, sexual orientation, gender identity, marital status, national origin,\n        age, veteran status, disability, or any other protected class. ";
       }
 
-      resolve(self);
+      //based on state init jobPosting
+      if (self.formConfigOptions.state === "edit" || self.formConfigOptions.state === "view") {
+        self.getOne(self.jobPosting.id).then(function (response) {
+          self.jobPosting = response.data;
+          resolve(self);
+        }).catch(function (err) {
+          console.error(err);
+          reject(err);
+        });
+      } else {
+        resolve(self);
+      }
     });
   };
 
