@@ -28,27 +28,24 @@ class Authentication {
      * @param  $error the PDO general error message
      * @param  $code  the PDO error code
      */
-    static function error($error, $code){
-        http_response_code(400);
-        $response = array
-        (
-            'response' => array
-            (
-                'status'     => '400',
-                'successful' => 'false',
-                'message'    => 'Error in your REST request. Please try again.'
-            )
-        );
-        if(!empty($error) && isset($error)){
-            $response['response']['data'] = array
-            (
-                'message' => $error,
-                'code'    => $code
-            );
-        }
+     static function error($error, $code){
+         http_response_code(400);
+         if(!empty($error) && isset($error)){
+             $response = array
+             (
+                 'message' => $error,
+                 'code'    => $code
+             );
+         }
+         else{
+             array
+             (
+                 'message' => $error
+             );
+         }
 
-        echo json_encode($response);
-    }
+         echo json_encode($response);
+     }
 
 
     /**

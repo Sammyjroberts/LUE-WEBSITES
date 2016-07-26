@@ -98,7 +98,7 @@ QUERY;
     static function getAll(){
         try{
             $db = Db::getInstance();
-            $query = "SELECT * FROM job_posting";
+            $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting";
             $sqlStatement = $db->prepare($query);
             $res = $sqlStatement->execute();
             $response = $sqlStatement->fetchAll(PDO::FETCH_ASSOC);
@@ -115,7 +115,7 @@ QUERY;
         if(JobPosting::idExists($id)){
             try{
                 $db = Db::getInstance();
-                $query = "SELECT * FROM job_posting where id = :id";
+                $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting where id = :id";
                 $params = array
                 (
                     ':id' => $id
@@ -174,20 +174,17 @@ QUERY;
      */
     static function error($error, $code){
         http_response_code(400);
-        $response = array
-        (
-            'response' => array
-            (
-                'status'     => '400',
-                'successful' => 'false',
-                'message'    => 'Error in your REST request. Please try again.'
-            )
-        );
         if(!empty($error) && isset($error)){
-            $response['response']['data'] = array
+            $response = array
             (
                 'message' => $error,
                 'code'    => $code
+            );
+        }
+        else{
+            array
+            (
+                'message' => $error
             );
         }
 
@@ -209,16 +206,6 @@ QUERY;
      */
     static function success($data, $message){
         http_response_code( 200 );
-        $response = array
-        (
-            'response' => array
-            (
-                'status'  => '200',
-                'successful' => 'true',
-                'message' => $message,
-                'data'    => $data
-            )
-        );
         echo json_encode($data);
     }
 
