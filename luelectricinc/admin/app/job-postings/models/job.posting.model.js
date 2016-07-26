@@ -90,6 +90,8 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
         JobPosting.getOne(self.jobPosting.id)
         .then((response) => {
           self.jobPosting = response.data;
+          self.jobPosting.location = self.jobPosting.location.split("$");
+          self.jobPosting.qualification = self.jobPosting.qualification.split("$");
           resolve(self);
         })
         .catch((err) => {

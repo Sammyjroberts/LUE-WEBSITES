@@ -561,6 +561,8 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
       if (self.formConfigOptions.state === "edit" || self.formConfigOptions.state === "view") {
         JobPosting.getOne(self.jobPosting.id).then(function (response) {
           self.jobPosting = response.data;
+          self.jobPosting.location = self.jobPosting.location.split("$");
+          self.jobPosting.qualification = self.jobPosting.qualification.split("$");
           resolve(self);
         }).catch(function (err) {
           console.error(err);
