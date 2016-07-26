@@ -10,7 +10,7 @@ angular.module('app.common').component('previewJobPosting', {
         <div class="col-lg-12">
 
 
-          <h1 class = "page-header">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.locations | location}}</small></h1>
+          <h1 class = "page-header">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.location | location}}</small></h1>
           <div class="panel panel-default">
             <div class="panel-body">
               <h5 class = "page-header">About L.U. ELECTRIC, INC.</h5>
@@ -23,7 +23,7 @@ angular.module('app.common').component('previewJobPosting', {
               </p>
               <h5 class="page-header">Preferred Qualifications</h5>
               <ul>
-                <li ng-repeat="qualification in ctrl.jobPosting.qualifications track by $index">{{qualification.name}}</li>
+                <li ng-repeat="qualification in ctrl.jobPosting.qualification track by $index">{{qualification.name}}</li>
               </ul>
               <h5 class = "page-header">Additional information</h5>
                 <p>

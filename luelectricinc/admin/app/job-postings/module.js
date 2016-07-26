@@ -30,7 +30,7 @@ angular.module('app.jobpostings', ['ui.router'])
                 views: {
                     "content@app": {
                         templateUrl: 'app/job-postings/views/add-edit-view.html',
-                        controller: 'jobPostingEditCtrl',
+                        controller: 'JobPostingEditCtrl',
                         controllerAs: "ctrl"
                     }
                 }

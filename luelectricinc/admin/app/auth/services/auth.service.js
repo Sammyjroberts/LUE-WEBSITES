@@ -42,7 +42,9 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
     let token = $window.localStorage[LOCAL_STORAGE_LOCATION];
     return(JSON.parse($window.atob(token.split('.')[1])));
   };
-
+  self.getToken = function() {
+    return $window.localStorage[LOCAL_STORAGE_LOCATION];
+  };
   // run on every state change to see if we are good to swap states
   self.authenticatedStateChange = function (toState, event) {
     if(self.permissionlessStates.indexOf(toState.name.toString()) === -1) {

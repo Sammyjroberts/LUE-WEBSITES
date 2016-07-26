@@ -79,7 +79,7 @@ angular.module('app.jobpostings', ['ui.router']).config(function ($stateProvider
     views: {
       "content@app": {
         templateUrl: 'app/job-postings/views/add-edit-view.html',
-        controller: 'jobPostingEditCtrl',
+        controller: 'JobPostingEditCtrl',
         controllerAs: "ctrl"
       }
     }
@@ -115,6 +115,7 @@ angular.module("app.auth").controller("loginCtrl", function (auth, $state) {
   self.user = {};
   self.submit = function () {
     auth.login(self.user).then(function (response) {
+      console.log(response);
       auth.saveToken(response.data.token);
       $state.go("app.home");
     }).catch(function (err) {
@@ -212,7 +213,9 @@ angular.module("app.auth").service("auth", function ($window, $state, RouteGette
     var token = $window.localStorage[LOCAL_STORAGE_LOCATION];
     return JSON.parse($window.atob(token.split('.')[1]));
   };
-
+  self.getToken = function () {
+    return $window.localStorage[LOCAL_STORAGE_LOCATION];
+  };
   // run on every state change to see if we are good to swap states
   self.authenticatedStateChange = function (toState, event) {
     if (self.permissionlessStates.indexOf(toState.name.toString()) === -1) {
@@ -321,7 +324,7 @@ angular.module('app.common').component('fileUpload', {
 });
 
 angular.module('app.common').component('previewJobPosting', {
-  template: "\n    <div class=\"container-fluid\">\n\n  <!-- Page Content -->\n  <i ng-click=\"ctrl.flip()\" class=\" btn fa fa-minus-square-o fa-2x pull-right\"></i>\n  <div ng-hide =\"ctrl.minimize\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-lg-12\">\n\n\n          <h1 class = \"page-header\">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.locations | location}}</small></h1>\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body\">\n              <h5 class = \"page-header\">About L.U. ELECTRIC, INC.</h5>\n              <p>\n                {{ctrl.jobPosting.aboutLu}}\n              </p>\n              <h5 class = \"page-header\">Job Description</h5>\n              <p>\n                {{ctrl.jobPosting.jobDescription}}\n              </p>\n              <h5 class=\"page-header\">Preferred Qualifications</h5>\n              <ul>\n                <li ng-repeat=\"qualification in ctrl.jobPosting.qualifications track by $index\">{{qualification.name}}</li>\n              </ul>\n              <h5 class = \"page-header\">Additional information</h5>\n                <p>\n                {{ctrl.jobPosting.additionalInfo}}\n                <br><b>Please email resume to <a href=\"mailto:<?php echo CAREER_CONTACT ?>\"><?php echo CAREER_CONTACT ?>.</a><b>\n                </p>\n            </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n  ",
+  template: "\n    <div class=\"container-fluid\">\n\n  <!-- Page Content -->\n  <i ng-click=\"ctrl.flip()\" class=\" btn fa fa-minus-square-o fa-2x pull-right\"></i>\n  <div ng-hide =\"ctrl.minimize\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-lg-12\">\n\n\n          <h1 class = \"page-header\">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.location | location}}</small></h1>\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body\">\n              <h5 class = \"page-header\">About L.U. ELECTRIC, INC.</h5>\n              <p>\n                {{ctrl.jobPosting.aboutLu}}\n              </p>\n              <h5 class = \"page-header\">Job Description</h5>\n              <p>\n                {{ctrl.jobPosting.jobDescription}}\n              </p>\n              <h5 class=\"page-header\">Preferred Qualifications</h5>\n              <ul>\n                <li ng-repeat=\"qualification in ctrl.jobPosting.qualification track by $index\">{{qualification.name}}</li>\n              </ul>\n              <h5 class = \"page-header\">Additional information</h5>\n                <p>\n                {{ctrl.jobPosting.additionalInfo}}\n                <br><b>Please email resume to <a href=\"mailto:<?php echo CAREER_CONTACT ?>\"><?php echo CAREER_CONTACT ?>.</a><b>\n                </p>\n            </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n  ",
   controller: function controller() {
 
     var self = this;
@@ -387,7 +390,8 @@ angular.module("app.common").service("FormHelpers", function () {
 
 angular.module("app.common").service("RouteGetter", function () {
   var RouteGetter = this;
-  var baseURL = "http://www.luelectricinc.com/api/api.php?";
+  //const baseURL = "http://www.luelectricinc.com/api/api.php?";
+  var baseURL = "/api/api.php?";
   RouteGetter.get = function (model, id) {
     id = id || "";
     var tempURL = baseURL;
@@ -403,17 +407,29 @@ angular.module("app.common").service("RouteGetter", function () {
 angular.module('app.home').controller("homeCtrl", function () {
   console.log("Hello World");
 });
-angular.module("app.jobpostings").controller("JobPostingAddCtrl", function () {
+angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (FormHelpers, JobPosting, authHttp) {
   var self = this;
-  self.jobPosting = {
-    locations: [{ city: "Orange County", state: "CA" }, { city: "Los Angeles", state: "CA" }],
-    qualifications: [{ name: "" }]
+  JobPosting.initController(self, "add");
+  self.submit = function () {
+    console.log("submitting");
+    var postingToPost = JobPosting.prepForPost(self.jobPosting);
+    console.log(JSON.stringify(postingToPost));
+
+    JobPosting.post(postingToPost).then(function (response) {
+      console.log(response);
+    }).catch(function (err) {
+      console.error(err);
+    });
   };
-  self.jobPosting.aboutLu = "A family owned business operating for over 25 years,\n  the goal of L.U. Electric, Inc. is to provide best in class service with the\n  highest level of professionalism and integrity. We value the many talents and\n  abilities of our employees, and are seeking an experienced General\n  Electrician to join ongoing projects in the OC and LA areas. We are selective\n  and careful when it comes to hiring. Plenty of room for advancement and professional development.";
-  self.jobPosting.additionalInfo = "L.U. Electric, Inc. is committed to hiring\n  and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative\n  Action Employer, making decisions without regard to race, color, religion,\n  creed, sex, sexual orientation, gender identity, marital status, national origin,\n  age, veteran status, disability, or any other protected class. ";
 });
 
-angular.module("app.jobpostings").controller("JobPostingEditCtrl", function () {});
+angular.module("app.jobpostings").controller("JobPostingEditCtrl", function (JobPosting, $stateParams) {
+  var self = this;
+  console.log($stateParams);
+  self.jobPosting = {};
+  self.jobPosting.id = $stateParams.id;
+  JobPosting.initController(self, "edit");
+});
 
 angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (JobPosting) {
   var self = this;
@@ -437,7 +453,7 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (Job
       field: 'contractType',
       name: 'Contract Type'
     }, {
-      field: 'locations',
+      field: 'location',
       name: 'Locations'
     }]
   };
@@ -445,6 +461,9 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (Job
 
   JobPosting.getAll().then(function (response) {
     console.log(response);
+    response.data.forEach(function (post) {
+      post.location = JobPosting.formatLocationsForView(post.location);
+    });
     self.gridOptions.data = response.data;
   });
 });
@@ -471,13 +490,52 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
     var route = RouteGetter.get(model, id);
     return authHttp.put(route, data);
   };
+  function replaceAll(str, from, to) {
+    var temp = _.split(str, from);
+    temp = _.pull(temp, "");
+    var newStr = "";
+    temp.forEach(function (substr) {
+      newStr += substr + to;
+    });
+    return newStr;
+  }
+
+  JobPosting.prepForPost = function (jobposting) {
+    var toRet = JSON.stringify(jobposting);
+    toRet = JSON.parse(toRet);
+    var tempStr = "";
+    toRet.location.forEach(function (loc) {
+      tempStr += loc.city + ", " + loc.state + "$";
+      console.log(loc);
+      console.log("arr");
+    });
+    console.log(tempStr);
+    var temp = tempStr;
+    temp = temp.substr(0, temp.length - 1);
+    toRet.location = temp;
+    tempStr = "";
+    toRet.qualification.forEach(function (qual) {
+      tempStr += qual.name + "$";
+    });
+    var temp2 = tempStr;
+    temp2 = temp2.substr(0, temp.length - 1);
+    toRet.qualification = temp2;
+    return toRet;
+  };
+
+  JobPosting.formatLocationsForView = function (locations) {
+    console.log("formatting");
+    var loc = replaceAll(locations, "$", " - ");
+    console.log(loc);
+    return loc;
+  };
 
   JobPosting.initController = function (self, state) {
     return new Promise(function (resolve, reject) {
       //object model we will build
       self.jobPosting = {
-        locations: [{ city: "Orange County", state: "CA" }, { city: "Los Angeles", state: "CA" }],
-        qualifications: [{ name: "" }]
+        location: [{ city: "Orange County", state: "CA" }, { city: "Los Angeles", state: "CA" }],
+        qualification: [{ name: "" }]
 
       };
 
@@ -495,13 +553,13 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
 
       //add default opts
       if (self.formConfigOptions.state === "add") {
-        self.jobPosting.aboutLu = "A family owned business operating for over 25 years,\n        the goal of L.U. Electric, Inc. is to provide best in class service with the\n        highest level of professionalism and integrity. We value the many talents and\n        abilities of our employees, and are seeking an experienced General\n        Electrician to join ongoing projects in the OC and LA areas. We are selective\n        and careful when it comes to hiring. Plenty of room for advancement and professional development.";
-        self.jobPosting.additionalInfo = "L.U. Electric, Inc. is committed to hiring\n        and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative\n        Action Employer, making decisions without regard to race, color, religion,\n        creed, sex, sexual orientation, gender identity, marital status, national origin,\n        age, veteran status, disability, or any other protected class. ";
+        self.jobPosting.aboutLu = "A family owned business operating for over 25 years, the goal of L.U. Electric, Inc. is to provide best in class service with the highest level of professionalism and integrity. We value the many talents and abilities of our employees, and are seeking an experienced General Electrician to join ongoing projects in the OC and LA areas. We are selective and careful when it comes to hiring. Plenty of room for advancement and professional development.";
+        self.jobPosting.additionalInfo = "L.U. Electric, Inc. is committed to hiring and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative Action Employer, making decisions without regard to race, color, religion, creed, sex, sexual orientation, gender identity, marital status, national origin, age, veteran status, disability, or any other protected class. ";
       }
 
       //based on state init jobPosting
       if (self.formConfigOptions.state === "edit" || self.formConfigOptions.state === "view") {
-        self.getOne(self.jobPosting.id).then(function (response) {
+        JobPosting.getOne(self.jobPosting.id).then(function (response) {
           self.jobPosting = response.data;
           resolve(self);
         }).catch(function (err) {
