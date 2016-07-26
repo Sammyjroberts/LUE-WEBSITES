@@ -18,7 +18,7 @@ QUERY;
         $params = array
         (
             ':jobDescription'  => $data->jobDescription,
-            ':location'        => $data->locations,
+            ':location'        => $data->location,
             ':qualifications'  => $data->qualifications,
             ':about_lu'        => $data->aboutLu,
             ':status'          => $data->status,

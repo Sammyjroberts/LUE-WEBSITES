@@ -33,45 +33,27 @@
  *
  * Example of an Error:
  * {
- * "response": {
- *     "status": "400",
- *     "successful": "false",
- *     "message": "Error in your REST request. Please try again.",
- *     "data": {
- *       "message": "Invalid login information.",
- *       "code": "400"
- *     }
- *   }
+ *   "message": "Invalid login information.",
+ *   "code": "400"
  * }
- *
- * The actual data from a SQL query is returned in the data object
- * So response.data (Inspiration taken from Dennis's API for LUE-ADMIN)
- * will have the actual data object you can use.
  *
  * Here is an example success response, the route used is listed below.
  * Route: http://luelectricinc.com/api/api.php?model=careers&id=5
  * More post objects can be see on the readme mentioned above.
  *
  * {
- * "response": {
- *    "status": "200",
- *    "successful": "true",
- *    "message": "GET successful for id: 5",
- *     "data": {
- *       "id": "5",
- *       "created_at": "2016-07-21 14:13:13",
- *       "updated_at": "2016-07-22 11:13:13",
- *       "job_description": "some job desc here.. blah blah",
- *       "location": "Orange County, CA$Los Angeles, CA$San Francisco, CA$",
- *       "qualifications": "qual1$qual2$qual3$qual4$",
- *       "about_lu": "About LU Electric..",
- *       "status": "active",
- *       "contract_type": "Full-Time",
- *       "additional_info": "L.U. Electric, Inc. is a.. etc",
- *       "job_title": "Electrical Apprentice",
- *       "application": "b64 data for the application PDF"
- *     }
- *   }
+ *   "id": "5",
+ *   "created_at": "2016-07-21 14:13:13",
+ *   "updated_at": "2016-07-22 11:13:13",
+ *   "job_description": "some job desc here.. blah blah",
+ *   "location": "Orange County, CA$Los Angeles, CA$San Francisco, CA$",
+ *   "qualifications": "qual1$qual2$qual3$qual4$",
+ *   "about_lu": "About LU Electric..",
+ *   "status": "active",
+ *   "contract_type": "Full-Time",
+ *   "additional_info": "L.U. Electric, Inc. is a.. etc",
+ *   "job_title": "Electrical Apprentice",
+ *   "application": "b64 data for the application PDF"
  * }
  *
  *          Lets talk about Authentication
@@ -90,11 +72,15 @@
  *    "username" : "username",
  *     "password" : "password"
  * }
+ *
+ * Running Locally as a DEV env?
+ * IF you want to seed the database here's what you'll have to do.
+ * CREATE database lue_career;
+ * and browse to this script in the browser, OR hit it from the CLI
+ * loclahost/api/lib/seed.php <-- this EMPTYS the database tables so CARE!
+ * it then seeds the tables with some data
  */
-//
-// header('Access-Control-Allow-Headers: Content-Type');
-// header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-// header('Access-Control-Allow-Origin: *');
+
 error_reporting(0);
 header('Content-Type: application/json');
 
