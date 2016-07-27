@@ -191,10 +191,10 @@ angular.module("app.auth").service("auth", function ($window, $state, RouteGette
       try {
         var token = self.getDecodedToken();
         console.log(token.exp);
-        var expDate = new Date(token.exp);
-        console.log(expDate);
-        console.log("vs");
-        console.log(new Date(Date.now()));
+        var expDate = new Date(token.exp * 1000);
+        // console.log("Issue Date: " + issuedDate);
+        // console.log("Exp Date: " + expDate);
+        // console.log("Now: " + new Date(Date.now()));
         if (expDate.getTime() <= Date.now()) {
           return false;
         }
@@ -215,6 +215,7 @@ angular.module("app.auth").service("auth", function ($window, $state, RouteGette
   //returns decoded information
   self.getDecodedToken = function () {
     var token = $window.localStorage[LOCAL_STORAGE_LOCATION];
+    console.log(JSON.parse($window.atob(token.split('.')[1])));
     return JSON.parse($window.atob(token.split('.')[1]));
   };
   self.getToken = function () {
@@ -473,7 +474,12 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (Job
   });
 });
 
-angular.module("app.jobpostings").controller("JobPostingViewCtrl", function () {});
+angular.module("app.jobpostings").controller("jobPostingViewCtrl", function (JobPosting, $stateParams) {
+  var self = this;
+  self.jobPosting = {};
+  self.jobPosting.id = $stateParams.id;
+  JobPosting.initController(self, "view");
+});
 
 angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, RouteGetter, authHttp) {
   var JobPosting = this;
