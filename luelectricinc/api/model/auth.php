@@ -80,7 +80,7 @@ class Authentication {
         //generate token and return
         $key = "areYouNewKid?";
 
-        $date = new DateTime();
+        $date = new DateTime('now');
         $currentTime = $date->getTimestamp();
         $expirationTime = $currentTime + (60*60*12);
 
