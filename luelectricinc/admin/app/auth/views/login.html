@@ -6,7 +6,7 @@
       </div>
       <div class="panel-body">
         <h4 style = "magin-top:0px;"><small><b>LOGIN</b></small></h4>
-        <ng-form novalidate>
+        <form novalidate>
           <div class="form-group">
             <label for="">Username</label>
             <input placeholder="Username..." ng-model ="ctrl.user.username" class = "form-control "type="text" name="name" value="">
@@ -15,7 +15,7 @@
             <label for="">Password</label>
             <input placeholder="Password..." ng-model ="ctrl.user.password" class = "form-control" type="password" name="name" value="">
           </div>
-          <button class = "btn btn-primary pull-right" type = "submit"ng-click="ctrl.submit()">Submit</button>
+          <input class = "btn btn-primary pull-right" type = "submit" ng-click="ctrl.submit()" value="Login">
         </form>
       </div>
       <div>

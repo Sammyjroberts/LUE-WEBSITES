@@ -24,7 +24,6 @@ angular.module('app.common').component('addManyLocations', {
   `,
   controller: function() {
     const self = this;
-    console.log("in add many ctrl");
     self.addNew = function() {
       self.srcArray.push({city:"", state:"CA"});
     };

@@ -1,6 +1,5 @@
-angular.module("app.jobpostings").controller("jobPostingViewCtrl", function(JobPosting, $stateParams) {
+angular.module("app.jobpostings").controller("JobPostingViewCtrl", function(JobPosting, $stateParams) {
     const self = this;
-    self.jobPosting = {};
-    self.jobPosting.id = $stateParams.id;
+    self.stateParams = $stateParams;
     JobPosting.initController(self, "view");
 });

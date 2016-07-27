@@ -9,7 +9,8 @@ angular.module('app.layout', ['ui.router'])
                 views: {
                     root: {
                         templateUrl: 'app/layout/views/layout.tpl.html',
-                        controller: 'layoutCtrl'
+                        controller: 'layoutCtrl',
+                        controllerAs: "ctrl"
                     }
                 }
             });

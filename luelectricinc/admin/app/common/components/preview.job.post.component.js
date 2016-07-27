@@ -4,7 +4,7 @@ angular.module('app.common').component('previewJobPosting', {
 
   <!-- Page Content -->
   <i ng-click="ctrl.flip()" class=" btn fa fa-minus-square-o fa-2x pull-right"></i>
-  <div ng-hide ="ctrl.minimize">
+  <div ng-hide ="ctrl.minimize" class ="well">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">

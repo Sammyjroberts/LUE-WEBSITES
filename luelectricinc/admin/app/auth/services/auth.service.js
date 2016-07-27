@@ -12,16 +12,13 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
     $window.localStorage.setItem(LOCAL_STORAGE_LOCATION, token);
   };
 
+
   // checks if jwt is expired, if expired forces login and removes jwt
   self.checkIfValid = function() {
     if($window.localStorage[LOCAL_STORAGE_LOCATION]) {
       try {
         const token = self.getDecodedToken();
-        console.log(token.exp);
         const expDate = new Date(token.exp * 1000);
-        // console.log("Issue Date: " + issuedDate);
-        // console.log("Exp Date: " + expDate);
-        // console.log("Now: " + new Date(Date.now()));
         if(expDate.getTime() <= Date.now()) {
           return false;
         }
@@ -44,7 +41,6 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
   //returns decoded information
   self.getDecodedToken = function() {
     let token = $window.localStorage[LOCAL_STORAGE_LOCATION];
-    console.log((JSON.parse($window.atob(token.split('.')[1]))));
     return(JSON.parse($window.atob(token.split('.')[1])));
   };
   self.getToken = function() {
@@ -64,7 +60,6 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
   //logs in
   self.login = function(data) {
     const route = RouteGetter.get(model);
-    console.log(data);
     return $http.post(route,data);
   };
 
