@@ -495,6 +495,7 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
     var route = RouteGetter.get(model, id);
     return authHttp.put(route, data);
   };
+
   function replaceAll(str, from, to) {
     var temp = _.split(str, from);
     temp = _.pull(temp, "");
