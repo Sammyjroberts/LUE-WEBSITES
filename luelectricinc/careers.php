@@ -43,48 +43,34 @@
                 </th>
               </tr>
             </thead>
-            <tr>
-              <td>
-                Electrical Apprentice
-              </td>
-              <td>
-                Orange County / Los Angeles / San Fransisco
-              </td>
-              <td>
-                7/15/16
-              </td>
-              <td>
-                <a class = "btn btn-default" href="/electrical-apprentice-app">Apply!</a>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Residential/General Electrician
-              </td>
-              <td>
-                Orange County / Los Angeles / San Fransisco
-              </td>
-              <td>
-                7/15/16
-              </td>
-              <td>
-                <a class = "btn btn-default" href="/residental-general-electrician-app">Apply!</a>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Electrical Foreman
-              </td>
-              <td>
-                Orange County / Los Angeles / San Fransisco
-              </td>
-              <td>
-                7/15/16
-              </td>
-              <td>
-                <a class = "btn btn-default" href="/electrical-foreman-app">Apply!</a>
-              </td>
-            </tr>
+            <?php
+             require_once("./api/lib/dbCon.php");
+             $db = Db::getInstance();
+             $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting";
+             $sqlStatement = $db->prepare($query);
+             $res = $sqlStatement->execute();
+             $response = $sqlStatement->fetchAll(PDO::FETCH_ASSOC);
+             foreach ($response as $row) {
+               $locStr = str_replace("$"," - ",$row['location']);
+               $locStr[$locStr]
+            echo <<<html
+              <tr>
+               <td>
+                 {$row['jobTitle']}
+               </td>
+               <td>
+                  $locStr
+               </td>
+               <td>
+                 {$row['updatedAt']}
+               </td>
+               <td>
+                 <a class = "btn btn-default" href="careers/{$row['id']}">Apply!</a>
+               </td>
+             </tr>
+html;
+             }
+            ?>
             <caption><small>Don't see a position that fits you? Apply anyway: send a resume to <a href="mailto:<?php echo CAREER_CONTACT ?>"><?php echo CAREER_CONTACT?></a></small></caption>
           </table>
         </div>

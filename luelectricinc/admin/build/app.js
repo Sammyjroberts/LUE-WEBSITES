@@ -408,15 +408,6 @@ angular.module("app.common").service("RouteGetter", function () {
 angular.module('app.home').controller("homeCtrl", function () {
   console.log("Hello World");
 });
-angular.module("app.layout").controller("layoutCtrl", function (auth) {
-  var self = this;
-  console.log("inside layout");
-  self.logout = function () {
-    console.log("loging out");
-    auth.forceLogin();
-  };
-});
-
 angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (FormHelpers, JobPosting, authHttp, $state) {
   var self = this;
   JobPosting.initController(self, "add");
@@ -660,4 +651,13 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
   };
 
   return JobPosting;
+});
+
+angular.module("app.layout").controller("layoutCtrl", function (auth) {
+  var self = this;
+  console.log("inside layout");
+  self.logout = function () {
+    console.log("loging out");
+    auth.forceLogin();
+  };
 });
