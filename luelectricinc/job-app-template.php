@@ -1,5 +1,5 @@
 <?php
-
+$careerContact = CAREER_CONTACT;
 $quals = explode("$",$job['qualification']);
 $formattedLocation = str_replace('$', ' - ', $job['location']);
 echo <<<html
@@ -43,9 +43,14 @@ html;
 
       echo <<<html
             </ul>
+            <h5 class = "page-header">Job Application</h5>
+            <a target="_blank" title="Download {$job['jobTitle']}-application.pdf" download='{$job['jobTitle']}-application.pdf' href="data:application/octet-stream;charset=utf-16le;base64,{$job['application']}"><i class="fa fa-2x fa-file-pdf-o"></i></a>
+               <br>Please download the application, fill it out and email to: <a href="mailto:$careerContact">$careerContact</a>
+               </p>
+
             <h5 class = "page-header">Additional information</h5>
               <p>{$job['additionalInfo']}
-              <br><b>Please email resume to <a href="mailto:<?php echo CAREER_CONTACT ?>"><?php echo CAREER_CONTACT ?>.</a><b>
+              <br><b>Please email resume to <a href="mailto:$careerContact">$careerContact</a><b>
               </p>
           </div>
       </div>

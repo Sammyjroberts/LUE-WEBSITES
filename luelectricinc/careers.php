@@ -1,7 +1,7 @@
 <?php
-  if(!empty($_GET["id"]) && isset($_GET["id"])) {
+
+  if($showCareers) {
     require_once("./api/lib/dbCon.php");
-    $id = $_GET["id"];
     $db = Db::getInstance();
     $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting where id = :id";
     $params = array
@@ -11,9 +11,10 @@
     $sqlStatement = $db->prepare($query);
     $res = $sqlStatement->execute($params);
     $job = $sqlStatement->fetch(PDO::FETCH_ASSOC);
+
+    require_once "job-app-template.php";
   }
   else {
-
   ?>
     <!-- Page Content -->
     <div class="container">
@@ -82,7 +83,7 @@
                  $formattedDate
                </td>
                <td>
-                 <a class = "btn btn-default" href="careers/id={$row['id']}">Apply!</a>
+                 <a class = "btn btn-default" href="careers/{$row['id']}">Apply!</a>
                </td>
              </tr>
 html;

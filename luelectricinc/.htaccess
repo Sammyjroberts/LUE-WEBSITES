@@ -1,8 +1,10 @@
 RewriteEngine On
 RewriteBase /
-RewriteRule ^admin - [L,NC]
 RewriteCond %{REQUEST_FILENAME} !-f
+
 RewriteRule ^([^/]*)$ /index.php?page=$1 [L]
+RewriteRule ^careers/([^/]*)$ /index.php?page=careers&id=$1 [R]
+
 
 
 IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*

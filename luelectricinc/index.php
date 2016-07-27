@@ -4,6 +4,7 @@
 <?php
   define("CAREER_CONTACT", "noemy@luelectricinc.com");
   $pageParam = $_GET['page'];
+  $id        = $_GET['id'];
   //content to be shot into main div
   $content;
   switch ($pageParam) {
@@ -19,6 +20,10 @@
       break;
     case 'careers':
       $content =  'careers.php';
+      if(!empty($_GET['id']) && isset($_GET['id'])){
+          $showCareers = true;
+          $id = $_GET['id'];
+      }
       break;
     case 'services':
       $content = 'services.php';
@@ -119,7 +124,8 @@ require_once 'header.php';
 
 <!-- MAIN -->
 <?php
-require_once($content);
+require_once "$content";
+//echo "<pre>$content</pre>";
  ?>
 <!-- /MAIN -->
 
