@@ -74,7 +74,7 @@ function seedUsers(){
             'additionalInfo' => "additional info about the job $i",
             'jobTitle' => "Job Title $i",
             'application' => "someb64Data $i",
-            'location' => 'Orange County, CA$Los Angeles, CA$San Francisco, CA$',
+            'location' => 'Orange County, CA$Los Angeles, CA$San Francisco, CA$New Kid, CA',
             'contractType' => 'Full-Time',
             'qualification' => 'qual1$qual2$qual3$qual4$qual5'
         );
