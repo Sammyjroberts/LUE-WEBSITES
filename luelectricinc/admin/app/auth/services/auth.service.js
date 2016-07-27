@@ -17,8 +17,12 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
     if($window.localStorage[LOCAL_STORAGE_LOCATION]) {
       try {
         const token = self.getDecodedToken();
+        console.log(token.exp);
         const expDate = new Date(token.exp);
-        if(expDate >= Date.now()) {
+        console.log(expDate);
+        console.log("vs");
+        console.log(new Date(Date.now()));
+        if(expDate.getTime() <= Date.now()) {
           return false;
         }
       }

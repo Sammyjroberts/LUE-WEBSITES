@@ -190,8 +190,12 @@ angular.module("app.auth").service("auth", function ($window, $state, RouteGette
     if ($window.localStorage[LOCAL_STORAGE_LOCATION]) {
       try {
         var token = self.getDecodedToken();
+        console.log(token.exp);
         var expDate = new Date(token.exp);
-        if (expDate >= Date.now()) {
+        console.log(expDate);
+        console.log("vs");
+        console.log(new Date(Date.now()));
+        if (expDate.getTime() <= Date.now()) {
           return false;
         }
       } catch (err) {
@@ -298,13 +302,14 @@ angular.module("app.common").directive("autoHeight", function ($timeout) {
 angular.module('app.common').component('fileUpload', {
   template: "\n  <label>Application File</label>\n  <input type=\"file\" class =\"form-control\" onchange=\"angular.element(this).scope().fileNameChanged(this)\">\n  <div class=\"progress\">\n    <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\n    aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width:ctrl.currentProgress}\">\n\n    </div>\n    {{ctrl.currentProgress}}\n  </div>\n  ",
   //angular.element(element).controller().startDownload()
-  controller: function controller($scope) {
+  controller: function controller($scope, $window) {
     var self = this;
     self.currentProgress = "0%";
     var fr = new FileReader();
     fr.onload = function (loadEvent) {
       console.log("done");
-      self.file = loadEvent.target.result;
+      //encode file
+      self.file = $window.btoa(loadEvent.target.result);
       console.log(self.file);
       $scope.$apply();
     };
@@ -503,24 +508,7 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
   JobPosting.prepForPost = function (jobposting) {
     var toRet = JSON.stringify(jobposting);
     toRet = JSON.parse(toRet);
-    var tempStr = "";
-    toRet.location.forEach(function (loc) {
-      tempStr += loc.city + ", " + loc.state + "$";
-      console.log(loc);
-      console.log("arr");
-    });
-    console.log(tempStr);
-    var temp = tempStr;
-    temp = temp.substr(0, temp.length - 1);
-    toRet.location = temp;
-    tempStr = "";
-    toRet.qualification.forEach(function (qual) {
-      tempStr += qual.name + "$";
-    });
-    var temp2 = tempStr;
-    temp2 = temp2.substr(0, temp.length - 1);
-    toRet.qualification = temp2;
-    return toRet;
+    //location
   };
 
   JobPosting.formatLocationsForView = function (locations) {
@@ -560,6 +548,7 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
       //based on state init jobPosting
       if (self.formConfigOptions.state === "edit" || self.formConfigOptions.state === "view") {
         JobPosting.getOne(self.jobPosting.id).then(function (response) {
+          console.log(response);
           self.jobPosting = response.data;
           self.jobPosting.location = self.jobPosting.location.split("$");
           self.jobPosting.qualification = self.jobPosting.qualification.split("$");

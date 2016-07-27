@@ -12,13 +12,14 @@ angular.module('app.common').component('fileUpload', {
   </div>
   `,
   //angular.element(element).controller().startDownload()
-  controller: function($scope) {
+  controller: function($scope, $window) {
     const self = this;
     self.currentProgress = "0%";
     const fr = new FileReader();
     fr.onload = function(loadEvent) {
       console.log("done");
-      self.file = loadEvent.target.result;
+      //encode file
+      self.file = $window.btoa(loadEvent.target.result);
       console.log(self.file);
       $scope.$apply();
     };

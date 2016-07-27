@@ -31,24 +31,7 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
   JobPosting.prepForPost = function(jobposting) {
     let toRet = JSON.stringify(jobposting);
     toRet = JSON.parse(toRet);
-    let tempStr = "";
-    toRet.location.forEach(function(loc) {
-      tempStr += loc.city +", " +loc.state +"$";
-      console.log(loc);
-      console.log("arr");
-    });
-    console.log(tempStr);
-    let temp = tempStr;
-    temp = temp.substr(0, temp.length-1);
-    toRet.location = temp;
-    tempStr = "";
-    toRet.qualification.forEach(function(qual) {
-      tempStr += qual.name + "$";
-    });
-    let temp2 = tempStr;
-    temp2 = temp2.substr(0, temp.length-1);
-    toRet.qualification = temp2;
-    return toRet;
+    //location
   };
 
   JobPosting.formatLocationsForView = function(locations) {
@@ -89,6 +72,7 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
       if(self.formConfigOptions.state  === "edit" || self.formConfigOptions.state  === "view") {
         JobPosting.getOne(self.jobPosting.id)
         .then((response) => {
+          console.log(response);
           self.jobPosting = response.data;
           self.jobPosting.location = self.jobPosting.location.split("$");
           self.jobPosting.qualification = self.jobPosting.qualification.split("$");
