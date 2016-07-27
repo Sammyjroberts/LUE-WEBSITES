@@ -1,4 +1,20 @@
+<?php
+  if(!empty($_GET["id"]) && isset($_GET["id"])) {
+    require_once("./api/lib/dbCon.php");
+    $id = $_GET["id"];
+    $db = Db::getInstance();
+    $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting where id = :id";
+    $params = array
+    (
+        ':id' => $id
+    );
+    $sqlStatement = $db->prepare($query);
+    $res = $sqlStatement->execute($params);
+    $job = $sqlStatement->fetch(PDO::FETCH_ASSOC);
+  }
+  else {
 
+  ?>
     <!-- Page Content -->
     <div class="container">
 
@@ -44,16 +60,17 @@
               </tr>
             </thead>
             <?php
-             require_once("./api/lib/dbCon.php");
+            $id = $_GET["id"];
+             require_once './api/lib/dbCon.php';
              $db = Db::getInstance();
-             $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting";
+             $query = 'SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting';
              $sqlStatement = $db->prepare($query);
              $res = $sqlStatement->execute();
              $response = $sqlStatement->fetchAll(PDO::FETCH_ASSOC);
              foreach ($response as $row) {
-               $locStr = str_replace("$"," - ",$row['location']);
-               $locStr[$locStr]
-            echo <<<html
+                 $locStr = str_replace('$', ' - ', $row['location']);
+                $formattedDate = date("m/d/y", strtotime($row['updatedAt']));
+                 echo <<<html
               <tr>
                <td>
                  {$row['jobTitle']}
@@ -62,10 +79,10 @@
                   $locStr
                </td>
                <td>
-                 {$row['updatedAt']}
+                 $formattedDate
                </td>
                <td>
-                 <a class = "btn btn-default" href="careers/{$row['id']}">Apply!</a>
+                 <a class = "btn btn-default" href="careers/id={$row['id']}">Apply!</a>
                </td>
              </tr>
 html;
@@ -77,3 +94,4 @@ html;
     </div>
 
     </div>
+<?php } ?>
