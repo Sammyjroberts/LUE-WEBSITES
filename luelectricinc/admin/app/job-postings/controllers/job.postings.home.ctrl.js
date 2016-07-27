@@ -27,7 +27,7 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function(JobP
         name:'Contract Type'
       },
       {
-        field: 'locations',
+        field: 'location',
         name:'Locations'
       }
     ]
@@ -38,6 +38,9 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function(JobP
   JobPosting.getAll()
   .then(function(response) {
     console.log(response);
+    response.data.forEach((post) => {
+      post.location = JobPosting.formatLocationsForView(post.location);
+    });
     self.gridOptions.data = response.data;
   });
 

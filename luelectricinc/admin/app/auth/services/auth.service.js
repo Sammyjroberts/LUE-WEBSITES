@@ -17,8 +17,12 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
     if($window.localStorage[LOCAL_STORAGE_LOCATION]) {
       try {
         const token = self.getDecodedToken();
+        console.log(token.exp);
         const expDate = new Date(token.exp);
-        if(expDate >= Date.now()) {
+        console.log(expDate);
+        console.log("vs");
+        console.log(new Date(Date.now()));
+        if(expDate.getTime() <= Date.now()) {
           return false;
         }
       }
@@ -42,7 +46,9 @@ angular.module("app.auth").service("auth", function($window, $state, RouteGetter
     let token = $window.localStorage[LOCAL_STORAGE_LOCATION];
     return(JSON.parse($window.atob(token.split('.')[1])));
   };
-
+  self.getToken = function() {
+    return $window.localStorage[LOCAL_STORAGE_LOCATION];
+  };
   // run on every state change to see if we are good to swap states
   self.authenticatedStateChange = function (toState, event) {
     if(self.permissionlessStates.indexOf(toState.name.toString()) === -1) {

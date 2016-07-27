@@ -4,6 +4,7 @@ angular.module("app.auth").controller("loginCtrl", function(auth, $state) {
  self.submit = function() {
    auth.login(self.user)
    .then(function(response) {
+     console.log(response);
      auth.saveToken(response.data.token);
      $state.go("app.home");
    })

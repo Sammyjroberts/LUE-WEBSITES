@@ -18,14 +18,35 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
     const route = RouteGetter.get(model,id);
     return(authHttp.put(route, data));
   };
+  function replaceAll(str, from, to) {
+    let temp = _.split(str,from);
+    temp = _.pull(temp, "");
+    let newStr = "";
+    temp.forEach((substr) => {
+      newStr+= substr+to;
+    });
+    return newStr;
+  }
 
+  JobPosting.prepForPost = function(jobposting) {
+    let toRet = JSON.stringify(jobposting);
+    toRet = JSON.parse(toRet);
+    //location
+  };
+
+  JobPosting.formatLocationsForView = function(locations) {
+    console.log("formatting");
+    const loc = replaceAll(locations,"$", " - ");
+    console.log(loc);
+    return loc;
+  };
 
   JobPosting.initController = function(self, state) {
     return new Promise(function(resolve, reject) {
       //object model we will build
       self.jobPosting = {
-          locations:[{city:"Orange County",state:"CA"},{city:"Los Angeles",state:"CA"}],
-          qualifications: [{name:""}]
+          location:[{city:"Orange County",state:"CA"},{city:"Los Angeles",state:"CA"}],
+          qualification: [{name:""}]
 
       };
 
@@ -43,24 +64,18 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
 
       //add default opts
       if(self.formConfigOptions.state === "add") {
-        self.jobPosting.aboutLu = `A family owned business operating for over 25 years,
-        the goal of L.U. Electric, Inc. is to provide best in class service with the
-        highest level of professionalism and integrity. We value the many talents and
-        abilities of our employees, and are seeking an experienced General
-        Electrician to join ongoing projects in the OC and LA areas. We are selective
-        and careful when it comes to hiring. Plenty of room for advancement and professional development.`;
-        self.jobPosting.additionalInfo = `L.U. Electric, Inc. is committed to hiring
-        and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative
-        Action Employer, making decisions without regard to race, color, religion,
-        creed, sex, sexual orientation, gender identity, marital status, national origin,
-        age, veteran status, disability, or any other protected class. `;
+        self.jobPosting.aboutLu = `A family owned business operating for over 25 years, the goal of L.U. Electric, Inc. is to provide best in class service with the highest level of professionalism and integrity. We value the many talents and abilities of our employees, and are seeking an experienced General Electrician to join ongoing projects in the OC and LA areas. We are selective and careful when it comes to hiring. Plenty of room for advancement and professional development.`;
+        self.jobPosting.additionalInfo = `L.U. Electric, Inc. is committed to hiring and retaining a diverse workforce. We are proud to be an Equal Opportunity/Affirmative Action Employer, making decisions without regard to race, color, religion, creed, sex, sexual orientation, gender identity, marital status, national origin, age, veteran status, disability, or any other protected class. `;
       }
 
       //based on state init jobPosting
       if(self.formConfigOptions.state  === "edit" || self.formConfigOptions.state  === "view") {
-        self.getOne(self.jobPosting.id)
+        JobPosting.getOne(self.jobPosting.id)
         .then((response) => {
+          console.log(response);
           self.jobPosting = response.data;
+          self.jobPosting.location = self.jobPosting.location.split("$");
+          self.jobPosting.qualification = self.jobPosting.qualification.split("$");
           resolve(self);
         })
         .catch((err) => {
