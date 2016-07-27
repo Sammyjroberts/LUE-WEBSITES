@@ -82,7 +82,6 @@ class Authentication {
 
         $date = new DateTime();
         $currentTime = $date->getTimestamp();
-
         $expirationTime = $currentTime + (60*60*12);
 
         $token = array
