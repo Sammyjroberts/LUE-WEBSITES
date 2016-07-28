@@ -43,14 +43,30 @@ html;
       echo <<<html
             </ul>
             <h5 class = "page-header">Job Application</h5>
-            <a target="_blank" title="Download {$job['fileName']}" download="{$job['fileName']}" href="data:application/octet-stream;charset=utf-16le;base64,{$job['application']}"><i class="fa fa-2x fa-file-pdf-o"></i></a>
-               <br>Please download the application, fill it out and email to: <a href="mailto:$careerContact">$careerContact</a>
-               </p>
+            <p>
+                <ul>
+                    <li>Please
+                        <a target="_blank" title="Download {$job['fileName']}" download="{$job['fileName']}" href="data:application/octet-stream;charset=utf-16le;base64,{$job['application']}">
+                            download</a>
+                        and complete the application.</li>
+                    <li>Completed applications can be emailed to:
+                        <a href="mailto:$careerContact">$careerContact</a>
+                    </li>
+                </ul>
+
+                <a target="_blank" title="Download {$job['fileName']}" download="{$job['fileName']}" href="data:application/octet-stream;charset=utf-16le;base64,{$job['application']}">
+                    <button type="button" class="btn btn-default" >
+                        <i class="fa fa-lg fa-file-pdf-o"></i>
+                        Download Application
+                    </button>
+                </a>
+
+            </p>
 
             <h5 class = "page-header">Additional information</h5>
-              <p>{$job['additionalInfo']}
-              <br><b>Please email resume to <a href="mailto:$careerContact">$careerContact</a><b>
-              </p>
+            <p>{$job['additionalInfo']}
+            <br><b>Please email resume to <a href="mailto:$careerContact">$careerContact</a><b>
+            </p>
           </div>
       </div>
     </div>
