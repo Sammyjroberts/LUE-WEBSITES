@@ -1,4 +1,4 @@
-angular.module("app.jobpostings").controller("JobPostingAddCtrl", function(FormHelpers, JobPosting, authHttp, $state) {
+angular.module("app.jobpostings").controller("JobPostingAddCtrl", function(FormHelpers, JobPosting, authHttp, $state, AlertPopper) {
   const self = this;
   JobPosting.initController(self, "add");
   self.submit = function() {
@@ -10,9 +10,11 @@ angular.module("app.jobpostings").controller("JobPostingAddCtrl", function(FormH
     JobPosting.post(postingToPost)
     .then(function(response) {
       console.log(response);
+      AlertPopper.popAlert("success","Job Posing Created!");
       $state.go("app.jobpostings.home");
     })
     .catch(function(err) {
+      AlertPopper.popAlert("error",err.data.message);
       console.error(err);
     });
   };

@@ -1,5 +1,29 @@
 /* TODO decide if we should use constant vars for layout (no supported in some browsers)*/
 
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.bs-callout-danger {
+    border-left-color: #ce4844;
+    color: #ce4844;
+    background-color: #f2dede;
+}
+.bs-callout-success {
+    border-left-color: #3c763d;
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+.bs-callout-warning {
+    border-left-color: #aa6708;
+}
+.bs-callout-info {
+    border-left-color: #1b809e;
+}
+
 /* -----------------------------------------SIDEBAR CSS---------------------------------------------------------------*/
 /* main sidebar css for the app */
 .sidebar {

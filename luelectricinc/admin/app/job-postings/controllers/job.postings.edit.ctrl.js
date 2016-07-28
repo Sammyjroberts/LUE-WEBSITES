@@ -1,4 +1,4 @@
-angular.module("app.jobpostings").controller("JobPostingEditCtrl", function(JobPosting, $stateParams, $state) {
+angular.module("app.jobpostings").controller("JobPostingEditCtrl", function(JobPosting, $stateParams, $state, AlertPopper) {
   const self = this;
   self.stateParams = $stateParams;
   JobPosting.initController(self, "edit")
@@ -24,9 +24,11 @@ angular.module("app.jobpostings").controller("JobPostingEditCtrl", function(JobP
     JobPosting.put(postingToPost, $stateParams.id)
     .then(function(response) {
       console.log(response);
+      AlertPopper.popAlert("success","Job Posing Edited!");
       $state.go("app.jobpostings.home");
     })
     .catch(function(err) {
+      AlertPopper.popAlert("error",err.data.message);
       console.error(err);
     });
   };

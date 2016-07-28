@@ -1,4 +1,4 @@
-angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function(JobPosting) {
+angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function(JobPosting, AlertPopper) {
   const self = this;
   console.log("in home ctrl");
 
@@ -42,6 +42,9 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function(JobP
       post.location = JobPosting.formatLocationsForView(post.location);
     });
     self.gridOptions.data = response.data;
+  })
+  .catch(function(err) {
+    AlertPopper.popAlert("error",err.data.message);
   });
 
 });

@@ -111,15 +111,17 @@ angular.module('app.layout', ['ui.router']).config(function ($stateProvider, $ur
   $urlRouterProvider.otherwise('/home');
 });
 
-angular.module("app.auth").controller("loginCtrl", function (auth, $state) {
+angular.module("app.auth").controller("loginCtrl", function (auth, $state, AlertPopper) {
   var self = this;
   self.user = {};
   self.submit = function () {
     auth.login(self.user).then(function (response) {
       console.log(response);
       auth.saveToken(response.data.token);
+      AlertPopper.popAlert("success", "Logged In");
       $state.go("app.home");
     }).catch(function (err) {
+      AlertPopper.popAlert("error", err.data.message);
       console.error(err);
     });
   };
@@ -276,6 +278,38 @@ angular.module('app.common').component('addManyQualifications', {
   }
 });
 
+angular.module('app.common').component('alertBox', {
+  template: "\n    <div ng-class =\"ctrl.class\" style=\"position: fixed; bottom:0px; right:0px;\">\n      <h1><b>{{ctrl.type.toUpperCase()}}</b></h1>\n      <p>{{ctrl.msg}}</p\n    </div>\n  ",
+  //angular.element(element).controller().startDownload()
+  controller: function controller($scope) {
+    var self = this;
+    console.log(self);
+    self.class = [];
+    self.class.push("bs-callout");
+
+    switch (self.type) {
+      case "error":
+        self.class.push("bs-callout-danger");
+        break;
+      case "warning":
+        self.class.push("alert-warning");
+        break;
+      case "success":
+        self.class.push("bs-callout-success");
+        break;
+      default:
+        self.class.push("alert-danger");
+        break;
+
+    }
+  },
+  controllerAs: "ctrl",
+  bindings: {
+    type: "=",
+    msg: "="
+  }
+});
+
 angular.module("app.common").directive("autoHeight", function ($timeout) {
   return {
     restrict: 'A',
@@ -330,7 +364,7 @@ angular.module('app.common').component('fileUpload', {
 });
 
 angular.module('app.common').component('previewJobPosting', {
-  template: "\n    <div class=\"container-fluid col-md-12\">\n\n  <!-- Page Content -->\n  <i ng-click=\"ctrl.flip()\" class=\" btn fa fa-minus-square-o fa-2x pull-right\"></i>\n  <div ng-hide =\"ctrl.minimize\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-lg-12\">\n\n\n          <h1 class = \"page-header\">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.location | location}}</small></h1>\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body\">\n              <h5 class = \"page-header\">About L.U. ELECTRIC, INC.</h5>\n              <p>\n                {{ctrl.jobPosting.aboutLu}}\n              </p>\n              <h5 class = \"page-header\">Job Description</h5>\n              <p>\n                {{ctrl.jobPosting.jobDescription}}\n              </p>\n              <h5 class=\"page-header\">Preferred Qualifications</h5>\n              <ul>\n                <li ng-repeat=\"qualification in ctrl.jobPosting.qualification track by $index\">{{qualification.name}}</li>\n              </ul>\n              <h5 class = \"page-header\">Additional information</h5>\n                <p>\n                {{ctrl.jobPosting.additionalInfo}}\n                <br><b>Please email resume to <a href=\"mailto:<?php echo CAREER_CONTACT ?>\"><?php echo CAREER_CONTACT ?>.</a><b>\n                </p>\n            </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n  ",
+  template: "\n  <div class=\"container-fluid col-md-12\">\n\n<!-- Page Content -->\n<i ng-click=\"ctrl.flip()\" class=\" btn fa fa-minus-square-o fa-2x pull-right\"></i>\n<div ng-hide =\"ctrl.minimize\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n\n        <h1 class = \"page-header\">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.location | location}}</small></h1>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-body\">\n            <h5 class = \"page-header\">About L.U. ELECTRIC, INC.</h5>\n            <p>\n              {{ctrl.jobPosting.aboutLu}}\n            </p>\n            <h5 class = \"page-header\">Job Description</h5>\n            <p>\n              {{ctrl.jobPosting.jobDescription}}\n            </p>\n            <h5 class=\"page-header\">Preferred Qualifications</h5>\n            <ul>\n              <li ng-repeat=\"qualification in ctrl.jobPosting.qualification track by $index\">{{qualification.name}}</li>\n            </ul>\n            <h5 class = \"page-header\">Additional information</h5>\n              <p>\n              {{ctrl.jobPosting.additionalInfo}}\n              <br>\n              <b>Please email resume to <a href=\"mailto:<?php echo CAREER_CONTACT ?>\"><?php echo CAREER_CONTACT ?>.</a></b>b>\n              </p>\n          </div>\n      </div>\n    </div>\n  </div>\n</div>\n</div>\n</div>\n  ",
   controller: function controller() {
 
     var self = this;
@@ -358,6 +392,26 @@ angular.module('app.common').filter('location', function () {
     }
     return out;
   };
+});
+
+angular.module("app.common").service("AlertPopper", function ($compile, $rootScope, $timeout) {
+  var self = this;
+  self.popAlert = function (type, msg, dur) {
+    if (!dur) {
+      dur = 3000;
+    }
+    console.log("in");
+    var scope = $rootScope.$new(true);
+    scope.msg = msg;
+    scope.type = type;
+    var elem = $compile("<alert-box type='type' msg='msg'></alert-box>")(scope);
+    angular.element(document).find('body').append(elem);
+    console.log(elem);
+    $timeout(function () {
+      elem.remove();
+    }, dur);
+  };
+  return self;
 });
 
 angular.module("app.common").service("FormHelpers", function () {
@@ -414,7 +468,7 @@ angular.module("app.common").service("RouteGetter", function () {
 angular.module('app.home').controller("homeCtrl", function () {
   console.log("Hello World");
 });
-angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (FormHelpers, JobPosting, authHttp, $state) {
+angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (FormHelpers, JobPosting, authHttp, $state, AlertPopper) {
   var self = this;
   JobPosting.initController(self, "add");
   self.submit = function () {
@@ -425,14 +479,16 @@ angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (Form
 
     JobPosting.post(postingToPost).then(function (response) {
       console.log(response);
+      AlertPopper.popAlert("success", "Job Posing Created!");
       $state.go("app.jobpostings.home");
     }).catch(function (err) {
+      AlertPopper.popAlert("error", err.data.message);
       console.error(err);
     });
   };
 });
 
-angular.module("app.jobpostings").controller("JobPostingEditCtrl", function (JobPosting, $stateParams, $state) {
+angular.module("app.jobpostings").controller("JobPostingEditCtrl", function (JobPosting, $stateParams, $state, AlertPopper) {
   var self = this;
   self.stateParams = $stateParams;
   JobPosting.initController(self, "edit").then(function (response) {
@@ -454,14 +510,16 @@ angular.module("app.jobpostings").controller("JobPostingEditCtrl", function (Job
 
     JobPosting.put(postingToPost, $stateParams.id).then(function (response) {
       console.log(response);
+      AlertPopper.popAlert("success", "Job Posing Edited!");
       $state.go("app.jobpostings.home");
     }).catch(function (err) {
+      AlertPopper.popAlert("error", err.data.message);
       console.error(err);
     });
   };
 });
 
-angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (JobPosting) {
+angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (JobPosting, AlertPopper) {
   var self = this;
   console.log("in home ctrl");
 
@@ -495,6 +553,8 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (Job
       post.location = JobPosting.formatLocationsForView(post.location);
     });
     self.gridOptions.data = response.data;
+  }).catch(function (err) {
+    AlertPopper.popAlert("error", err.data.message);
   });
 });
 
