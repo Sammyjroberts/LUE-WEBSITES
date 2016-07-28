@@ -29,11 +29,15 @@ angular.module('app.common').component('fileUpload', {
       $scope.$apply();
     };
     $scope.fileNameChanged = function(guy) {
+      self.name = guy.files[0].name;
+      console.log("-----------" + self.name+ "------------");
       fr.readAsBinaryString(guy.files[0]);
+      $scope.$apply();
     };
   },
   controllerAs:"ctrl",
   bindings: {
-    file: '='
+    file: '=',
+    name: '='
   }
 });

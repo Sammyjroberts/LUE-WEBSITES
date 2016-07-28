@@ -1,7 +1,10 @@
 angular.module("app.jobpostings").controller("JobPostingEditCtrl", function(JobPosting, $stateParams, $state) {
   const self = this;
   self.stateParams = $stateParams;
-  JobPosting.initController(self, "edit");
+  JobPosting.initController(self, "edit")
+  .then(function(response) {
+    console.log("data:application/octet-stream;charset=utf-16le;base64,"+self.jobPosting.application);
+  })
   self.delete = function() {
     JobPosting.delete($stateParams.id)
     .then(function(response) {

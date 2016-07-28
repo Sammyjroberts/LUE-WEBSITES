@@ -10,6 +10,9 @@ angular.module('app',[
     "app.jobpostings"
 ])
 .constant('_', window._)
+.config(function() {
+
+})
 .run(function ($rootScope, $state, $stateParams, auth) {
     $rootScope.$on("$stateChangeStart", (function(event, toState, toParams, fromState, fromParams) {
 

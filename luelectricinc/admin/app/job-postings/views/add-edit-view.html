@@ -26,8 +26,12 @@
 
           <label>Addition Info</label>
           <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.additionalInfo"></textarea>
+          <label for="">Application Download <i class="fa fa-file-pdf-o"></i></label>
+          <button class ="form-control" ng-show="ctrl.formConfigOptions.state == 'view'|| ctrl.formConfigOptions.state == 'edit'" ng-click="ctrl.downloadPDF()">Download</button>
 
-          <file-upload file="ctrl.jobPosting.application"></file-upload>
+          <file-upload file="ctrl.jobPosting.application" name="ctrl.jobPosting.fileName" ng-show="ctrl.formConfigOptions.state == 'edit'|| ctrl.formConfigOptions.state == 'add'"></file-upload>
+
+          {{ctrl.jobPosting.fileName}}
 
           <add-many-locations title="Locations" src-array="ctrl.jobPosting.location"></add-many-locations>
 
