@@ -23,7 +23,7 @@ echo <<<html
       <div class="col-lg-12">
 
 
-        <h1 class = "page-header">{$job['jobTitle']} <small>{$job['contractType']} <br>{$formattedLocations}</small></h1>
+        <h1 class = "page-header">{$job['jobTitle']} <small>{$job['contractType']} <br>{$formattedLocation}</small></h1>
         <div class="panel panel-default">
           <div class="panel-body">
             <h5 class = "page-header">About L.U. ELECTRIC, INC.</h5>
@@ -40,7 +40,9 @@ html;
               foreach ($quals as $qual) {
                 echo "<li>" . $qual . "</li>";
               }
-      echo <<<html
+              echo "</ul>";
+              if(isset($job['application']) && !empty($job['application'])){
+echo <<<html
             </ul>
             <h5 class = "page-header">Job Application</h5>
             <p>
@@ -53,16 +55,17 @@ html;
                         <a href="mailto:$careerContact">$careerContact</a>
                     </li>
                 </ul>
-
                 <a target="_blank" title="Download {$job['fileName']}" download="{$job['fileName']}" href="data:application/octet-stream;charset=utf-16le;base64,{$job['application']}">
                     <button type="button" class="btn btn-default" >
                         <i class="fa fa-lg fa-file-pdf-o"></i>
                         Download Application
                     </button>
                 </a>
-
             </p>
+html;
+}
 
+echo <<<html
             <h5 class = "page-header">Additional information</h5>
             <p>{$job['additionalInfo']}
             <br><b>Please email resume to <a href="mailto:$careerContact">$careerContact</a><b>

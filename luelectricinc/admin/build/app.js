@@ -347,7 +347,7 @@ angular.module('app.common').component('previewJobPosting', {
 
 angular.module('app.common').filter('location', function () {
   return function (input) {
-    console.log(input);
+    // console.log(input);
     var out = "";
     for (var lcv = 0; lcv < input.length; lcv++) {
       if (lcv !== input.length - 1) {
@@ -543,6 +543,7 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
   JobPosting.prepForPost = function (jobposting) {
     var toRet = JSON.stringify(jobposting);
     toRet = JSON.parse(toRet);
+    console.log(toRet);
     var tempStr = "";
     toRet.location.forEach(function (loc) {
       tempStr += loc.city + ", " + loc.state + "$";
@@ -555,10 +556,11 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
     toRet.location = temp;
     tempStr = "";
     toRet.qualification.forEach(function (qual) {
+      console.log(qual);
       tempStr += qual.name + "$";
     });
     var temp2 = tempStr;
-    temp2 = temp2.substr(0, temp.length - 1);
+    temp2 = temp2.substr(0, temp2.length - 1);
     toRet.qualification = temp2;
     return toRet;
   };

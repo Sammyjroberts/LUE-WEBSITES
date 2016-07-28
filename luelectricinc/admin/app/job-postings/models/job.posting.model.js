@@ -38,6 +38,7 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
     JobPosting.prepForPost = function(jobposting) {
         let toRet = JSON.stringify(jobposting);
         toRet = JSON.parse(toRet);
+        console.log(toRet);
         let tempStr = "";
         toRet.location.forEach(function(loc) {
             tempStr += loc.city + ", " + loc.state + "$";
@@ -50,10 +51,11 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
         toRet.location = temp;
         tempStr = "";
         toRet.qualification.forEach(function(qual) {
+            console.log(qual);
             tempStr += qual.name + "$";
         });
         let temp2 = tempStr;
-        temp2 = temp2.substr(0, temp.length - 1);
+        temp2 = temp2.substr(0, temp2.length - 1);
         toRet.qualification = temp2;
         return toRet;
     };
