@@ -2,15 +2,15 @@ angular.module('app.common').component('addManyQualifications', {
   template: `
   <div>
     <label>{{ctrl.title}}</label>
-    <button class ="btn btn-default form-control" ng-click="ctrl.addNew()">Add New {{ctrl.title}}</button>
+    <button class ="btn btn-default form-control" ng-click="ctrl.addNew()" ng-disabled = "ctrl.readOnly">Add New {{ctrl.title}}</button>
     <p></p>
     <div ng-repeat ="item in ctrl.srcArray track by $index">
       <div class = "row form-group">
         <div class ="col-md-11">
-          <input placeholder="{{ctrl.title}}..." ng-model="item.name" class = "form-control" type = "text">
+          <input placeholder="{{ctrl.title}}..." ng-model="item.name" class = "form-control" type = "text" ng-readOnly = "ctrl.readOnly">
         </div>
         <div class ="col-md-1">
-          <i class ="fa fa-minus fa-2x" ng-click="ctrl.removeItem($index)"></i>
+          <i class ="fa fa-minus fa-2x" ng-click="ctrl.removeItem($index)" ng-hide = "ctrl.readOnly"></i>
         </div>
       </div>
     </div>
@@ -29,6 +29,7 @@ angular.module('app.common').component('addManyQualifications', {
   controllerAs:"ctrl",
   bindings: {
     srcArray: '=',
-    title: '@'
+    title: '@',
+    readOnly :"="
   }
 });

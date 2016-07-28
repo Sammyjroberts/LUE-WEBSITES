@@ -238,7 +238,7 @@ angular.module("app.auth").service("auth", function ($window, $state, RouteGette
 });
 
 angular.module('app.common').component('addManyLocations', {
-  template: "\n  <div>\n    <label>{{ctrl.title}}</label>\n    <button class =\"btn btn-default form-control\" ng-click=\"ctrl.addNew()\">Add New {{ctrl.title}}</button>\n    <p></p>\n    <div ng-repeat =\"item in ctrl.srcArray track by $index\">\n      <div class = \"row form-group\">\n        <div class =\"col-md-6\">\n          <input placeholder=\"{{ctrl.title}}...\" ng-model=\"item.city\" class = \"form-control\" type = \"text\">\n        </div>\n        <div class =\"col-md-5\">\n          <select class = \"form-control\" ng-model =\"item.state\">\n            <option value=\"CA\">California</option>\n            <option value=\"AZ\">Arizona</option>\n          </select>\n        </div>\n        <div class =\"col-md-1\">\n          <i class =\"fa fa-minus fa-2x\" ng-click=\"ctrl.removeItem($index)\"></i>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
+  template: "\n  <div>\n    <label>{{ctrl.title}}</label>\n    <button class =\"btn btn-default form-control\" ng-click=\"ctrl.addNew()\" ng-disabled = \"ctrl.readOnly\">Add New {{ctrl.title}}</button>\n    <p></p>\n    <div ng-repeat =\"item in ctrl.srcArray track by $index\">\n      <div class = \"row form-group\">\n        <div class =\"col-md-6\">\n          <input placeholder=\"{{ctrl.title}}...\" ng-model=\"item.city\" class = \"form-control\" type = \"text\" ng-readOnly = \"ctrl.readOnly\">\n        </div>\n        <div class =\"col-md-5\">\n          <select class = \"form-control\" ng-model =\"item.state\" ng-disabled = \"ctrl.readOnly\">\n            <option value=\"CA\">California</option>\n            <option value=\"AZ\">Arizona</option>\n          </select>\n        </div>\n        <div class =\"col-md-1\">\n          <i class =\"fa fa-minus fa-2x\" ng-click=\"ctrl.removeItem($index)\" ng-hide = \"ctrl.readOnly\"></i>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
   controller: function controller() {
     var self = this;
     self.addNew = function () {
@@ -251,12 +251,13 @@ angular.module('app.common').component('addManyLocations', {
   controllerAs: "ctrl",
   bindings: {
     srcArray: '=',
-    title: '@'
+    title: '@',
+    readOnly: '='
   }
 });
 
 angular.module('app.common').component('addManyQualifications', {
-  template: "\n  <div>\n    <label>{{ctrl.title}}</label>\n    <button class =\"btn btn-default form-control\" ng-click=\"ctrl.addNew()\">Add New {{ctrl.title}}</button>\n    <p></p>\n    <div ng-repeat =\"item in ctrl.srcArray track by $index\">\n      <div class = \"row form-group\">\n        <div class =\"col-md-11\">\n          <input placeholder=\"{{ctrl.title}}...\" ng-model=\"item.name\" class = \"form-control\" type = \"text\">\n        </div>\n        <div class =\"col-md-1\">\n          <i class =\"fa fa-minus fa-2x\" ng-click=\"ctrl.removeItem($index)\"></i>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
+  template: "\n  <div>\n    <label>{{ctrl.title}}</label>\n    <button class =\"btn btn-default form-control\" ng-click=\"ctrl.addNew()\" ng-disabled = \"ctrl.readOnly\">Add New {{ctrl.title}}</button>\n    <p></p>\n    <div ng-repeat =\"item in ctrl.srcArray track by $index\">\n      <div class = \"row form-group\">\n        <div class =\"col-md-11\">\n          <input placeholder=\"{{ctrl.title}}...\" ng-model=\"item.name\" class = \"form-control\" type = \"text\" ng-readOnly = \"ctrl.readOnly\">\n        </div>\n        <div class =\"col-md-1\">\n          <i class =\"fa fa-minus fa-2x\" ng-click=\"ctrl.removeItem($index)\" ng-hide = \"ctrl.readOnly\"></i>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
   controller: function controller() {
     var self = this;
     console.log("in add many ctrl");
@@ -270,7 +271,8 @@ angular.module('app.common').component('addManyQualifications', {
   controllerAs: "ctrl",
   bindings: {
     srcArray: '=',
-    title: '@'
+    title: '@',
+    readOnly: "="
   }
 });
 
@@ -597,7 +599,7 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
 
       //form state
       self.formConfigOptions = FormHelpers.formStateOpts(state);
-
+      console.log(self.formConfigOptions);
       //add default opts
       if (self.formConfigOptions.state === "add") {
         self.jobPosting.aboutLu = "A family owned business operating for over 25 years, the goal of L.U. Electric, Inc. is to provide best in class service with the highest level of professionalism and integrity. We value the many talents and abilities of our employees, and are seeking an experienced General Electrician to join ongoing projects in the OC and LA areas. We are selective and careful when it comes to hiring. Plenty of room for advancement and professional development.";

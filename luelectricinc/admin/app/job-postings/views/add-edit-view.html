@@ -4,38 +4,36 @@
     <form novalidate>
       <div class="col-md-8 col-md-offset-2">
           <label>Status</label>
-          <select class="form-control" ng-model="ctrl.jobPosting.status">
+          <select class="form-control" ng-model="ctrl.jobPosting.status" ng-disabled ="ctrl.formConfigOptions.readOnly">
               <option value="inactive">Inactive</option>
               <option value="active">Active</option>
           </select>
 
           <label>Job Title</label>
-          <input class="form-control" type="text" ng-model="ctrl.jobPosting.jobTitle">
+          <input class="form-control" type="text" ng-model="ctrl.jobPosting.jobTitle" ng-readonly = "ctrl.formConfigOptions.readOnly">
 
           <label>Job Description</label>
-          <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.jobDescription"></textarea>
+          <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.jobDescription" ng-readonly = "ctrl.formConfigOptions.readOnly"></textarea>
 
           <label>About L.U.</label>
-          <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.aboutLu"></textarea>
+          <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.aboutLu" ng-readonly = "ctrl.formConfigOptions.readOnly"></textarea>
 
           <label>Contract Type</label>
-          <select class="form-control" ng-model="ctrl.jobPosting.contractType">
+          <select class="form-control" ng-model="ctrl.jobPosting.contractType" ng-disabled ="ctrl.formConfigOptions.readOnly">
               <option value="Full-Time">Full-Time</option>
               <option value="Part-Time">Part-Time</option>
           </select>
 
           <label>Addition Info</label>
-          <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.additionalInfo"></textarea>
+          <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.additionalInfo" ng-readonly = "ctrl.formConfigOptions.readOnly"></textarea>
           <label for="">Application Download <i class="fa fa-file-pdf-o"></i></label>
           <button class ="form-control" ng-show="ctrl.formConfigOptions.state == 'view'|| ctrl.formConfigOptions.state == 'edit'" ng-click="ctrl.downloadPDF()">Download</button>
 
           <file-upload file="ctrl.jobPosting.application" name="ctrl.jobPosting.fileName" ng-show="ctrl.formConfigOptions.state == 'edit'|| ctrl.formConfigOptions.state == 'add'"></file-upload>
 
-          {{ctrl.jobPosting.fileName}}
+          <add-many-locations title="Locations" src-array="ctrl.jobPosting.location" read-only ="ctrl.formConfigOptions.readOnly"></add-many-locations>
 
-          <add-many-locations title="Locations" src-array="ctrl.jobPosting.location"></add-many-locations>
-
-          <add-many-qualifications title="Qualifications" src-array="ctrl.jobPosting.qualification"></add-many-qualifications>
+          <add-many-qualifications title="Qualifications" src-array="ctrl.jobPosting.qualification"read-only ="ctrl.formConfigOptions.readOnly"></add-many-qualifications>
           <input type="submit" class="btn btn-primary pull-right" ng-click="ctrl.submit()" ng-show="ctrl.formConfigOptions.canSubmit" value="Submit">
           <button type="button" class="btn btn-danger pull-right" ng-click="ctrl.delete()" ng-show="ctrl.formConfigOptions.canDelete">Delete</button>
       </div>
