@@ -11,9 +11,9 @@ class JobPosting {
         $query = <<<QUERY
         INSERT INTO `job_posting`
 (`created_at`,`updated_at`,`job_description`,`location`,`qualifications`,`about_lu`,
-`status`,`contract_type`,`additional_info`,`job_title`,`application`)
+`status`,`contract_type`,`additional_info`,`job_title`, `file_name`, `application`)
 VALUES(NOW(),NOW(),:jobDescription,:location,:qualifications,:about_lu,:status,:contract_type,
-:additional_info,:job_title,:application)
+:additional_info,:job_title,:file_name,:application)
 QUERY;
         $params = array
         (
@@ -25,7 +25,8 @@ QUERY;
             ':contract_type'   => $data->contractType,
             ':additional_info' => $data->additionalInfo,
             ':job_title'       => $data->jobTitle,
-            ':application'     => $data->application,
+            ':file_name'       => $data->fileName,
+            ':application'     => $data->application
         );
         try{
             $sqlStatement = $db->prepare($query);
@@ -59,6 +60,7 @@ SET
 `contract_type` = :contract_type,
 `additional_info` = :additional_info,
 `job_title` = :job_title,
+`file_name` = :file_name,
 `application` = :application
 WHERE `id` = :id;
 QUERY;
@@ -73,7 +75,8 @@ QUERY;
                 ':contract_type'   => $data->contractType,
                 ':additional_info' => $data->additionalInfo,
                 ':job_title'       => $data->jobTitle,
-                ':application'     => $data->application,
+                ':file_name'       => $data->fileName,
+                ':application'     => $data->application
             );
 
             try{
@@ -98,7 +101,7 @@ QUERY;
     static function getAll(){
         try{
             $db = Db::getInstance();
-            $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting";
+            $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, file_name as fileName, application FROM job_posting";
             $sqlStatement = $db->prepare($query);
             $res = $sqlStatement->execute();
             $response = $sqlStatement->fetchAll(PDO::FETCH_ASSOC);
@@ -115,7 +118,7 @@ QUERY;
         if(JobPosting::idExists($id)){
             try{
                 $db = Db::getInstance();
-                $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting where id = :id";
+                $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, file_name as fileName, application FROM job_posting where id = :id";
                 $params = array
                 (
                     ':id' => $id

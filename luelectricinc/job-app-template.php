@@ -40,11 +40,10 @@ html;
               foreach ($quals as $qual) {
                 echo "<li>" . $qual . "</li>";
               }
-
       echo <<<html
             </ul>
             <h5 class = "page-header">Job Application</h5>
-            <a target="_blank" title="Download {$job['jobTitle']}-application.pdf" download='{$job['jobTitle']}-application.pdf' href="data:application/octet-stream;charset=utf-16le;base64,{$job['application']}"><i class="fa fa-2x fa-file-pdf-o"></i></a>
+            <a target="_blank" title="Download {$job['fileName']}" download="{$job['fileName']}" href="data:application/octet-stream;charset=utf-16le;base64,{$job['application']}"><i class="fa fa-2x fa-file-pdf-o"></i></a>
                <br>Please download the application, fill it out and email to: <a href="mailto:$careerContact">$careerContact</a>
                </p>
 

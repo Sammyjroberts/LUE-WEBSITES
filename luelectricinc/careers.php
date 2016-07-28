@@ -3,7 +3,7 @@
   if($showCareers) {
     require_once("./api/lib/dbCon.php");
     $db = Db::getInstance();
-    $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, application FROM job_posting where id = :id";
+    $query = "SELECT id, created_at as createdAt, updated_at as updatedAt, job_description as jobDescription, location, qualifications as qualification, about_lu as aboutLu, status, contract_type as contractType, additional_info as additionalInfo, job_title as jobTitle, file_name as fileName, application FROM job_posting where id = :id";
     $params = array
     (
         ':id' => $id

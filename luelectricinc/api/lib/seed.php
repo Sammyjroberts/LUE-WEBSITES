@@ -35,6 +35,7 @@ function createJobPostings(){
       `contract_type` enum('Full-Time','Part-Time') DEFAULT NULL,
       `additional_info` text,
       `job_title` tinytext NOT NULL,
+      `file_name` tinytext NOT NULL,
       `application` longblob,
       PRIMARY KEY (`id`)
     ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;
@@ -73,6 +74,7 @@ function seedUsers(){
             'contractType' => "The contract type $i",
             'additionalInfo' => "additional info about the job $i",
             'jobTitle' => "Job Title $i",
+            'fileName' => "seedFile.pdf",
             'application' => "someb64Data $i",
             'location' => 'Orange County, CA$Los Angeles, CA$San Francisco, CA$New Kid, CA',
             'contractType' => 'Full-Time',
