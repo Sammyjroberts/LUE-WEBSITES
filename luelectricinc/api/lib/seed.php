@@ -63,9 +63,9 @@ SQL;
 }
 
 function seedUsers(){
-    // CryptoService::createAccount("admin", "actuallyNew@44x!!");
-    CryptoService::createAccount("admin", "admin");
-    for($i = 1; $i <= 5; $i++){
+    CryptoService::createAccount("admin", "lue@careers123!");
+    //CryptoService::createAccount("admin", "admin");
+    for($i = 1; $i <= 0; $i++){
         $json = array
         (
             'jobDescription' => "job desc $i",
