@@ -5,7 +5,7 @@ angular.module("app.jobpostings").controller("JobPostingAddCtrl", function(FormH
     console.log("submitting");
     console.log(self.jobPosting);
     const postingToPost = JobPosting.prepForPost(self.jobPosting);
-    console.log(JSON.stringify(postingToPost));
+    console.log(postingToPost);
 
     JobPosting.post(postingToPost)
     .then(function(response) {

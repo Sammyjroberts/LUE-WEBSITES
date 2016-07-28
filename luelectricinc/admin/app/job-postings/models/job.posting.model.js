@@ -145,6 +145,16 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
                         });
                         self.jobPosting.qualification = formattedQuals;
                         console.log(self.jobPosting);
+                        self.downloadPDF = function() {
+                          var elem = document.createElement("a");
+                          elem.href = "data:application/octet-stream;charset=utf-16le;base64,"+self.jobPosting.application;
+                          elem.download = self.jobPosting.fileName;
+                          elem.target ="_blank";
+                          elem.click();
+                          elem.remove();
+                        }
+
+
                         resolve(self);
                     })
                     .catch((err) => {

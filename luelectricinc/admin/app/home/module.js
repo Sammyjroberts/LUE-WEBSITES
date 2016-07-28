@@ -9,7 +9,7 @@ angular.module('app.home', ['ui.router'])
                 url: "/home",
                 views: {
                     "content@app": {
-                        template: '<div><h1>Hello World</h1></div>',
+                        template: '<div class = "container-fluid"><h1 class = "page-header">Welcome to the LUE Website Administration Application</h1></div>',
                         controller: "homeCtrl"
                     }
                 }

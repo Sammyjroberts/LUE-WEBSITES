@@ -4,7 +4,7 @@ angular.module('app', [
 //external
 "ui.router", "ui.grid",
 //internal
-"app.common", "app.auth", "app.layout", "app.home", "app.jobpostings"]).constant('_', window._).run(function ($rootScope, $state, $stateParams, auth) {
+"app.common", "app.auth", "app.layout", "app.home", "app.jobpostings"]).constant('_', window._).config(function () {}).run(function ($rootScope, $state, $stateParams, auth) {
   $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
 
     auth.authenticatedStateChange(toState, event);
@@ -40,7 +40,7 @@ angular.module('app.home', ['ui.router']).config(function ($stateProvider) {
     url: "/home",
     views: {
       "content@app": {
-        template: '<div><h1>Hello World</h1></div>',
+        template: '<div class = "container-fluid"><h1 class = "page-header">Welcome to the LUE Website Administration Application</h1></div>',
         controller: "homeCtrl"
       }
     }
@@ -314,12 +314,16 @@ angular.module('app.common').component('fileUpload', {
       $scope.$apply();
     };
     $scope.fileNameChanged = function (guy) {
+      self.name = guy.files[0].name;
+      console.log("-----------" + self.name + "------------");
       fr.readAsBinaryString(guy.files[0]);
+      $scope.$apply();
     };
   },
   controllerAs: "ctrl",
   bindings: {
-    file: '='
+    file: '=',
+    name: '='
   }
 });
 
@@ -415,7 +419,7 @@ angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (Form
     console.log("submitting");
     console.log(self.jobPosting);
     var postingToPost = JobPosting.prepForPost(self.jobPosting);
-    console.log(JSON.stringify(postingToPost));
+    console.log(postingToPost);
 
     JobPosting.post(postingToPost).then(function (response) {
       console.log(response);
@@ -429,7 +433,9 @@ angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (Form
 angular.module("app.jobpostings").controller("JobPostingEditCtrl", function (JobPosting, $stateParams, $state) {
   var self = this;
   self.stateParams = $stateParams;
-  JobPosting.initController(self, "edit");
+  JobPosting.initController(self, "edit").then(function (response) {
+    console.log("data:application/octet-stream;charset=utf-16le;base64," + self.jobPosting.application);
+  });
   self.delete = function () {
     JobPosting.delete($stateParams.id).then(function (response) {
       console.log(response);
@@ -639,6 +645,15 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
           });
           self.jobPosting.qualification = formattedQuals;
           console.log(self.jobPosting);
+          self.downloadPDF = function () {
+            var elem = document.createElement("a");
+            elem.href = "data:application/octet-stream;charset=utf-16le;base64," + self.jobPosting.application;
+            elem.download = self.jobPosting.fileName;
+            elem.target = "_blank";
+            elem.click();
+            elem.remove();
+          };
+
           resolve(self);
         }).catch(function (err) {
           console.error(err);
