@@ -25,7 +25,7 @@
 
           <label>Addition Info</label>
           <textarea auto-height class="form-control" ng-model="ctrl.jobPosting.additionalInfo" ng-readonly = "ctrl.formConfigOptions.readOnly"></textarea>
-          <label for="">Application Download <i class="fa fa-file-pdf-o"></i></label>
+          <label for="" ng-show="ctrl.formConfigOptions.state == 'view'|| ctrl.formConfigOptions.state == 'edit'">Application Download <i class="fa fa-file-pdf-o"></i></label>
           <button class ="form-control" ng-show="ctrl.formConfigOptions.state == 'view'|| ctrl.formConfigOptions.state == 'edit'" ng-click="ctrl.downloadPDF()">Download</button>
 
           <file-upload file="ctrl.jobPosting.application" name="ctrl.jobPosting.fileName" ng-show="ctrl.formConfigOptions.state == 'edit'|| ctrl.formConfigOptions.state == 'add'"></file-upload>
