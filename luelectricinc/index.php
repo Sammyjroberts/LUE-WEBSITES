@@ -2,7 +2,7 @@
 <html lang="en">
 <!-- ROUTES -->
 <?php
-  define("CAREER_CONTACT", "noemy@luelectricinc.com");
+  define("CAREER_CONTACT", "careers@luelectricinc.com");
   $pageParam = $_GET['page'];
   $id        = $_GET['id'];
   //content to be shot into main div
