@@ -47,11 +47,8 @@ echo <<<html
             <h5 class = "page-header">Job Application</h5>
             <p>
                 <ul>
-                    <li>Please
-                        <a target="_blank" title="Download {$job['fileName']}" download="{$job['fileName']}" href="data:application/octet-stream;charset=utf-16le;base64,{$job['application']}">
-                            download</a>
-                        and complete the application.</li>
-                    <li>Completed applications can be emailed to:
+                    <li>Applications can be downloaded by clicking on the button below.</li>
+                    <li>Please email resume <b>with</b> completed application to
                         <a href="mailto:$careerContact">$careerContact</a>
                     </li>
                 </ul>
