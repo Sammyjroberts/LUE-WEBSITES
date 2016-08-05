@@ -3,5 +3,5 @@ angular.module("app.layout").controller("layoutCtrl", function(auth) {
   //force logout
     self.logout = function() {
       auth.forceLogin();
-    }
-})
+    };
+});
