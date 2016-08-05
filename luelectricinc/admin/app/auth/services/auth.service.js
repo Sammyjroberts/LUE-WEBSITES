@@ -1,8 +1,12 @@
 angular.module("app.auth").service("auth", function($window, $state, RouteGetter, $http) {
   const self = this;
+
+  //route model
   const model = "auth";
+  //local storage jwt location
   const LOCAL_STORAGE_LOCATION = "jwt";
 
+  //states where we will not check for a jwt
   self.permissionlessStates = ["login"];
 
 

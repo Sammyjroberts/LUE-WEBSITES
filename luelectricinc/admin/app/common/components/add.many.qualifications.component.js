@@ -1,3 +1,6 @@
+/*
+ *  Module used to add many qualifications to a job posting
+ */
 angular.module('app.common').component('addManyQualifications', {
   template: `
   <div>
@@ -19,9 +22,12 @@ angular.module('app.common').component('addManyQualifications', {
   controller: function() {
     const self = this;
     console.log("in add many ctrl");
+
+    //add new qualification
     self.addNew = function() {
       self.srcArray.push({name:""});
     };
+    //remove an item
     self.removeItem = function(index) {
       _.pullAt(self.srcArray, index);
     };

@@ -1,3 +1,4 @@
+//used to preview our job postings
 angular.module('app.common').component('previewJobPosting', {
   template: `
   <div class="container-fluid col-md-12">
@@ -39,9 +40,12 @@ angular.module('app.common').component('previewJobPosting', {
 </div>
   `,
   controller: function() {
-
     const self = this;
+
+      // init the boolean
     self.minimize = false;
+
+    //flip the boolean minimize
     self.flip = function(){
       self.minimize = !self.minimize;
     };

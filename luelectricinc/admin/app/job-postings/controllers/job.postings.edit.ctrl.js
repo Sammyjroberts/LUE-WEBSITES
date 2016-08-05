@@ -1,10 +1,17 @@
 angular.module("app.jobpostings").controller("JobPostingEditCtrl", function(JobPosting, $stateParams, $state, AlertPopper) {
   const self = this;
+  //put stateparams into the controller so we can use them in init
   self.stateParams = $stateParams;
+
+  //build the controller
   JobPosting.initController(self, "edit")
   .then(function(response) {
     console.log("data:application/octet-stream;charset=utf-16le;base64,"+self.jobPosting.application);
   })
+  .catch((err)=> {
+    console.error(err);
+  });
+  
   self.delete = function() {
     JobPosting.delete($stateParams.id)
     .then(function(response) {

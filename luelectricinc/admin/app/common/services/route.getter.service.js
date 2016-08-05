@@ -1,16 +1,20 @@
 angular.module("app.common").service("RouteGetter", function() {
-    var RouteGetter = this;
+    const RouteGetter = this;
+
+    //base api url
     const baseURL = "/api/api.php?";
+
+    //gets a route based on a model and an optional ID
     RouteGetter.get = function(model, id) {
-      console.log(id);
+      //if no id then make it blank
       id = id || "";
-      console.log(id);
+
+      //create the URL
       var tempURL = baseURL;
       tempURL += "model=" + model;
       if(id !== "") {
         tempURL+= "&id=" + id;
       }
-      console.log(tempURL);
       return tempURL;
     };
 });

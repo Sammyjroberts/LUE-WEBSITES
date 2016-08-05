@@ -41,7 +41,8 @@ gulp.task('build', function(){
     return es.merge(gulp.src(source.js.src) , getTemplateStream())
         .pipe(ngAnnotate())
         .pipe(babel({
-          "presets": ["es2015"]
+          "presets": ["es2015"],
+          "plugins": ["transform-async-to-generator"]
         }))
         .pipe(uglify())
         .pipe(concat('app.js'))
@@ -52,7 +53,8 @@ gulp.task('js', function(){
     return es.merge(gulp.src(source.js.src) , getTemplateStream())
         .pipe(concat('app.js'))
         .pipe(babel({
-            "presets": ["es2015"]
+            "presets": ["es2015"],
+            "plugins": ["transform-async-to-generator"]
         }))
         .pipe(gulp.dest(destinations.js));
 });

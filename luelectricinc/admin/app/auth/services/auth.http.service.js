@@ -1,5 +1,7 @@
 angular.module("app.auth").service("authHttp", function($http, auth) {
   const self = this;
+
+  //handle posting with jwt, for more info see HTTP angular documentation
   self.get = function(url) {
     const req = {
         method: 'GET',

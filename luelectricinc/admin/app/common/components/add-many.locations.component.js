@@ -1,3 +1,6 @@
+/*
+ *  Module used to add many locations to a job posting
+ */
 angular.module('app.common').component('addManyLocations', {
   template: `
   <div>

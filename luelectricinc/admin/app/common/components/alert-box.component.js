@@ -1,4 +1,6 @@
-
+/*
+  component we will dynamically compile to pop alerts
+*/
 angular.module('app.common').component('alertBox', {
   template: `
     <div ng-class ="ctrl.class" style="position: fixed; bottom:0px; right:0px;">
@@ -6,8 +8,8 @@ angular.module('app.common').component('alertBox', {
       <p>{{ctrl.msg}}</p
     </div>
   `,
-  //angular.element(element).controller().startDownload()
-  controller: function($scope) {
+
+  controller: function() {
     const self = this;
     console.log(self);
     self.class = [];

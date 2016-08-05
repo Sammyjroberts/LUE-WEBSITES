@@ -1,3 +1,4 @@
+//TODO make this good, this scales text box height to the content
 angular.module("app.common").directive("autoHeight", function ($timeout) {
   return {
       restrict: 'A',

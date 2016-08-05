@@ -14,24 +14,34 @@ angular.module('app.common').component('fileUpload', {
   //angular.element(element).controller().startDownload()
   controller: function($scope, $window) {
     const self = this;
+
+    //init starting progress
     self.currentProgress = "0%";
+
+    //file reader we will use to handle file events
     const fr = new FileReader();
+
+    //file reader callbacks
     fr.onload = function(loadEvent) {
       console.log("done");
       //encode file
       self.file = $window.btoa(loadEvent.target.result);
-      console.log(self.file);
+      //run a digest cycle
       $scope.$apply();
     };
     fr.onprogress = function(event) {
-      console.log("progress");
+      //on download progress update the bar
       self.currentProgress = ((event.loaded/event.total).toFixed(2))*100 +"%";
+      //run a digest cycle
       $scope.$apply();
     };
-    $scope.fileNameChanged = function(guy) {
-      self.name = guy.files[0].name;
-      console.log("-----------" + self.name+ "------------");
-      fr.readAsBinaryString(guy.files[0]);
+
+    $scope.fileNameChanged = function(fileElement) {
+      //get file name
+      self.name = fileElement.files[0].name;
+      //load into memory
+      fr.readAsBinaryString(fileElement.files[0]);
+      //run digest cycle
       $scope.$apply();
     };
   },

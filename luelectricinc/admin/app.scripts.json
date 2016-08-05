@@ -5,7 +5,8 @@
       "angular",
       "angular-ui-router",
       "angular-ui-grid",
-      "lodash"
+      "lodash",
+      "babel-polyfill"
     ]
   },
   "paths": {
@@ -14,6 +15,7 @@
     "jquery": "bower_components/jquery/dist/jquery.min.js",
     "bootstrap": "bower_components/bootstrap/dist/js/bootstrap.min.js",
     "angular-ui-grid":"bower_components/angular-ui-grid/ui-grid.min.js",
-    "lodash":"bower_components/lodash/dist/lodash.min.js"
+    "lodash":"bower_components/lodash/dist/lodash.min.js",
+    "babel-polyfill": "node_modules/babel-polyfill/dist/polyfill.min.js"
   }
 }
