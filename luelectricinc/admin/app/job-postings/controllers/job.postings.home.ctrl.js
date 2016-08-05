@@ -1,7 +1,7 @@
 angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function(JobPosting, AlertPopper) {
   const self = this;
-  console.log("in home ctrl");
 
+  //options for the ui-grid component
   self.gridOptions = {
     columnDefs : [
       {
@@ -32,15 +32,15 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function(JobP
       }
     ]
   };
-  self.gridOptions.data = [{msg:"eyy"}];
 
-
+  //get all the data
   JobPosting.getAll()
   .then(function(response) {
-    console.log(response);
     response.data.forEach((post) => {
+      //format locations
       post.location = JobPosting.formatLocationsForView(post.location);
     });
+    //emplace data
     self.gridOptions.data = response.data;
   })
   .catch(function(err) {

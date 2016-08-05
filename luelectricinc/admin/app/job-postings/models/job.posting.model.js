@@ -1,30 +1,37 @@
 angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, RouteGetter, authHttp) {
     const JobPosting = this;
 
+    //route model
     const model = "careers";
+
+    //get all postings
     JobPosting.getAll = function() {
         const route = RouteGetter.get(model);
         return (authHttp.get(route));
     };
+    //get one posting
     JobPosting.getOne = function(id) {
         const route = RouteGetter.get(model, id);
         console.log(route);
         return (authHttp.get(route));
     };
+    //post posting
     JobPosting.post = function(data) {
         const route = RouteGetter.get(model);
         return (authHttp.post(route, data));
     };
+    //put posting
     JobPosting.put = function(data, id) {
         const route = RouteGetter.get(model, id);
         return (authHttp.put(route, data));
     };
+    //delete posting
     JobPosting.delete = function(id) {
         const route = RouteGetter.get(model, id);
         return (authHttp.delete(route));
     };
 
-
+    //replace all in string str from is whate you're replacing to is what you're replacing it with
     function replaceAll(str, from, to) {
         let temp = _.split(str, from);
         temp = _.pull(temp, "");
@@ -34,18 +41,20 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
         });
         return newStr;
     }
-
+    //parse and prepare for object post
     JobPosting.prepForPost = function(jobposting) {
+        //js passes everything as reference, this is a makeshift copy constructor
         let toRet = JSON.stringify(jobposting);
         toRet = JSON.parse(toRet);
-        console.log(toRet);
+
+
         let tempStr = "";
         toRet.location.forEach(function(loc) {
             tempStr += loc.city + ", " + loc.state + "$";
             console.log(loc);
             console.log("arr");
         });
-        console.log(tempStr);
+
         let temp = tempStr;
         temp = temp.substr(0, temp.length - 1);
         toRet.location = temp;
@@ -59,10 +68,8 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
         toRet.qualification = temp2;
         return toRet;
     };
-    JobPosting.prepForForm = function() {
 
-    };
-
+    //prep locations
     JobPosting.formatLocationsForView = function(locations) {
         console.log("formatting");
         const loc = replaceAll(locations, "$", " - ");
@@ -70,9 +77,10 @@ angular.module("app.jobpostings").service("JobPosting", function(FormHelpers, Ro
         return loc;
     };
 
+    //build controller
     JobPosting.initController = function(self, state) {
         return new Promise(function(resolve, reject) {
-            //object model we will build
+            //object model we will build with defaults
             self.jobPosting = {
                 location: [{
                     city: "Orange County",

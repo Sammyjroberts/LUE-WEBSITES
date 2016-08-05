@@ -11,7 +11,8 @@ angular.module("app.jobpostings").controller("JobPostingEditCtrl", function(JobP
   .catch((err)=> {
     console.error(err);
   });
-  
+
+  //deletes the job posting
   self.delete = function() {
     JobPosting.delete($stateParams.id)
     .then(function(response) {
@@ -22,6 +23,8 @@ angular.module("app.jobpostings").controller("JobPostingEditCtrl", function(JobP
       console.error(err);
     });
   };
+
+  //submits the posting, putting it
   self.submit = function() {
     console.log("submitting");
     console.log(self.jobPosting);
