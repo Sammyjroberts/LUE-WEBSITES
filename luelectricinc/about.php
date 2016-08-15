@@ -53,14 +53,16 @@
         <!-- /.row -->
         <p></p>
         <!-- Our Customers -->
+
         <div class="panel panel-primary" style = "border: 0">
 
             <div class="panel-heading" style=" border:0;background-color: #10171E">
                 <h3>Our Customers</h3>
             </div>
-
+                <?php require_once('brand_slider.php'); ?>
             <div class="panel-body">
-                <div class="col-md-2 col-sm-4 col-xs-6">
+
+                <!-- <div class="col-md-2 col-sm-4 col-xs-6">
                     <img class="img-responsive" src="assets/irvineCoedited.jpeg" alt="">
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
@@ -77,9 +79,10 @@
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-6">
                     <img class="img-responsive" src="assets/valleyedited.png" alt="">
-                </div>
+                </div> -->
             </div>
 
         </div>
+        <!-- end our customers -->
 
     </div>

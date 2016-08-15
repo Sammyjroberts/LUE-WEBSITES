@@ -69,6 +69,9 @@
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
+    <!-- brand slider -->
+    <script type="text/javascript" src="js/jssor.slider-21.1.5.mini.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
