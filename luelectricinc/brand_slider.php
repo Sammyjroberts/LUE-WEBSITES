@@ -50,6 +50,7 @@
     <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1024px; height: 55px; overflow: hidden;">
 
         <?php
+        //loads all images in the $IMAGE_PATH directory
         $handle = opendir(dirname(realpath(__FILE__)).$IMAGE_PATH);
             while($file = readdir($handle)){
                 if($file !== '.' && $file !== '..'){
