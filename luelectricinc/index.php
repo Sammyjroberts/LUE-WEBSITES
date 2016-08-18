@@ -43,6 +43,9 @@
     case 'electrical-foreman-app':
       $content = 'electrical-foreman-app.php';
       break;
+    case 'logo-test' :
+      $content = 'about_new.php';
+      break;
     default:
       $content = '404.php';
       break;
