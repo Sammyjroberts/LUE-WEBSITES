@@ -47,5 +47,5 @@
 </footer>
 
 
-<div class="row" style="background-color: #10171e; text-align: center; color: grey; min-height: 40px; padding-top: 10pt;">Copyright © LU Electric Inc. 1990-2015</div>
+<div style="background-color: #10171e; text-align: center; color: grey; min-height: 40px; padding-top: 10pt;">Copyright © LU Electric Inc. 1990-2015</div>
 <!-- /.container -->

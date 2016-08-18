@@ -43,9 +43,6 @@
     case 'electrical-foreman-app':
       $content = 'electrical-foreman-app.php';
       break;
-    case 'logo-test' :
-      $content = 'about_new.php';
-      break;
     default:
       $content = '404.php';
       break;
@@ -72,11 +69,14 @@
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
+
     <!-- brand slider -->
     <script type="text/javascript" src="js/jssor.slider-21.1.5.mini.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/brands.js"></script>
 
 
     <!-- Custom Fonts -->

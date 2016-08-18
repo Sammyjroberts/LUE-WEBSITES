@@ -9,29 +9,40 @@
 	$name = $_POST['name'];
 	$title = $_POST['title'];
 
+	$logoB64 = base64_encode(file_get_contents("lu_logo.png"));
+	$fbLogo = base64_encode(file_get_contents("fb_logo.jpg"));
+
 	$namePosted = (isset($name) && !empty($name));
 	$titlePosted = (isset($title) && !empty($title));
 	if($namePosted && $titlePosted){
 ?>
-	<div style="font-size: 10.5pt;">
-		<div style="float:left; border-right:1px solid #7A0000;">
-			<img style="padding:20px 10px 19px 10px; float:left;" src="http://luelectricinc.com/email_assets/lu_logo.png" />
-		</div>
-		<div style="float:left;margin-left:10px;font-family:arial;color:#646464;">
-			<span style="font-weight:bold;color:#646464;"><?php echo $name ?></span>
-			<br>
-			<span class="title"><?php echo $title ?>, L.U. Electric, Inc.</span><br>
-			<span style="font-weight: bold; color:#7A0000;">P.</span> 949-536-3200 
-			<span style="color:#98463B;">|</span> 
-			<span style="font-weight: bold; color:#7A0000;">F.</span> 714-535-3700 
-			<br>
-			<a href="http://www.luelectricinc.com" title="LU Electric Inc. Website">www.luelectricinc.com</a>
-			<span style="color:#98463B;">|</span> 
-			17762 Mitchell North Irvine, CA 92614
-			<br>
-			<a href="https://www.facebook.com/luelectricinc/" title="LU Electric Inc. Facebook Page"><img src="http://luelectricinc.com/email_assets/fb_logo.jpg"></a>
-		</div>
-	</div>
+<div name="signature" style="font-size:10.5pt">
+	<table>
+		<tr>
+			<td style="border-right:1px solid #7A0000;">
+
+				<img style="width:130px;padding:15px;" src="http://luelectricinc.com/email_assets/lu_logo_sm.png" />
+			</td>
+			<td>
+				<div style="float:left;margin-left:10px;font-family:arial;color:#646464;display:table-cell;">
+					<span style="font-weight:bold;color:#646464;"><?php echo $name; ?></span>
+					<br>
+					<span class="title"><?php echo $title; ?>, L.U. Electric, Inc.</span><br>
+					<span style="font-weight: bold; color:#7A0000;">P.</span> 949-536-3200
+					<span style="color:#98463B;">|</span>
+					<span style="font-weight: bold; color:#7A0000;">F.</span> 714-535-3700
+					<br>
+					<a style="text-decoration:none; color:#646464;" href="http://www.luelectricinc.com" title="LU Electric Inc. Website">www.luelectricinc.com</a>
+					<span style="color:#98463B;">|</span>
+					17762 Mitchell North Irvine, CA 92614
+					<br>
+					<a style="text-decoration:none;" href="https://www.facebook.com/luelectricinc/" title="LU Electric Inc. Facebook Page"><img src="http://luelectricinc.com/email_assets/fb_logo.jpg"></a>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
 <?php
 	}
 	else{
