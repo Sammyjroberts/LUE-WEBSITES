@@ -100,6 +100,7 @@ class Authentication {
             $key = "areYouNewKid?";
             $token = trim(str_replace("Bearer", "", $token));
             $decoded = \Firebase\JWT\JWT::decode($token, $key, array('HS256'));
+
             return true;
 
             // $issuedStamp = $decoded->iat;

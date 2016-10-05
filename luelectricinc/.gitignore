@@ -1,0 +1,8 @@
+pw_gen/
+pq_gen/*
+
+*error_log
+
+.idea/
+.idea/*
+

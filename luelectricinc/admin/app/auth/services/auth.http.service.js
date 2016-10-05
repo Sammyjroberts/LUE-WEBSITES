@@ -7,7 +7,7 @@ angular.module("app.auth").service("authHttp", function($http, auth) {
         method: 'GET',
         url: url,
         headers: {
-            'Authorization' : 'Bearer ' + auth.getToken(),
+            'Auth' : 'Bearer ' + auth.getToken(),
         }
     };
     return ($http(req));
@@ -19,7 +19,7 @@ angular.module("app.auth").service("authHttp", function($http, auth) {
         url: url,
         data: data,
         headers: {
-            'Authorization' : 'Bearer ' + auth.getToken(),
+            'Auth' : 'Bearer ' + auth.getToken(),
         }
     };
     return ($http(req));
@@ -30,7 +30,7 @@ angular.module("app.auth").service("authHttp", function($http, auth) {
         url: url,
         data: data,
         headers: {
-            'Authorization' : 'Bearer ' + auth.getToken(),
+            'Auth' : 'Bearer ' + auth.getToken(),
         }
     };
     return ($http(req));
@@ -40,7 +40,7 @@ angular.module("app.auth").service("authHttp", function($http, auth) {
         method: 'DELETE',
         url: url,
         headers: {
-            'Authorization' : 'Bearer ' + auth.getToken(),
+            'Auth' : 'Bearer ' + auth.getToken(),
         }
     };
     return ($http(req));

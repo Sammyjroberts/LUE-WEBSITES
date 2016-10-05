@@ -1,14 +1,13 @@
 "use strict";
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
-
 angular.module('app', [
 //external
 "ui.router", "ui.grid",
 //internal
-"app.common", "app.auth", "app.layout", "app.home", "app.jobpostings"]).constant('_', window._).config(function () {}).run(function ($rootScope, $state, $stateParams, auth) {
+"app.common", "app.auth", "app.layout", "app.home", "app.jobpostings"]).constant('_', window._) //inject lodash as a constant across angular
+.config(function () {}).run(function ($rootScope, $state, $stateParams, auth) {
+  //when state changes authenticate the change
   $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-
     auth.authenticatedStateChange(toState, event);
   });
 });
@@ -113,43 +112,42 @@ angular.module('app.layout', ['ui.router']).config(function ($stateProvider, $ur
   $urlRouterProvider.otherwise('/home');
 });
 
+/*
+ * Controller for the Login State
+ */
 angular.module("app.auth").controller("loginCtrl", function (auth, $state, AlertPopper) {
-  var self = this;
+  var self = this; //ViewModel
+  //set object to post
   self.user = {};
-  self.submit = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-    var response;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return auth.login(self.user);
-
-          case 2:
-            response = _context.sent;
-
-            console.log(response);
-            auth.saveToken(response.data.token);
-            AlertPopper.popAlert("success", "Logged In");
-            $state.go("app.home");
-
-          case 7:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, this);
-  }));
+  //function fired on form submit
+  self.submit = function () {
+    //post user info
+    auth.login(self.user).then(function (response) {
+      console.log(response);
+      //save JWT
+      auth.saveToken(response.data.token);
+      //pop alert
+      AlertPopper.popAlert("success", "Logged In");
+      //go into the app
+      $state.go("app.home");
+    }).catch(function (err) {
+      //pop error
+      AlertPopper.popAlert("error", err.data.message);
+      console.error(err);
+    });
+  };
 });
 
 angular.module("app.auth").service("authHttp", function ($http, auth) {
   var self = this;
+
+  //handle posting with jwt, for more info see HTTP angular documentation
   self.get = function (url) {
     var req = {
       method: 'GET',
       url: url,
       headers: {
-        'Authorization': 'Bearer ' + auth.getToken()
+        'Auth': 'Bearer ' + auth.getToken()
       }
     };
     return $http(req);
@@ -160,7 +158,7 @@ angular.module("app.auth").service("authHttp", function ($http, auth) {
       url: url,
       data: data,
       headers: {
-        'Authorization': 'Bearer ' + auth.getToken()
+        'Auth': 'Bearer ' + auth.getToken()
       }
     };
     return $http(req);
@@ -171,7 +169,7 @@ angular.module("app.auth").service("authHttp", function ($http, auth) {
       url: url,
       data: data,
       headers: {
-        'Authorization': 'Bearer ' + auth.getToken()
+        'Auth': 'Bearer ' + auth.getToken()
       }
     };
     return $http(req);
@@ -181,7 +179,7 @@ angular.module("app.auth").service("authHttp", function ($http, auth) {
       method: 'DELETE',
       url: url,
       headers: {
-        'Authorization': 'Bearer ' + auth.getToken()
+        'Auth': 'Bearer ' + auth.getToken()
       }
     };
     return $http(req);
@@ -192,9 +190,13 @@ angular.module("app.auth").service("authHttp", function ($http, auth) {
 
 angular.module("app.auth").service("auth", function ($window, $state, RouteGetter, $http) {
   var self = this;
+
+  //route model
   var model = "auth";
+  //local storage jwt location
   var LOCAL_STORAGE_LOCATION = "jwt";
 
+  //states where we will not check for a jwt
   self.permissionlessStates = ["login"];
 
   //saves token to location
@@ -254,6 +256,9 @@ angular.module("app.auth").service("auth", function ($window, $state, RouteGette
   return self;
 });
 
+/*
+ *  Module used to add many locations to a job posting
+ */
 angular.module('app.common').component('addManyLocations', {
   template: "\n  <div>\n    <label>{{ctrl.title}}</label>\n    <button class =\"btn btn-default form-control\" ng-click=\"ctrl.addNew()\" ng-disabled = \"ctrl.readOnly\">Add New {{ctrl.title}}</button>\n    <p></p>\n    <div ng-repeat =\"item in ctrl.srcArray track by $index\">\n      <div class = \"row form-group\">\n        <div class =\"col-md-6\">\n          <input placeholder=\"{{ctrl.title}}...\" ng-model=\"item.city\" class = \"form-control\" type = \"text\" ng-readOnly = \"ctrl.readOnly\">\n        </div>\n        <div class =\"col-md-5\">\n          <select class = \"form-control\" ng-model =\"item.state\" ng-disabled = \"ctrl.readOnly\">\n            <option value=\"CA\">California</option>\n            <option value=\"AZ\">Arizona</option>\n          </select>\n        </div>\n        <div class =\"col-md-1\">\n          <i class =\"fa fa-minus fa-2x\" ng-click=\"ctrl.removeItem($index)\" ng-hide = \"ctrl.readOnly\"></i>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
   controller: function controller() {
@@ -273,14 +278,20 @@ angular.module('app.common').component('addManyLocations', {
   }
 });
 
+/*
+ *  Module used to add many qualifications to a job posting
+ */
 angular.module('app.common').component('addManyQualifications', {
   template: "\n  <div>\n    <label>{{ctrl.title}}</label>\n    <button class =\"btn btn-default form-control\" ng-click=\"ctrl.addNew()\" ng-disabled = \"ctrl.readOnly\">Add New {{ctrl.title}}</button>\n    <p></p>\n    <div ng-repeat =\"item in ctrl.srcArray track by $index\">\n      <div class = \"row form-group\">\n        <div class =\"col-md-11\">\n          <input placeholder=\"{{ctrl.title}}...\" ng-model=\"item.name\" class = \"form-control\" type = \"text\" ng-readOnly = \"ctrl.readOnly\">\n        </div>\n        <div class =\"col-md-1\">\n          <i class =\"fa fa-minus fa-2x\" ng-click=\"ctrl.removeItem($index)\" ng-hide = \"ctrl.readOnly\"></i>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",
   controller: function controller() {
     var self = this;
     console.log("in add many ctrl");
+
+    //add new qualification
     self.addNew = function () {
       self.srcArray.push({ name: "" });
     };
+    //remove an item
     self.removeItem = function (index) {
       _.pullAt(self.srcArray, index);
     };
@@ -293,10 +304,13 @@ angular.module('app.common').component('addManyQualifications', {
   }
 });
 
+/*
+  component we will dynamically compile to pop alerts
+*/
 angular.module('app.common').component('alertBox', {
   template: "\n    <div ng-class =\"ctrl.class\" style=\"position: fixed; bottom:0px; right:0px;\">\n      <h1><b>{{ctrl.type.toUpperCase()}}</b></h1>\n      <p>{{ctrl.msg}}</p\n    </div>\n  ",
-  //angular.element(element).controller().startDownload()
-  controller: function controller($scope) {
+
+  controller: function controller() {
     var self = this;
     console.log(self);
     self.class = [];
@@ -325,6 +339,7 @@ angular.module('app.common').component('alertBox', {
   }
 });
 
+//TODO make this good, this scales text box height to the content
 angular.module("app.common").directive("autoHeight", function ($timeout) {
   return {
     restrict: 'A',
@@ -350,24 +365,34 @@ angular.module('app.common').component('fileUpload', {
   //angular.element(element).controller().startDownload()
   controller: function controller($scope, $window) {
     var self = this;
+
+    //init starting progress
     self.currentProgress = "0%";
+
+    //file reader we will use to handle file events
     var fr = new FileReader();
+
+    //file reader callbacks
     fr.onload = function (loadEvent) {
       console.log("done");
       //encode file
       self.file = $window.btoa(loadEvent.target.result);
-      console.log(self.file);
+      //run a digest cycle
       $scope.$apply();
     };
     fr.onprogress = function (event) {
-      console.log("progress");
+      //on download progress update the bar
       self.currentProgress = (event.loaded / event.total).toFixed(2) * 100 + "%";
+      //run a digest cycle
       $scope.$apply();
     };
-    $scope.fileNameChanged = function (guy) {
-      self.name = guy.files[0].name;
-      console.log("-----------" + self.name + "------------");
-      fr.readAsBinaryString(guy.files[0]);
+
+    $scope.fileNameChanged = function (fileElement) {
+      //get file name
+      self.name = fileElement.files[0].name;
+      //load into memory
+      fr.readAsBinaryString(fileElement.files[0]);
+      //run digest cycle
       $scope.$apply();
     };
   },
@@ -378,12 +403,16 @@ angular.module('app.common').component('fileUpload', {
   }
 });
 
+//used to preview our job postings
 angular.module('app.common').component('previewJobPosting', {
   template: "\n  <div class=\"container-fluid col-md-12\">\n\n<!-- Page Content -->\n<i ng-click=\"ctrl.flip()\" class=\" btn fa fa-minus-square-o fa-2x pull-right\"></i>\n<div ng-hide =\"ctrl.minimize\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n\n        <h1 class = \"page-header\">{{ctrl.jobPosting.jobTitle}} <small>{{ctrl.jobPosting.contractType}} <br>{{ctrl.jobPosting.location | location}}</small></h1>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-body\">\n            <h5 class = \"page-header\">About L.U. ELECTRIC, INC.</h5>\n            <p>\n              {{ctrl.jobPosting.aboutLu}}\n            </p>\n            <h5 class = \"page-header\">Job Description</h5>\n            <p>\n              {{ctrl.jobPosting.jobDescription}}\n            </p>\n            <h5 class=\"page-header\">Preferred Qualifications</h5>\n            <ul>\n              <li ng-repeat=\"qualification in ctrl.jobPosting.qualification track by $index\">{{qualification.name}}</li>\n            </ul>\n            <h5 class = \"page-header\">Additional information</h5>\n              <p>\n              {{ctrl.jobPosting.additionalInfo}}\n              <br>\n              <b>Please email resume to <a href=\"mailto:<?php echo CAREER_CONTACT ?>\"><?php echo CAREER_CONTACT ?>.</a></b>b>\n              </p>\n          </div>\n      </div>\n    </div>\n  </div>\n</div>\n</div>\n</div>\n  ",
   controller: function controller() {
-
     var self = this;
+
+    // init the boolean
     self.minimize = false;
+
+    //flip the boolean minimize
     self.flip = function () {
       self.minimize = !self.minimize;
     };
@@ -394,9 +423,9 @@ angular.module('app.common').component('previewJobPosting', {
   }
 });
 
+//filter the locations array to display as we want
 angular.module('app.common').filter('location', function () {
   return function (input) {
-    // console.log(input);
     var out = "";
     for (var lcv = 0; lcv < input.length; lcv++) {
       if (lcv !== input.length - 1) {
@@ -409,19 +438,32 @@ angular.module('app.common').filter('location', function () {
   };
 });
 
+//okay get ready this is a little weird.
 angular.module("app.common").service("AlertPopper", function ($compile, $rootScope, $timeout) {
   var self = this;
-  self.popAlert = function (type, msg, dur) {
+
+  //pop an alert
+  self.popAlert = function (type, //see alter component for available types
+  msg, //display message
+  dur) // durration in miliseconds
+  {
     if (!dur) {
+      //if no durration use 3 seconds
       dur = 3000;
     }
-    console.log("in");
+    //init a new scope for the component
     var scope = $rootScope.$new(true);
+
+    //set the message to be in scope of the component
     scope.msg = msg;
     scope.type = type;
+
+    //create the element
     var elem = $compile("<alert-box type='type' msg='msg'></alert-box>")(scope);
+    //in the html document, find the body, and append the alert
     angular.element(document).find('body').append(elem);
-    console.log(elem);
+
+    //remove after 3 seconds
     $timeout(function () {
       elem.remove();
     }, dur);
@@ -429,6 +471,7 @@ angular.module("app.common").service("AlertPopper", function ($compile, $rootSco
   return self;
 });
 
+// used to set readonly/disabled basted on state
 angular.module("app.common").service("FormHelpers", function () {
   var FormHelpers = this;
 
@@ -465,37 +508,40 @@ angular.module("app.common").service("FormHelpers", function () {
 
 angular.module("app.common").service("RouteGetter", function () {
   var RouteGetter = this;
+
+  //base api url
   var baseURL = "/api/api.php?";
+
+  //gets a route based on a model and an optional ID
   RouteGetter.get = function (model, id) {
-    console.log(id);
+    //if no id then make it blank
     id = id || "";
-    console.log(id);
+
+    //create the URL
     var tempURL = baseURL;
     tempURL += "model=" + model;
     if (id !== "") {
       tempURL += "&id=" + id;
     }
-    console.log(tempURL);
     return tempURL;
   };
 });
 
-angular.module('app.home').controller("homeCtrl", function () {
-  console.log("Hello World");
-});
+angular.module('app.home').controller("homeCtrl", function () {});
+
 angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (FormHelpers, JobPosting, authHttp, $state, AlertPopper) {
   var self = this;
   JobPosting.initController(self, "add");
 
   self.submit = function () {
-    console.log("submitting");
-    console.log(self.jobPosting);
+    //build post object
     var postingToPost = JobPosting.prepForPost(self.jobPosting);
-    console.log(postingToPost);
 
+    //save posting
     JobPosting.post(postingToPost).then(function (response) {
-      console.log(response);
+      //pop success
       AlertPopper.popAlert("success", "Job Posing Created!");
+
       $state.go("app.jobpostings.home");
     }).catch(function (err) {
       AlertPopper.popAlert("error", err.data.message);
@@ -506,10 +552,17 @@ angular.module("app.jobpostings").controller("JobPostingAddCtrl", function (Form
 
 angular.module("app.jobpostings").controller("JobPostingEditCtrl", function (JobPosting, $stateParams, $state, AlertPopper) {
   var self = this;
+  //put stateparams into the controller so we can use them in init
   self.stateParams = $stateParams;
+
+  //build the controller
   JobPosting.initController(self, "edit").then(function (response) {
     console.log("data:application/octet-stream;charset=utf-16le;base64," + self.jobPosting.application);
+  }).catch(function (err) {
+    console.error(err);
   });
+
+  //deletes the job posting
   self.delete = function () {
     JobPosting.delete($stateParams.id).then(function (response) {
       console.log(response);
@@ -518,6 +571,8 @@ angular.module("app.jobpostings").controller("JobPostingEditCtrl", function (Job
       console.error(err);
     });
   };
+
+  //submits the posting, putting it
   self.submit = function () {
     console.log("submitting");
     console.log(self.jobPosting);
@@ -537,8 +592,8 @@ angular.module("app.jobpostings").controller("JobPostingEditCtrl", function (Job
 
 angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (JobPosting, AlertPopper) {
   var self = this;
-  console.log("in home ctrl");
 
+  //options for the ui-grid component
   self.gridOptions = {
     columnDefs: [{
       field: 'id',
@@ -561,13 +616,14 @@ angular.module("app.jobpostings").controller("JobPostingHomeCtrl", function (Job
       name: 'Locations'
     }]
   };
-  self.gridOptions.data = [{ msg: "eyy" }];
 
+  //get all the data
   JobPosting.getAll().then(function (response) {
-    console.log(response);
     response.data.forEach(function (post) {
+      //format locations
       post.location = JobPosting.formatLocationsForView(post.location);
     });
+    //emplace data
     self.gridOptions.data = response.data;
   }).catch(function (err) {
     AlertPopper.popAlert("error", err.data.message);
@@ -583,29 +639,37 @@ angular.module("app.jobpostings").controller("JobPostingViewCtrl", function (Job
 angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, RouteGetter, authHttp) {
   var JobPosting = this;
 
+  //route model
   var model = "careers";
+
+  //get all postings
   JobPosting.getAll = function () {
     var route = RouteGetter.get(model);
     return authHttp.get(route);
   };
+  //get one posting
   JobPosting.getOne = function (id) {
     var route = RouteGetter.get(model, id);
     console.log(route);
     return authHttp.get(route);
   };
+  //post posting
   JobPosting.post = function (data) {
     var route = RouteGetter.get(model);
     return authHttp.post(route, data);
   };
+  //put posting
   JobPosting.put = function (data, id) {
     var route = RouteGetter.get(model, id);
     return authHttp.put(route, data);
   };
+  //delete posting
   JobPosting.delete = function (id) {
     var route = RouteGetter.get(model, id);
     return authHttp.delete(route);
   };
 
+  //replace all in string str from is whate you're replacing to is what you're replacing it with
   function replaceAll(str, from, to) {
     var temp = _.split(str, from);
     temp = _.pull(temp, "");
@@ -615,18 +679,19 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
     });
     return newStr;
   }
-
+  //parse and prepare for object post
   JobPosting.prepForPost = function (jobposting) {
+    //js passes everything as reference, this is a makeshift copy constructor
     var toRet = JSON.stringify(jobposting);
     toRet = JSON.parse(toRet);
-    console.log(toRet);
+
     var tempStr = "";
     toRet.location.forEach(function (loc) {
       tempStr += loc.city + ", " + loc.state + "$";
       console.log(loc);
       console.log("arr");
     });
-    console.log(tempStr);
+
     var temp = tempStr;
     temp = temp.substr(0, temp.length - 1);
     toRet.location = temp;
@@ -640,8 +705,8 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
     toRet.qualification = temp2;
     return toRet;
   };
-  JobPosting.prepForForm = function () {};
 
+  //prep locations
   JobPosting.formatLocationsForView = function (locations) {
     console.log("formatting");
     var loc = replaceAll(locations, "$", " - ");
@@ -649,9 +714,10 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
     return loc;
   };
 
+  //build controller
   JobPosting.initController = function (self, state) {
     return new Promise(function (resolve, reject) {
-      //object model we will build
+      //object model we will build with defaults
       self.jobPosting = {
         location: [{
           city: "Orange County",
@@ -750,9 +816,8 @@ angular.module("app.jobpostings").service("JobPosting", function (FormHelpers, R
 
 angular.module("app.layout").controller("layoutCtrl", function (auth) {
   var self = this;
-  console.log("inside layout");
+  //force logout
   self.logout = function () {
-    console.log("loging out");
     auth.forceLogin();
   };
 });

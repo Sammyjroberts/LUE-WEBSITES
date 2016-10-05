@@ -97,8 +97,9 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 $model         = $_GET['model'];
 $id            = $_GET['id'];
 
+//$headers = apache_response_headers();
 $headers = getallheaders();
-$token = $headers['Authorization'];
+$token = $headers['Auth'];
     if(isset($_GET['model']) && !empty($_GET['model'])){
         switch($model){
             case "careers" :
